@@ -1,0 +1,110 @@
+---
+import { site } from '@/data/site';
+import { alternatePath, LANGUAGE_TAGS, LANGUAGES, type Lang } from '@i18n/routes';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  /** Imagem de partilha relativa a /public, por exemplo '/og/plataforma.jpg'. */
+  image?: string;
+  /** Impede indexacao (paginas de agradecimento, por exemplo). */
+  noindex?: boolean;
+  /** JSON-LD adicional especifico da pagina. */
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  lang,
+  title,
+  description,
+  image = '/og/redicom-commerce-cloud.jpg',
+  noindex = false,
+  schema,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const ogImage = new URL(image, site.url).href;
+
+// O titulo da pagina inicial ja e completo; as restantes recebem o sufixo.
+const isHome = Astro.url.pathname === `/${lang}/`;
+const fullTitle = isHome ? title : `${title} | ${site.name}`;
+
+const alternates = LANGUAGES.map((code) => ({
+  code,
+  tag: LANGUAGE_TAGS[code],
+  href: new URL(alternatePath(Astro.url.pathname, lang, code), site.url).href,
+}));
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${site.url}/#organization`,
+  name: site.name,
+  legalName: site.legalName,
+  url: site.url,
+  logo: new URL('/brand/redicom-logo.svg', site.url).href,
+  foundingDate: String(site.foundingYear),
+  email: site.email.general,
+  sameAs: [site.social.linkedin, site.social.instagram],
+  contactPoint: [
+    {
+      '@type': 'ContactPoint',
+      contactType: 'customer support',
+      telephone: site.support.phone,
+      email: site.email.support,
+      areaServed: 'PT',
+      availableLanguage: ['pt-PT', 'en'],
+    },
+  ],
+  address: site.offices.map((office) => ({
+    '@type': 'PostalAddress',
+    streetAddress: office.street,
+    addressLocality: office.city,
+    postalCode: office.postalCode,
+    addressCountry: office.country,
+  })),
+};
+
+const schemaBlocks = [organizationSchema, ...(schema ? [schema].flat() : [])];
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+{
+  alternates.map((alt) => (
+    <link rel="alternate" hreflang={alt.tag} href={alt.href} />
+  ))
+}
+<link
+  rel="alternate"
+  hreflang="x-default"
+  href={new URL(alternatePath(Astro.url.pathname, lang, 'pt'), site.url).href}
+/>
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:locale" content={lang === 'pt' ? 'pt_PT' : 'en_GB'} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+{
+  schemaBlocks.map((block) => (
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(block)}
+    />
+  ))
+}

@@ -1,0 +1,252 @@
+---
+import Logo from '@components/Logo.astro';
+import { footerNav, resolveLink } from '@/data/navigation';
+import { site, currentYear } from '@/data/site';
+import { path, type Lang } from '@i18n/routes';
+import { useTranslations } from '@i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<footer class="footer on-dark">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <Logo lang={lang} tone="light" height={38} />
+        <p class="footer__pitch">{t('site.tagline')}</p>
+
+        <div class="footer__support">
+          <p class="footer__support-title">{t('footer.support')}</p>
+          <p class="footer__support-hours">{t('footer.supportHours')}</p>
+          <p>
+            <a href={`tel:${site.support.phone}`}>{site.support.phoneDisplay}</a>
+            <span class="footer__note">{t('footer.landline')}</span>
+          </p>
+          <p>
+            <a href={`mailto:${site.email.support}`}>{site.email.support}</a>
+          </p>
+        </div>
+      </div>
+
+      <nav class="footer__nav" aria-label={t('footer.company')}>
+        {
+          footerNav.map((group) => (
+            <div class="footer__group">
+              <h2 class="footer__group-title">{group.title[lang]}</h2>
+              <ul class="footer__list">
+                {group.links.map((link) => {
+                  const resolved = resolveLink(link, lang);
+                  return (
+                    <li>
+                      <a href={resolved.href}>{resolved.label}</a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))
+        }
+      </nav>
+    </div>
+
+    <div class="footer__offices">
+      <h2 class="footer__group-title">{t('footer.offices')}</h2>
+      <div class="footer__offices-grid">
+        {
+          site.offices.map((office) => (
+            <address class="footer__office">
+              <p class="footer__office-city">{office.region}</p>
+              <p>{office.street}</p>
+              <p>
+                {office.postalCode} {office.city}
+              </p>
+              <p>
+                <a href={`tel:${office.phone}`}>{office.phoneDisplay}</a>
+                {office.fax && <span class="footer__note">Fax: {office.fax}</span>}
+              </p>
+              <p>
+                <a href={office.mapUrl} target="_blank" rel="noopener noreferrer">
+                  {t('footer.viewMap')}
+                </a>
+              </p>
+            </address>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__copy">
+        &copy; {site.foundingYear} – {currentYear} {site.name}. {t('footer.rights')}
+      </p>
+
+      <ul class="footer__social" aria-label={t('footer.social')}>
+        <li>
+          <a href={site.social.linkedin} target="_blank" rel="noopener noreferrer">
+            LinkedIn
+          </a>
+        </li>
+        <li>
+          <a href={site.social.instagram} target="_blank" rel="noopener noreferrer">
+            Instagram
+          </a>
+        </li>
+      </ul>
+
+      <a class="footer__privacy" href={path('privacy', lang)}>
+        {lang === 'pt' ? 'Política de Privacidade' : 'Privacy Policy'}
+      </a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding-block: var(--space-3xl) var(--space-xl);
+    margin-block-start: var(--space-4xl);
+  }
+
+  .footer :global(a) {
+    color: var(--text-on-inverse-muted);
+    text-decoration: none;
+  }
+
+  .footer :global(a:hover) {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .footer__top {
+    display: grid;
+    gap: var(--space-2xl);
+  }
+
+  @media (min-width: 62rem) {
+    .footer__top {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr);
+      gap: var(--space-3xl);
+    }
+  }
+
+  .footer__pitch {
+    margin-block-start: var(--space-md);
+    max-width: 30ch;
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-snug);
+    color: #fff;
+  }
+
+  .footer__support {
+    margin-block-start: var(--space-xl);
+    font-size: var(--step--1);
+    line-height: 1.7;
+  }
+
+  .footer__support-title {
+    font-family: var(--font-display);
+    font-weight: var(--weight-semibold);
+    color: #fff;
+  }
+
+  .footer__support-hours {
+    color: var(--text-muted);
+  }
+
+  .footer__note {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  .footer__nav {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 40rem) {
+    .footer__nav {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .footer__group-title {
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brand-orange-bright);
+    margin-block-end: var(--space-md);
+  }
+
+  .footer__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.45rem;
+    font-size: var(--step--1);
+  }
+
+  .footer__offices {
+    margin-block-start: var(--space-3xl);
+    padding-block-start: var(--space-xl);
+    border-block-start: 1px solid var(--border-inverse);
+  }
+
+  .footer__offices-grid {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 40rem) {
+    .footer__offices-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      max-width: 44rem;
+    }
+  }
+
+  .footer__office {
+    font-style: normal;
+    font-size: var(--step--1);
+    line-height: 1.7;
+  }
+
+  .footer__office-city {
+    font-family: var(--font-display);
+    font-weight: var(--weight-semibold);
+    color: #fff;
+  }
+
+  .footer__bottom {
+    margin-block-start: var(--space-2xl);
+    padding-block-start: var(--space-lg);
+    border-block-start: 1px solid var(--border-inverse);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-md) var(--space-xl);
+    font-size: var(--step--1);
+    color: var(--text-muted);
+  }
+
+  .footer__social {
+    display: flex;
+    gap: var(--space-lg);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .footer__privacy {
+    margin-inline-start: auto;
+  }
+</style>

@@ -1,0 +1,513 @@
+---
+import { site } from '@/data/site';
+import { path, type Lang } from '@i18n/routes';
+import { useTranslations } from '@i18n/utils';
+
+/**
+ * Formulario de captacao de leads.
+ *
+ * Tres campos visiveis: nome, email corporativo e — so se a pessoa quiser —
+ * uma mensagem. Tudo o resto (pagina de origem, idioma, campanha) e recolhido
+ * em silencio, porque sao dados que o comercial precisa e o visitante nao tem
+ * de escrever.
+ */
+
+interface Props {
+  lang: Lang;
+  /** Identifica de onde veio a lead. Segue no payload para o CRM. */
+  topic: string;
+  /** Titulo curto acima do formulario. */
+  heading?: string;
+  /** Frase de apoio. */
+  body?: string;
+  /** 'inline' no meio do conteudo, 'panel' em blocos de destaque. */
+  variant?: 'inline' | 'panel';
+  /** Texto do botao. */
+  submitLabel?: string;
+  id?: string;
+}
+
+const {
+  lang,
+  topic,
+  heading,
+  body,
+  variant = 'panel',
+  submitLabel,
+  id = 'lead-form',
+} = Astro.props;
+
+const t = useTranslations(lang);
+const privacyHref = path('privacy', lang);
+const consent = t('form.consent', { privacy: privacyHref });
+const genericError = t('form.errorGeneric', { email: site.email.general });
+---
+
+<section class={`leadform leadform--${variant}`} data-topic={topic} data-lang={lang}>
+  <div class="leadform__inner">
+    {
+      (heading || body) && (
+        <header class="leadform__intro">
+          {heading && <h2 class="leadform__heading">{heading}</h2>}
+          {body && <p class="leadform__body">{body}</p>}
+        </header>
+      )
+    }
+
+    <form class="leadform__form" id={id} novalidate>
+      <div class="leadform__fields">
+        <div class="field">
+          <label class="field__label" for={`${id}-name`}>
+            {t('form.name')}
+            <span class="field__req" aria-hidden="true">*</span>
+          </label>
+          <input
+            class="field__input"
+            id={`${id}-name`}
+            name="name"
+            type="text"
+            autocomplete="name"
+            required
+            aria-describedby={`${id}-name-error`}
+          />
+          <p class="field__error" id={`${id}-name-error`} hidden>
+            {t('form.errorName')}
+          </p>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for={`${id}-email`}>
+            {t('form.email')}
+            <span class="field__req" aria-hidden="true">*</span>
+          </label>
+          <input
+            class="field__input"
+            id={`${id}-email`}
+            name="email"
+            type="email"
+            autocomplete="email"
+            inputmode="email"
+            required
+            aria-describedby={`${id}-email-error`}
+          />
+          <p class="field__error" id={`${id}-email-error`} hidden></p>
+        </div>
+      </div>
+
+      <div class="leadform__message">
+        <button type="button" class="leadform__toggle" aria-expanded="false" aria-controls={`${id}-message-wrap`}>
+          <span class="leadform__toggle-icon" aria-hidden="true"></span>
+          {t('form.messageOptional')}
+        </button>
+        <div class="leadform__message-wrap" id={`${id}-message-wrap`} hidden>
+          <label class="visually-hidden" for={`${id}-message`}>{t('form.message')}</label>
+          <textarea
+            class="field__input field__input--area"
+            id={`${id}-message`}
+            name="message"
+            rows="4"></textarea>
+        </div>
+      </div>
+
+      {/* Armadilha para robots: invisivel e fora da ordem de tabulacao. */}
+      <div class="leadform__trap" aria-hidden="true">
+        <label for={`${id}-company-url`}>Do not fill this in</label>
+        <input id={`${id}-company-url`} name="company_url" type="text" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <div class="leadform__actions">
+        <button type="submit" class="leadform__submit">
+          <span data-label-idle>{submitLabel ?? t('cta.specialist')}</span>
+          <span data-label-busy hidden>{t('cta.sending')}</span>
+        </button>
+        <p class="leadform__reassure">
+          <span class="leadform__tick" aria-hidden="true"></span>
+          {t('form.replyTime')}
+        </p>
+      </div>
+
+      <p class="leadform__consent" set:html={consent}></p>
+
+      <p class="leadform__status leadform__status--error" role="alert" hidden>
+        {genericError}
+      </p>
+    </form>
+
+    <div class="leadform__success" role="status" hidden>
+      <p class="leadform__success-title">{t('form.success')}</p>
+      <p class="leadform__success-body">{t('form.successDetail')}</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { collectContext, submitLead, validateLead } from '@/lib/leads';
+  import { ui } from '@i18n/ui';
+  import type { Lang } from '@i18n/routes';
+
+  type Root = HTMLElement & { dataset: { topic: string; lang: Lang } };
+
+  function setUp(root: Root) {
+    const form = root.querySelector<HTMLFormElement>('.leadform__form');
+    const success = root.querySelector<HTMLElement>('.leadform__success');
+    const status = root.querySelector<HTMLElement>('.leadform__status--error');
+    const submit = root.querySelector<HTMLButtonElement>('.leadform__submit');
+    const toggle = root.querySelector<HTMLButtonElement>('.leadform__toggle');
+    const messageWrap = root.querySelector<HTMLElement>('.leadform__message-wrap');
+    if (!form || !success || !status || !submit) return;
+
+    const lang = root.dataset.lang;
+    const strings = ui[lang] ?? ui.pt;
+    const openedAt = Date.now();
+
+    const nameInput = form.querySelector<HTMLInputElement>('input[name="name"]')!;
+    const emailInput = form.querySelector<HTMLInputElement>('input[name="email"]')!;
+    const messageInput = form.querySelector<HTMLTextAreaElement>('textarea[name="message"]')!;
+    const trap = form.querySelector<HTMLInputElement>('input[name="company_url"]')!;
+
+    const nameError = form.querySelector<HTMLElement>(`#${CSS.escape(nameInput.id)}-error`)!;
+    const emailError = form.querySelector<HTMLElement>(`#${CSS.escape(emailInput.id)}-error`)!;
+
+    toggle?.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!open));
+      if (messageWrap) messageWrap.hidden = open;
+      if (!open) messageInput.focus();
+    });
+
+    function clearErrors() {
+      nameError.hidden = true;
+      emailError.hidden = true;
+      nameInput.removeAttribute('aria-invalid');
+      emailInput.removeAttribute('aria-invalid');
+      status!.hidden = true;
+    }
+
+    nameInput.addEventListener('input', () => {
+      nameError.hidden = true;
+      nameInput.removeAttribute('aria-invalid');
+    });
+    emailInput.addEventListener('input', () => {
+      emailError.hidden = true;
+      emailInput.removeAttribute('aria-invalid');
+    });
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      clearErrors();
+
+      // Preenchido = robot. Fingimos sucesso para nao dar sinal de deteccao.
+      if (trap.value.trim() !== '' || Date.now() - openedAt < 1500) {
+        form.hidden = true;
+        success!.hidden = false;
+        return;
+      }
+
+      const problem = validateLead(nameInput.value, emailInput.value);
+      if (problem === 'name') {
+        nameError.hidden = false;
+        nameInput.setAttribute('aria-invalid', 'true');
+        nameInput.focus();
+        return;
+      }
+      if (problem === 'email' || problem === 'emailPersonal') {
+        emailError.textContent =
+          problem === 'emailPersonal'
+            ? strings['form.errorEmailPersonal']
+            : strings['form.errorEmail'];
+        emailError.hidden = false;
+        emailInput.setAttribute('aria-invalid', 'true');
+        emailInput.focus();
+        return;
+      }
+
+      submit!.disabled = true;
+      submit!.querySelector<HTMLElement>('[data-label-idle]')!.hidden = true;
+      submit!.querySelector<HTMLElement>('[data-label-busy]')!.hidden = false;
+
+      try {
+        await submitLead({
+          name: nameInput.value,
+          email: emailInput.value,
+          message: messageInput.value,
+          topic: root.dataset.topic,
+          context: collectContext(lang),
+        });
+
+        form.hidden = true;
+        success!.hidden = false;
+        success!.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        window.dispatchEvent(
+          new CustomEvent('redicom:lead', { detail: { topic: root.dataset.topic } }),
+        );
+      } catch (error) {
+        console.error('[leads]', error);
+        status!.hidden = false;
+        submit!.disabled = false;
+        submit!.querySelector<HTMLElement>('[data-label-idle]')!.hidden = false;
+        submit!.querySelector<HTMLElement>('[data-label-busy]')!.hidden = true;
+      }
+    });
+  }
+
+  document.querySelectorAll<Root>('.leadform').forEach(setUp);
+</script>
+
+<style>
+  .leadform {
+    --leadform-bg: var(--surface-muted);
+    --leadform-border: var(--border);
+  }
+
+  .leadform--panel .leadform__inner {
+    background: var(--leadform-bg);
+    border: 1px solid var(--leadform-border);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.5rem, 1rem + 2vw, 2.75rem);
+  }
+
+  .leadform--inline .leadform__inner {
+    border-top: 3px solid var(--brand-orange);
+    padding-block-start: var(--space-xl);
+  }
+
+  .leadform__intro {
+    margin-block-end: var(--space-lg);
+    max-width: 46ch;
+  }
+
+  .leadform__heading {
+    font-size: var(--step-3);
+    font-weight: var(--weight-extrabold);
+  }
+
+  .leadform__body {
+    margin-block-start: var(--space-sm);
+    color: var(--text-body);
+  }
+
+  .leadform__fields {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 40rem) {
+    .leadform__fields {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .field__label {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: var(--weight-semibold);
+    color: var(--text-heading);
+    margin-block-end: 0.35rem;
+  }
+
+  .field__req {
+    color: var(--text-accent);
+    margin-inline-start: 0.15rem;
+  }
+
+  .field__input {
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    background: var(--surface);
+    color: var(--text-strong);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    transition: border-color var(--duration) var(--ease);
+  }
+
+  .field__input:hover {
+    border-color: var(--text-muted);
+  }
+
+  .field__input:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 1px;
+    border-color: var(--brand-orange);
+  }
+
+  .field__input[aria-invalid='true'] {
+    border-color: #c0392b;
+  }
+
+  .field__input--area {
+    resize: vertical;
+    min-height: 6rem;
+    font-family: var(--font-body);
+  }
+
+  .field__error {
+    margin-block-start: 0.4rem;
+    font-size: var(--step--1);
+    color: #c0392b;
+  }
+
+  .on-dark .field__error {
+    color: #ff9e91;
+  }
+
+  .leadform__message {
+    margin-block-start: var(--space-md);
+  }
+
+  .leadform__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: 0;
+    padding: 0.25rem 0;
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: var(--weight-semibold);
+    color: var(--text-accent);
+  }
+
+  .leadform__toggle-icon {
+    position: relative;
+    width: 0.85rem;
+    height: 0.85rem;
+    flex: none;
+  }
+
+  .leadform__toggle-icon::before,
+  .leadform__toggle-icon::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    background: currentColor;
+  }
+
+  .leadform__toggle-icon::before {
+    width: 100%;
+    height: 2px;
+  }
+
+  .leadform__toggle-icon::after {
+    width: 2px;
+    height: 100%;
+    transition: transform var(--duration) var(--ease);
+  }
+
+  .leadform__toggle[aria-expanded='true'] .leadform__toggle-icon::after {
+    transform: scaleY(0);
+  }
+
+  .leadform__message-wrap {
+    margin-block-start: var(--space-sm);
+  }
+
+  .leadform__trap {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .leadform__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-md);
+    margin-block-start: var(--space-lg);
+  }
+
+  .leadform__submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 1.8rem;
+    background: var(--action);
+    color: var(--action-text);
+    border: 2px solid var(--action);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display);
+    font-weight: var(--weight-semibold);
+    font-size: var(--step-0);
+    transition: background-color var(--duration) var(--ease);
+  }
+
+  .leadform__submit:hover {
+    background: var(--action-hover);
+    border-color: var(--action-hover);
+  }
+
+  .leadform__submit[disabled] {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .leadform__reassure {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: var(--step--1);
+    color: var(--text-muted);
+  }
+
+  .leadform__tick {
+    width: 1rem;
+    height: 1rem;
+    flex: none;
+    border-radius: 50%;
+    background: var(--brand-orange);
+    position: relative;
+  }
+
+  .leadform__tick::after {
+    content: '';
+    position: absolute;
+    left: 0.3rem;
+    top: 0.17rem;
+    width: 0.25rem;
+    height: 0.45rem;
+    border: solid #1a1000;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .leadform__consent {
+    margin-block-start: var(--space-md);
+    font-size: var(--step--1);
+    color: var(--text-muted);
+  }
+
+  .leadform__status--error {
+    margin-block-start: var(--space-md);
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    background: rgba(192, 57, 43, 0.1);
+    color: #a5281b;
+    font-size: var(--step--1);
+  }
+
+  .on-dark .leadform__status--error {
+    background: rgba(255, 158, 145, 0.14);
+    color: #ffc8c0;
+  }
+
+  .leadform__success {
+    border-left: 3px solid var(--brand-orange);
+    padding-inline-start: var(--space-lg);
+  }
+
+  .leadform__success-title {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-weight: var(--weight-semibold);
+    color: var(--text-heading);
+  }
+
+  .leadform__success-body {
+    margin-block-start: var(--space-xs);
+    color: var(--text-body);
+  }
+</style>

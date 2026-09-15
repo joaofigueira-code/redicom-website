@@ -1,0 +1,126 @@
+---
+import Button from '@components/Button.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+  primaryCta?: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
+  /** 'dark' usa o navy da marca; 'light' assenta sobre branco. */
+  tone?: 'dark' | 'light';
+  /** Reduz a altura em paginas interiores. */
+  compact?: boolean;
+}
+
+const {
+  eyebrow,
+  title,
+  lead,
+  primaryCta,
+  secondaryCta,
+  tone = 'dark',
+  compact = false,
+} = Astro.props;
+---
+
+<section
+  class:list={[
+    'hero',
+    tone === 'dark' && 'hero--dark on-dark',
+    compact && 'hero--compact',
+  ]}
+>
+  <div class="container hero__inner">
+    {eyebrow && <p class="eyebrow hero__eyebrow">{eyebrow}</p>}
+    <h1 class="hero__title">{title}</h1>
+    {lead && <p class="hero__lead">{lead}</p>}
+
+    {
+      (primaryCta || secondaryCta) && (
+        <div class="hero__actions">
+          {primaryCta && (
+            <Button href={primaryCta.href} variant="primary" size="lg">
+              {primaryCta.label}
+            </Button>
+          )}
+          {secondaryCta && (
+            <Button href={secondaryCta.href} variant="secondary" size="lg">
+              {secondaryCta.label}
+            </Button>
+          )}
+        </div>
+      )
+    }
+
+    <slot />
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding-block: clamp(3.5rem, 2rem + 6vw, 8rem);
+    overflow: hidden;
+  }
+
+  .hero--compact {
+    padding-block: clamp(2.5rem, 1.5rem + 4vw, 5rem);
+  }
+
+  /* Grafismo discreto: um gradiente laranja fora de foco no canto, evocando
+     o simbolo modular da marca sem competir com o texto. */
+  .hero--dark::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -10%;
+    width: min(38rem, 70%);
+    aspect-ratio: 1;
+    background: radial-gradient(
+      circle,
+      rgba(239, 150, 0, 0.22) 0%,
+      rgba(239, 150, 0, 0) 68%
+    );
+    pointer-events: none;
+  }
+
+  .hero__inner {
+    position: relative;
+    max-width: 58rem;
+  }
+
+  .hero__eyebrow {
+    margin-block-end: var(--space-md);
+  }
+
+  .hero__title {
+    max-width: 20ch;
+  }
+
+  .hero__lead {
+    margin-block-start: var(--space-lg);
+    max-width: 58ch;
+    font-size: var(--step-1);
+    line-height: var(--leading-snug);
+    color: var(--text-body);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-block-start: var(--space-xl);
+  }
+
+  /* Sobre navy, o botao secundario precisa de contorno claro. */
+  .hero--dark .hero__actions :global(.btn--secondary) {
+    border-color: rgba(255, 255, 255, 0.35);
+    color: #fff;
+  }
+
+  .hero--dark .hero__actions :global(.btn--secondary:hover) {
+    border-color: var(--brand-orange);
+    background-color: rgba(239, 150, 0, 0.14);
+  }
+</style>

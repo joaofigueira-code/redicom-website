@@ -1,0 +1,90 @@
+---
+import { site } from '@/data/site';
+import { path, type Lang } from '@i18n/routes';
+import { useTranslations } from '@i18n/utils';
+
+export type Crumb = { label: string; href?: string };
+
+interface Props {
+  lang: Lang;
+  items: Crumb[];
+}
+
+const { lang, items } = Astro.props;
+const t = useTranslations(lang);
+
+const home = { label: lang === 'pt' ? 'Início' : 'Home', href: path('home', lang) };
+const trail: Crumb[] = [home, ...items];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: trail.map((crumb, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: crumb.label,
+    ...(crumb.href ? { item: new URL(crumb.href, site.url).href } : {}),
+  })),
+};
+---
+
+<nav class="crumbs" aria-label={t('nav.breadcrumb')}>
+  <div class="container">
+    <ol class="crumbs__list">
+      {
+        trail.map((crumb, index) => (
+          <li class="crumbs__item">
+            {crumb.href && index < trail.length - 1 ? (
+              <a href={crumb.href}>{crumb.label}</a>
+            ) : (
+              <span aria-current="page">{crumb.label}</span>
+            )}
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</nav>
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
+
+<style>
+  .crumbs {
+    padding-block: var(--space-md);
+    border-block-end: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .crumbs__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: var(--step--1);
+    color: var(--text-muted);
+  }
+
+  .crumbs__item + .crumbs__item::before {
+    content: '/';
+    margin-inline-end: 0.5rem;
+    color: var(--border-strong);
+  }
+
+  .crumbs__item a {
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  .crumbs__item a:hover {
+    color: var(--text-accent);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .crumbs__item [aria-current] {
+    color: var(--text-strong);
+  }
+</style>

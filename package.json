@@ -1,0 +1,29 @@
+{
+  "name": "redicom-website",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Website institucional Redicom — Redicom Commerce Cloud",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.2.1",
+    "@fontsource-variable/inter": "^5.1.0",
+    "@fontsource/open-sans": "^5.1.0",
+    "astro": "^5.1.1",
+    "sharp": "^0.33.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=20.3.0"
+  }
+}

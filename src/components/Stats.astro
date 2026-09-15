@@ -1,0 +1,79 @@
+---
+export type Stat = {
+  value: string;
+  label: string;
+  detail?: string;
+};
+
+interface Props {
+  stats: Stat[];
+  tone?: 'light' | 'dark';
+}
+
+const { stats, tone = 'light' } = Astro.props;
+---
+
+<dl class:list={['stats', tone === 'dark' && 'on-dark']}>
+  {
+    stats.map((stat) => (
+      <div class="stats__item">
+        <dt class="stats__label">
+          {stat.label}
+          {stat.detail && <span class="stats__detail">{stat.detail}</span>}
+        </dt>
+        <dd class="stats__value">{stat.value}</dd>
+      </div>
+    ))
+  }
+</dl>
+
+<style>
+  .stats {
+    display: grid;
+    gap: var(--space-lg);
+    margin: 0;
+    padding: 0;
+  }
+
+  @media (min-width: 40rem) {
+    .stats {
+      grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    }
+  }
+
+  .stats__item {
+    /* O valor aparece antes da etiqueta visualmente, mas a ordem do DOM
+       mantem-se dt -> dd para leitores de ecra. */
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.35rem;
+    padding-block-start: var(--space-md);
+    border-block-start: 3px solid var(--brand-orange);
+  }
+
+  .stats__value {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--step-4);
+    font-weight: var(--weight-extrabold);
+    line-height: 1;
+    color: var(--text-heading);
+    letter-spacing: -0.03em;
+  }
+
+  .stats__label {
+    font-family: var(--font-display);
+    font-size: var(--step-0);
+    font-weight: var(--weight-semibold);
+    color: var(--text-strong);
+  }
+
+  .stats__detail {
+    display: block;
+    margin-block-start: 0.15rem;
+    font-family: var(--font-body);
+    font-size: var(--step--1);
+    font-weight: var(--weight-regular);
+    color: var(--text-muted);
+  }
+</style>

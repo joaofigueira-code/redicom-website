@@ -1,0 +1,46 @@
+---
+import { path, type Lang } from '@i18n/routes';
+
+interface Props {
+  lang: Lang;
+  /** 'dark' para fundos claros, 'light' para fundos navy. */
+  tone?: 'dark' | 'light';
+  /** Altura em pixeis. Minimo definido no manual de marca: 21px (simbolo),
+   *  76px (vertical), 100px (versao original). Usamos a original. */
+  height?: number;
+  /** Na pagina inicial o logotipo nao deve ser uma ligacao para si proprio. */
+  asLink?: boolean;
+}
+
+const { lang, tone = 'dark', height = 34, asLink = true } = Astro.props;
+
+const src = tone === 'light' ? '/brand/redicom-logo-light.svg' : '/brand/redicom-logo.svg';
+const width = Math.round((106 / 34) * height);
+---
+
+{
+  asLink ? (
+    <a class="logo" href={path('home', lang)} aria-label="Redicom">
+      <img src={src} width={width} height={height} alt="Redicom" />
+    </a>
+  ) : (
+    <span class="logo">
+      <img src={src} width={width} height={height} alt="Redicom" />
+    </span>
+  )
+}
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    /* Area de proteccao minima do manual de marca (1/2 X a toda a volta). */
+    padding: 0.25rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .logo img {
+    display: block;
+    height: auto;
+  }
+</style>

@@ -1,0 +1,702 @@
+---
+import Logo from '@components/Logo.astro';
+import { mainNav, utilityNav, resolveLink } from '@/data/navigation';
+import {
+  alternatePath,
+  LANGUAGES,
+  LANGUAGE_NAMES,
+  path,
+  type Lang,
+} from '@i18n/routes';
+import { useTranslations } from '@i18n/utils';
+
+interface Props {
+  lang: Lang;
+  transparent?: boolean;
+}
+
+const { lang, transparent = false } = Astro.props;
+const t = useTranslations(lang);
+const currentPath = Astro.url.pathname;
+
+const otherLangs = LANGUAGES.filter((code) => code !== lang);
+
+/** Marca o item de menu correspondente a seccao que esta a ser vista. */
+function isCurrentSection(routeId: string): boolean {
+  const base = path(routeId as never, lang);
+  return currentPath === base || currentPath.startsWith(base);
+}
+---
+
+<header class:list={['header', transparent && 'header--transparent']} data-header>
+  <div class="header__bar">
+    <div class="header__container container">
+      <Logo lang={lang} asLink={currentPath !== path('home', lang)} />
+
+      <nav class="header__nav" aria-label={t('nav.main')}>
+        <ul class="header__list">
+          {
+            mainNav.map((item) => {
+              const href = path(item.route, lang);
+              const current = isCurrentSection(item.route);
+              return (
+                <li class="header__item">
+                  {item.groups ? (
+                    <>
+                      <button
+                        class="header__link header__link--toggle"
+                        aria-expanded="false"
+                        aria-controls={`panel-${item.id}`}
+                        data-panel-toggle={item.id}
+                        aria-current={current ? 'true' : undefined}
+                      >
+                        {item.label[lang]}
+                        <span class="header__chevron" aria-hidden="true" />
+                      </button>
+
+                      <div class="header__panel" id={`panel-${item.id}`} data-panel={item.id} hidden>
+                        <div class="header__panel-inner container">
+                          <div class="header__groups">
+                            {item.groups.map((group) => (
+                              <div class="header__group">
+                                <p class="header__group-title">{group.title[lang]}</p>
+                                <ul class="header__group-list">
+                                  {group.links.map((link) => {
+                                    const resolved = resolveLink(link, lang);
+                                    return (
+                                      <li>
+                                        <a class="header__card" href={resolved.href}>
+                                          <span class="header__card-title">{resolved.label}</span>
+                                          {resolved.description && (
+                                            <span class="header__card-body">{resolved.description}</span>
+                                          )}
+                                        </a>
+                                      </li>
+                                    );
+                                  })}
+                                </ul>
+                              </div>
+                            ))}
+                          </div>
+
+                          {item.featured && (
+                            <a class="header__featured" href={path(item.featured.route, lang)}>
+                              <span class="header__featured-eyebrow">{t('nav.overview')}</span>
+                              <span class="header__featured-title">{item.featured.title[lang]}</span>
+                              <span class="header__featured-body">{item.featured.body[lang]}</span>
+                              <span class="header__featured-cta">{t('cta.more')}</span>
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <a
+                      class="header__link"
+                      href={href}
+                      aria-current={current ? 'page' : undefined}
+                    >
+                      {item.label[lang]}
+                    </a>
+                  )}
+                </li>
+              );
+            })
+          }
+        </ul>
+      </nav>
+
+      <div class="header__end">
+        <ul class="header__utility">
+          {
+            utilityNav.map((link) => {
+              const resolved = resolveLink(link, lang);
+              return (
+                <li>
+                  <a class="header__utility-link" href={resolved.href}>
+                    {resolved.label}
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+
+        <ul class="header__langs" aria-label={t('common.language')}>
+          {
+            otherLangs.map((code) => (
+              <li>
+                <a
+                  class="header__lang"
+                  href={alternatePath(currentPath, lang, code)}
+                  hreflang={code}
+                  lang={code}
+                >
+                  <span class="visually-hidden">{LANGUAGE_NAMES[code]}</span>
+                  <span aria-hidden="true">{code.toUpperCase()}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+
+        <a class="header__cta" href={path('contact', lang)}>{t('cta.proposal')}</a>
+
+        <button class="header__burger" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu">
+          <span class="visually-hidden" data-label-open>{t('nav.open')}</span>
+          <span class="header__burger-lines" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu movel: uma lista simples, sem paineis sobrepostos. -->
+  <div class="header__mobile" id="mobile-menu" hidden>
+    <div class="header__mobile-inner container">
+      <nav aria-label={t('nav.main')}>
+        {
+          mainNav.map((item) => (
+            <div class="mobile-section">
+              <a class="mobile-section__head" href={path(item.route, lang)}>
+                {item.label[lang]}
+              </a>
+              {item.groups && (
+                <ul class="mobile-section__list">
+                  {item.groups.flatMap((group) =>
+                    group.links.map((link) => {
+                      const resolved = resolveLink(link, lang);
+                      return (
+                        <li>
+                          <a href={resolved.href}>{resolved.label}</a>
+                        </li>
+                      );
+                    }),
+                  )}
+                </ul>
+              )}
+            </div>
+          ))
+        }
+
+        <div class="mobile-section">
+          <ul class="mobile-section__list">
+            {
+              utilityNav.map((link) => {
+                const resolved = resolveLink(link, lang);
+                return (
+                  <li>
+                    <a href={resolved.href}>{resolved.label}</a>
+                  </li>
+                );
+              })
+            }
+          </ul>
+        </div>
+      </nav>
+
+      <a class="header__cta header__cta--mobile" href={path('contact', lang)}>
+        {t('cta.proposal')}
+      </a>
+
+      <ul class="header__mobile-langs">
+        {
+          LANGUAGES.map((code) => (
+            <li>
+              <a
+                href={alternatePath(currentPath, lang, code)}
+                hreflang={code}
+                lang={code}
+                aria-current={code === lang ? 'true' : undefined}
+              >
+                {LANGUAGE_NAMES[code]}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  if (header) {
+    // --- Sombra ao sair do topo ---------------------------------------
+    const onScroll = () => {
+      header.classList.toggle('is-stuck', window.scrollY > 8);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // --- Paineis do menu de escritorio --------------------------------
+    const toggles = header.querySelectorAll<HTMLButtonElement>('[data-panel-toggle]');
+    const panels = header.querySelectorAll<HTMLElement>('[data-panel]');
+
+    function closePanels(except?: string) {
+      toggles.forEach((toggle) => {
+        const id = toggle.dataset.panelToggle!;
+        if (id === except) return;
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+      panels.forEach((panel) => {
+        if (panel.dataset.panel === except) return;
+        panel.hidden = true;
+      });
+      header!.classList.toggle('has-open-panel', Boolean(except));
+    }
+
+    toggles.forEach((toggle) => {
+      const id = toggle.dataset.panelToggle!;
+      const panel = header.querySelector<HTMLElement>(`[data-panel="${id}"]`);
+      if (!panel) return;
+
+      toggle.addEventListener('click', () => {
+        const open = toggle.getAttribute('aria-expanded') === 'true';
+        closePanels(open ? undefined : id);
+        toggle.setAttribute('aria-expanded', String(!open));
+        panel.hidden = open;
+      });
+    });
+
+    header.addEventListener('keydown', (event) => {
+      if ((event as KeyboardEvent).key === 'Escape') {
+        closePanels();
+        (document.activeElement as HTMLElement | null)?.blur();
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!header.contains(event.target as Node)) closePanels();
+    });
+
+    // --- Menu movel ----------------------------------------------------
+    const burger = header.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+    const mobile = header.querySelector<HTMLElement>('#mobile-menu');
+
+    burger?.addEventListener('click', () => {
+      const open = burger.getAttribute('aria-expanded') === 'true';
+      burger.setAttribute('aria-expanded', String(!open));
+      if (mobile) mobile.hidden = open;
+      document.body.style.overflow = open ? '' : 'hidden';
+      closePanels();
+    });
+  }
+</script>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-block-end: 1px solid transparent;
+    transition:
+      border-color var(--duration) var(--ease),
+      box-shadow var(--duration) var(--ease);
+  }
+
+  .header.is-stuck {
+    border-block-end-color: var(--border);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .header__container {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    min-height: var(--header-height);
+  }
+
+  .header__nav {
+    display: none;
+  }
+
+  .header__list {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.55rem 0.7rem;
+    background: none;
+    border: 0;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-display);
+    font-size: var(--step-0);
+    font-weight: var(--weight-semibold);
+    color: var(--text-heading);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .header__link:hover {
+    background: var(--surface-muted);
+    color: var(--text-heading);
+  }
+
+  .header__link[aria-current] {
+    color: var(--text-accent);
+  }
+
+  .header__chevron {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform var(--duration) var(--ease);
+  }
+
+  .header__link--toggle[aria-expanded='true'] .header__chevron {
+    transform: translateY(1px) rotate(225deg);
+  }
+
+  /* --- Painel do mega-menu ------------------------------------------ */
+  .header__panel {
+    position: absolute;
+    inset-inline: 0;
+    top: 100%;
+    background: var(--surface);
+    border-block: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .header__panel-inner {
+    display: grid;
+    gap: var(--space-xl);
+    padding-block: var(--space-xl);
+  }
+
+  @media (min-width: 62rem) {
+    .header__panel-inner {
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr);
+    }
+  }
+
+  .header__groups {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 48rem) {
+    .header__groups {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .header__group-title {
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-block-end: var(--space-sm);
+  }
+
+  .header__group-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .header__card {
+    display: block;
+    padding: 0.6rem 0.7rem;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: background-color var(--duration) var(--ease);
+  }
+
+  .header__card:hover {
+    background: var(--surface-muted);
+  }
+
+  .header__card-title {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: var(--weight-semibold);
+    color: var(--text-heading);
+  }
+
+  .header__card-body {
+    display: block;
+    margin-block-start: 0.15rem;
+    font-size: var(--step--1);
+    line-height: 1.45;
+    color: var(--text-muted);
+  }
+
+  .header__featured {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    background: var(--brand-navy);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .header__featured-eyebrow {
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brand-orange-bright);
+  }
+
+  .header__featured-title {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-weight: var(--weight-extrabold);
+    line-height: 1.2;
+  }
+
+  .header__featured-body {
+    font-size: var(--step--1);
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .header__featured-cta {
+    margin-block-start: auto;
+    padding-block-start: var(--space-sm);
+    font-family: var(--font-display);
+    font-weight: var(--weight-semibold);
+    color: var(--brand-orange-bright);
+  }
+
+  /* --- Fim da barra -------------------------------------------------- */
+  .header__end {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-inline-start: auto;
+  }
+
+  .header__utility,
+  .header__langs,
+  .header__mobile-langs {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header__utility {
+    display: none;
+  }
+
+  .header__utility-link {
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: var(--weight-semibold);
+    color: var(--text-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .header__utility-link:hover {
+    color: var(--text-heading);
+  }
+
+  .header__langs {
+    display: none;
+  }
+
+  .header__lang {
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: var(--weight-semibold);
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.25rem 0.4rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .header__lang:hover {
+    color: var(--text-heading);
+    background: var(--surface-muted);
+  }
+
+  .header__cta {
+    display: none;
+    padding: 0.6rem 1.25rem;
+    background: var(--action);
+    color: var(--action-text);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: var(--weight-semibold);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .header__cta:hover {
+    background: var(--action-hover);
+    color: var(--action-text);
+  }
+
+  /* --- Botao do menu movel ------------------------------------------- */
+  .header__burger {
+    width: 2.75rem;
+    height: 2.75rem;
+    display: grid;
+    place-items: center;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+  }
+
+  .header__burger-lines,
+  .header__burger-lines::before,
+  .header__burger-lines::after {
+    display: block;
+    width: 1.15rem;
+    height: 2px;
+    background: var(--text-heading);
+    border-radius: 2px;
+    transition: transform var(--duration) var(--ease);
+  }
+
+  .header__burger-lines {
+    position: relative;
+  }
+
+  .header__burger-lines::before,
+  .header__burger-lines::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+
+  .header__burger-lines::before {
+    top: -6px;
+  }
+
+  .header__burger-lines::after {
+    top: 6px;
+  }
+
+  .header__burger[aria-expanded='true'] .header__burger-lines {
+    background: transparent;
+  }
+
+  .header__burger[aria-expanded='true'] .header__burger-lines::before {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .header__burger[aria-expanded='true'] .header__burger-lines::after {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  /* --- Painel movel --------------------------------------------------- */
+  .header__mobile {
+    position: fixed;
+    inset: var(--header-height) 0 0;
+    background: var(--surface);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-block-start: 1px solid var(--border);
+  }
+
+  .header__mobile-inner {
+    padding-block: var(--space-xl) var(--space-3xl);
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  .mobile-section + .mobile-section {
+    margin-block-start: var(--space-lg);
+    padding-block-start: var(--space-lg);
+    border-block-start: 1px solid var(--border);
+  }
+
+  .mobile-section__head {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-weight: var(--weight-extrabold);
+    color: var(--text-heading);
+    text-decoration: none;
+  }
+
+  .mobile-section__list {
+    list-style: none;
+    margin: var(--space-sm) 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.1rem;
+  }
+
+  .mobile-section__list a {
+    display: block;
+    padding: 0.55rem 0;
+    font-family: var(--font-display);
+    color: var(--text-body);
+    text-decoration: none;
+  }
+
+  .mobile-section__list a:hover {
+    color: var(--text-accent);
+  }
+
+  .header__cta--mobile {
+    display: inline-flex;
+    justify-content: center;
+    padding: 0.9rem 1.5rem;
+    font-size: var(--step-0);
+  }
+
+  .header__mobile-langs {
+    gap: var(--space-lg);
+  }
+
+  .header__mobile-langs a {
+    font-family: var(--font-display);
+    font-weight: var(--weight-semibold);
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  .header__mobile-langs a[aria-current] {
+    color: var(--text-heading);
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  /* --- Escritorio ------------------------------------------------------ */
+  @media (min-width: 64rem) {
+    .header__bar {
+      position: relative;
+    }
+
+    .header__nav,
+    .header__utility,
+    .header__langs {
+      display: flex;
+    }
+
+    .header__cta {
+      display: inline-flex;
+    }
+
+    .header__burger,
+    .header__mobile {
+      display: none;
+    }
+  }
+</style>

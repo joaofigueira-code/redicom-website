@@ -1,0 +1,160 @@
+---
+/**
+ * Confronto entre a abordagem generica e a abordagem Redicom.
+ *
+ * E o argumento central do posicionamento ("alternativa as solucoes
+ * genericas", Manual de Marca p. 5), por isso aparece em varias paginas.
+ * Em ecra estreito as duas colunas empilham, mantendo os pares juntos.
+ */
+
+export type ComparisonRow = {
+  /** Titulo do problema, quando cada linha tem um tema proprio. */
+  topic?: string;
+  generic: string;
+  redicom: string;
+};
+
+interface Props {
+  genericTitle: string;
+  redicomTitle: string;
+  rows: ComparisonRow[];
+}
+
+const { genericTitle, redicomTitle, rows } = Astro.props;
+---
+
+<div class="comparison">
+  <div class="comparison__heads" aria-hidden="true">
+    <p class="comparison__head comparison__head--generic">{genericTitle}</p>
+    <p class="comparison__head comparison__head--redicom">{redicomTitle}</p>
+  </div>
+
+  <ul class="comparison__rows">
+    {
+      rows.map((row) => (
+        <li class="comparison__row">
+          {row.topic && <p class="comparison__topic">{row.topic}</p>}
+          <div class="comparison__pair">
+            <div class="comparison__cell comparison__cell--generic">
+              <span class="comparison__label">{genericTitle}</span>
+              <p>{row.generic}</p>
+            </div>
+            <div class="comparison__cell comparison__cell--redicom">
+              <span class="comparison__label">{redicomTitle}</span>
+              <p>{row.redicom}</p>
+            </div>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .comparison__heads {
+    display: none;
+  }
+
+  .comparison__rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .comparison__topic {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    font-weight: var(--weight-semibold);
+    color: var(--text-heading);
+    margin-block-end: var(--space-sm);
+  }
+
+  .comparison__pair {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .comparison__cell {
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    font-size: var(--step-0);
+  }
+
+  .comparison__cell--generic {
+    background: var(--surface-muted);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+
+  .comparison__cell--redicom {
+    background: var(--brand-navy);
+    color: rgba(255, 255, 255, 0.82);
+    border: 1px solid var(--brand-navy);
+    position: relative;
+  }
+
+  .comparison__cell--redicom::before {
+    content: '';
+    position: absolute;
+    inset-block: var(--space-lg);
+    inset-inline-start: 0;
+    width: 3px;
+    background: var(--brand-orange);
+    border-radius: 0 var(--radius-pill) var(--radius-pill) 0;
+  }
+
+  .comparison__label {
+    display: block;
+    margin-block-end: 0.35rem;
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .comparison__cell--generic .comparison__label {
+    color: var(--text-muted);
+  }
+
+  .comparison__cell--redicom .comparison__label {
+    color: var(--brand-orange-bright);
+  }
+
+  @media (min-width: 52rem) {
+    .comparison__heads {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+      margin-block-end: var(--space-md);
+    }
+
+    .comparison__head {
+      font-family: var(--font-display);
+      font-size: var(--step--1);
+      font-weight: var(--weight-semibold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding-inline: var(--space-lg);
+    }
+
+    .comparison__head--generic {
+      color: var(--text-muted);
+    }
+
+    .comparison__head--redicom {
+      color: var(--text-accent);
+    }
+
+    .comparison__pair {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    /* Com cabecalhos visiveis, as etiquetas por celula sao redundantes. */
+    .comparison__label {
+      display: none;
+    }
+  }
+</style>

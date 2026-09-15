@@ -1,0 +1,77 @@
+---
+interface Props {
+  title: string;
+  href?: string;
+  /** Numero ou sigla mostrada como marcador visual. */
+  marker?: string;
+  ctaLabel?: string;
+}
+
+const { title, href, marker, ctaLabel } = Astro.props;
+const Tag = href ? 'a' : 'div';
+---
+
+<Tag class:list={['card', href && 'card--link']} href={href}>
+  {marker && <span class="card__marker" aria-hidden="true">{marker}</span>}
+  <h3 class="card__title">{title}</h3>
+  <div class="card__body"><slot /></div>
+  {ctaLabel && href && <span class="card__cta">{ctaLabel}</span>}
+</Tag>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    height: 100%;
+    padding: var(--space-lg);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition:
+      border-color var(--duration) var(--ease),
+      transform var(--duration) var(--ease),
+      box-shadow var(--duration) var(--ease);
+  }
+
+  .card--link:hover {
+    border-color: var(--brand-orange);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .card__marker {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-weight: var(--weight-extrabold);
+    line-height: 1;
+    color: var(--brand-orange);
+  }
+
+  .card__title {
+    font-size: var(--step-1);
+    font-weight: var(--weight-semibold);
+  }
+
+  .card__body {
+    color: var(--text-body);
+    font-size: var(--step-0);
+  }
+
+  .card__body :global(p + p) {
+    margin-block-start: var(--space-sm);
+  }
+
+  .card__cta {
+    margin-block-start: auto;
+    padding-block-start: var(--space-sm);
+    font-family: var(--font-display);
+    font-weight: var(--weight-semibold);
+    color: var(--text-accent);
+  }
+
+  .card--link:hover .card__cta {
+    color: var(--action-hover);
+  }
+</style>
