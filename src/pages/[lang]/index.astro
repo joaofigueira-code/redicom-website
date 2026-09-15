@@ -1,0 +1,257 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import SectionHeader from '@components/SectionHeader.astro';
+import Card from '@components/Card.astro';
+import Stats from '@components/Stats.astro';
+import Comparison from '@components/Comparison.astro';
+import LeadForm from '@components/LeadForm.astro';
+import CtaBand from '@components/CtaBand.astro';
+import Button from '@components/Button.astro';
+
+import { homeCopy } from '@/data/copy/home';
+import { site } from '@/data/site';
+import { LANGUAGES, path, type Lang, type RouteId } from '@i18n/routes';
+
+export function getStaticPaths() {
+  return LANGUAGES.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const copy = homeCopy[lang];
+
+const softwareSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: site.product,
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  url: `${site.url}${path('platform', lang)}`,
+  provider: { '@id': `${site.url}/#organization` },
+  description: copy.meta.description,
+};
+---
+
+<BaseLayout
+  lang={lang}
+  title={copy.meta.title}
+  description={copy.meta.description}
+  schema={softwareSchema}
+>
+  <Hero
+    eyebrow={copy.hero.eyebrow}
+    title={copy.hero.title}
+    lead={copy.hero.lead}
+    primaryCta={{ label: copy.hero.primary, href: '#falar-connosco' }}
+    secondaryCta={{ label: copy.hero.secondary, href: path('platform', lang) }}
+  />
+
+  <!-- Prova social imediatamente abaixo do hero: credibilidade antes do
+       argumento, porque a maioria das visitas chega sem conhecer a marca. -->
+  <section class="section section--tight proof">
+    <div class="container">
+      <Stats stats={copy.proof} />
+    </div>
+  </section>
+
+  <!-- 1. O problema, na linguagem de quem o vive -->
+  <section class="section problem">
+    <div class="container">
+      <SectionHeader
+        eyebrow={copy.problem.eyebrow}
+        title={copy.problem.title}
+        lead={copy.problem.lead}
+      />
+      <div class="grid grid--3">
+        {
+          copy.problem.items.map((item) => (
+            <Card title={item.title}>
+              <p>{item.body}</p>
+            </Card>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. A plataforma -->
+  <section class="section platform on-dark">
+    <div class="container">
+      <SectionHeader
+        eyebrow={copy.platform.eyebrow}
+        title={copy.platform.title}
+        lead={copy.platform.lead}
+      />
+
+      <div class="grid grid--4 platform__grid">
+        {
+          copy.platform.modules.map((module) => (
+            <Card
+              title={module.title}
+              href={path(module.route as RouteId, lang)}
+              ctaLabel={lang === 'pt' ? 'Saber mais' : 'Learn more'}
+            >
+              <p>{module.body}</p>
+            </Card>
+          ))
+        }
+      </div>
+
+      <div class="platform__cta">
+        <Button href={path('platform', lang)} variant="secondary" size="lg">
+          {copy.platform.cta}
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Primeiro ponto de conversao: a seguir a explicacao da plataforma,
+       quando a pessoa ja sabe o suficiente para querer falar connosco. -->
+  <section class="section section--tight">
+    <div class="container container--narrow">
+      <LeadForm
+        lang={lang}
+        topic="home-plataforma"
+        variant="inline"
+        heading={copy.midForm.heading}
+        body={copy.midForm.body}
+        submitLabel={copy.midForm.submit}
+        id="lead-home-mid"
+      />
+    </div>
+  </section>
+
+  <!-- 4. Diferenciacao -->
+  <section class="section difference">
+    <div class="container">
+      <SectionHeader
+        eyebrow={copy.difference.eyebrow}
+        title={copy.difference.title}
+        lead={copy.difference.lead}
+      />
+      <Comparison
+        genericTitle={copy.difference.genericTitle}
+        redicomTitle={copy.difference.redicomTitle}
+        rows={copy.difference.rows}
+      />
+      <div class="difference__cta">
+        <Button href={path('why', lang)} variant="link">{copy.difference.cta}</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Duas apostas de posicionamento: setor e tendencia -->
+  <section class="section spotlights">
+    <div class="container grid grid--2">
+      {
+        [copy.fashion, copy.agentic].map((block, index) => (
+          <article class="spotlight">
+            <p class="eyebrow">{block.eyebrow}</p>
+            <h2 class="spotlight__title">{block.title}</h2>
+            <p class="spotlight__body">{block.body}</p>
+            <ul class="spotlight__points">
+              {block.points.map((point) => (
+                <li>{point}</li>
+              ))}
+            </ul>
+            <Button
+              href={path(index === 0 ? 'fashion' : 'agentic', lang)}
+              variant="secondary"
+            >
+              {block.cta}
+            </Button>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- 6. Conversao final -->
+  <CtaBand
+    lang={lang}
+    topic="home"
+    title={copy.closing.title}
+    body={copy.closing.body}
+    points={copy.closing.points}
+    submitLabel={copy.closing.submit}
+  />
+</BaseLayout>
+
+<style>
+  .proof {
+    border-block-end: 1px solid var(--border);
+  }
+
+  .platform__grid {
+    margin-block-end: var(--space-2xl);
+  }
+
+  /* Dentro do bloco escuro os cartoes assentam em vidro, nao em branco. */
+  .platform :global(.card) {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: var(--border-inverse);
+  }
+
+  .platform :global(.card--link:hover) {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: var(--brand-orange);
+  }
+
+  .platform__cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .difference__cta {
+    margin-block-start: var(--space-xl);
+  }
+
+  .spotlight {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: var(--space-md);
+    padding: var(--space-xl);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface-muted);
+  }
+
+  .spotlight__title {
+    font-size: var(--step-3);
+    max-width: 18ch;
+  }
+
+  .spotlight__body {
+    color: var(--text-body);
+  }
+
+  .spotlight__points {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: var(--space-xs);
+    font-size: var(--step--1);
+  }
+
+  .spotlight__points li {
+    position: relative;
+    padding-inline-start: 1.4rem;
+  }
+
+  .spotlight__points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.58em;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--brand-orange);
+  }
+
+  .spotlight :global(.btn) {
+    margin-block-start: auto;
+  }
+</style>

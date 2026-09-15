@@ -1,0 +1,132 @@
+---
+import Button from '@components/Button.astro';
+import type { DeepSection } from '@/data/copy/types';
+import { path, type Lang } from '@i18n/routes';
+
+interface Props {
+  section: DeepSection;
+  lang: Lang;
+  /** Alterna o lado do texto e o fundo, para quebrar a monotonia vertical. */
+  index: number;
+}
+
+const { section, lang, index } = Astro.props;
+const flipped = index % 2 === 1;
+---
+
+<section class:list={['dsection', flipped && 'dsection--flipped']}>
+  <div class="container dsection__inner">
+    <div class="dsection__text">
+      {section.eyebrow && <p class="eyebrow">{section.eyebrow}</p>}
+      <h2 class="dsection__title">{section.title}</h2>
+      <p class="dsection__body">{section.body}</p>
+
+      {
+        section.link && (
+          <p class="dsection__link">
+            <Button href={path(section.link.route, lang)} variant="link">
+              {section.link.label}
+            </Button>
+          </p>
+        )
+      }
+    </div>
+
+    {
+      section.bullets && section.bullets.length > 0 && (
+        <ul class="dsection__bullets">
+          {section.bullets.map((bullet) => (
+            <li>{bullet}</li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .dsection {
+    padding-block: var(--section-y);
+  }
+
+  .dsection--flipped {
+    background: var(--surface-muted);
+  }
+
+  .dsection__inner {
+    display: grid;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  @media (min-width: 56rem) {
+    .dsection__inner {
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: var(--space-3xl);
+    }
+
+    .dsection--flipped .dsection__text {
+      order: 2;
+    }
+  }
+
+  .dsection__title {
+    margin-block-start: var(--space-sm);
+    font-size: var(--step-3);
+    max-width: 20ch;
+  }
+
+  .dsection__body {
+    margin-block-start: var(--space-md);
+    max-width: 58ch;
+    font-size: var(--step-1);
+    line-height: var(--leading-snug);
+    color: var(--text-body);
+  }
+
+  .dsection__link {
+    margin-block-start: var(--space-lg);
+  }
+
+  .dsection__bullets {
+    margin: 0;
+    padding: var(--space-lg);
+    list-style: none;
+    display: grid;
+    gap: var(--space-md);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .dsection--flipped .dsection__bullets {
+    background: var(--surface);
+  }
+
+  .dsection__bullets li {
+    position: relative;
+    padding-inline-start: 1.75rem;
+    color: var(--text-strong);
+  }
+
+  .dsection__bullets li + li {
+    padding-block-start: var(--space-md);
+    border-block-start: 1px solid var(--border);
+  }
+
+  .dsection__bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 0.7rem;
+    height: 0.4rem;
+    border-left: 2px solid var(--brand-orange);
+    border-bottom: 2px solid var(--brand-orange);
+    transform: rotate(-45deg);
+  }
+
+  .dsection__bullets li + li::before {
+    top: calc(var(--space-md) + 0.5em);
+  }
+</style>

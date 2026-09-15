@@ -1,0 +1,47 @@
+---
+import SolutionPage from '@components/SolutionPage.astro';
+import { solutions, solutionIds, solutionLabels } from '@/data/copy';
+import { LANGUAGES, routes, type Lang, type RouteId } from '@i18n/routes';
+
+/**
+ * Gera todas as paginas de solucao de dois segmentos, em ambos os idiomas.
+ * Os slugs saem do mapa de rotas, por isso PT e EN nunca podem divergir.
+ */
+export function getStaticPaths() {
+  const paths = [];
+
+  for (const lang of LANGUAGES) {
+    for (const id of solutionIds) {
+      const slug = routes[id][lang];
+      const parts = slug.split('/');
+      if (parts.length !== 2) continue;
+
+      paths.push({
+        params: { lang, section: parts[0], page: parts[1] },
+        props: { routeId: id },
+      });
+    }
+  }
+
+  return paths;
+}
+
+const lang = Astro.params.lang as Lang;
+const { routeId } = Astro.props as { routeId: RouteId };
+
+const copy = solutions[routeId]![lang];
+
+// O primeiro segmento corresponde sempre a pagina-mae da seccao.
+const parentRoute: RouteId = routeId.startsWith('fashion') ? 'fashion' : 'platform';
+const parentLabel = lang === 'pt'
+  ? parentRoute === 'fashion' ? 'Fashion Retail' : 'Plataforma'
+  : parentRoute === 'fashion' ? 'Fashion Retail' : 'Platform';
+---
+
+<SolutionPage
+  lang={lang}
+  routeId={routeId}
+  copy={copy}
+  parent={{ label: parentLabel, route: parentRoute }}
+  relatedLabels={solutionLabels(lang)}
+/>
