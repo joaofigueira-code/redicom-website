@@ -29,6 +29,11 @@ export type HubCopy = {
     items: { route: RouteId; title: string; body: string }[];
   };
   sections: DeepSection[];
+  /**
+   * Temas com pagina propria que nao cabem na grelha principal sem a tornar
+   * ilegivel. Aparecem como lista de ligacoes, nao como cartoes.
+   */
+  more?: { title: string; lead?: string; routes: RouteId[] };
   midForm: { heading: string; body: string; submit: string };
   comparison?: {
     title: string;
@@ -167,6 +172,27 @@ export const hubCopy: Record<'platform' | 'fashion', Record<Lang, HubCopy>> = {
           link: { route: 'platformMarketingCloud', label: 'Ver a Marketing Cloud' },
         },
       ],
+
+      more: {
+        title: 'Mais na plataforma',
+        lead: 'Temas com página própria, para quem já sabe o que anda à procura.',
+        routes: [
+          'platformMarketplaces',
+          'platformGlobal',
+          'platformSearch',
+          'integrations',
+          'platformCustomerCare',
+          'platformInvoicing',
+          'platformB2BTools',
+          'platformB2BMarketing',
+          'platformConversion',
+          'platformCampaigns',
+          'platformSegmentation',
+          'platformEmail',
+          'platformSMS',
+          'platformPersonalization',
+        ],
+      },
 
       midForm: {
         heading: 'Quer perceber como encaixa na sua operação?',
@@ -311,6 +337,27 @@ export const hubCopy: Record<'platform' | 'fashion', Record<Lang, HubCopy>> = {
           link: { route: 'platformMarketingCloud', label: 'See the Marketing Cloud' },
         },
       ],
+
+      more: {
+        title: 'More on the platform',
+        lead: 'Topics with a page of their own, for anyone who already knows what they are looking for.',
+        routes: [
+          'platformMarketplaces',
+          'platformGlobal',
+          'platformSearch',
+          'integrations',
+          'platformCustomerCare',
+          'platformInvoicing',
+          'platformB2BTools',
+          'platformB2BMarketing',
+          'platformConversion',
+          'platformCampaigns',
+          'platformSegmentation',
+          'platformEmail',
+          'platformSMS',
+          'platformPersonalization',
+        ],
+      },
 
       midForm: {
         heading: 'Want to see how this fits your operation?',

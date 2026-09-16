@@ -589,6 +589,49 @@ export const platformCopy: SolutionSet = {
           ],
         },
       ],
+      comparison: {
+        title: 'Automação nativa ou ferramenta externa',
+        lead: 'As plataformas de automação externas são boas ferramentas. A diferença está no que acontece entre a loja e a campanha.',
+        genericTitle: 'Ferramenta externa',
+        redicomTitle: 'Marketing Cloud',
+        rows: [
+          {
+            topic: 'Integração com a plataforma',
+            generic: 'Externa, por integração, aplicação ou API.',
+            redicom: 'Nativa e total.',
+          },
+          {
+            topic: 'Dependência de conectores',
+            generic: 'Sim.',
+            redicom: 'Não.',
+          },
+          {
+            topic: 'Segmentação',
+            generic: 'Em tempo real, mas sobre os dados que foram sincronizados.',
+            redicom: 'Diretamente sobre os dados vivos da loja.',
+          },
+          {
+            topic: 'Preços por segmento',
+            generic: 'Possível, se os dados estiverem modelados e sincronizados.',
+            redicom: 'Sim, nativamente.',
+          },
+          {
+            topic: 'Promoções segmentadas',
+            generic: 'Possível, mas depende da estrutura de dados e da integração.',
+            redicom: 'Sim, nativamente.',
+          },
+          {
+            topic: 'Consistência entre loja e campanhas',
+            generic: 'Depende da qualidade e da profundidade da integração.',
+            redicom: 'Muito elevada.',
+          },
+          {
+            topic: 'Custo',
+            generic: 'Subscrição à parte, que cresce com a base de contactos.',
+            redicom: 'Incluído na plataforma.',
+          },
+        ],
+      },
       closing: {
         title: 'As suas campanhas sabem o que está em stock?',
         body: 'Falamos consigo sobre como está a comunicar hoje e onde a automação pode acrescentar receita sem acrescentar equipa.',
@@ -659,6 +702,49 @@ export const platformCopy: SolutionSet = {
           ],
         },
       ],
+      comparison: {
+        title: 'Native automation or an external tool',
+        lead: 'External automation platforms are good tools. The difference is in what happens between the store and the campaign.',
+        genericTitle: 'External tool',
+        redicomTitle: 'Marketing Cloud',
+        rows: [
+          {
+            topic: 'Platform integration',
+            generic: 'External, through an integration, app or API.',
+            redicom: 'Native and complete.',
+          },
+          {
+            topic: 'Dependence on connectors',
+            generic: 'Yes.',
+            redicom: 'No.',
+          },
+          {
+            topic: 'Segmentation',
+            generic: 'Real time, but over the data that was synchronised.',
+            redicom: 'Directly over the store’s live data.',
+          },
+          {
+            topic: 'Segment-specific prices',
+            generic: 'Possible, if the data is modelled and synchronised.',
+            redicom: 'Yes, natively.',
+          },
+          {
+            topic: 'Segmented promotions',
+            generic: 'Possible, but dependent on data structure and integration.',
+            redicom: 'Yes, natively.',
+          },
+          {
+            topic: 'Store and campaign consistency',
+            generic: 'Depends on the quality and depth of the integration.',
+            redicom: 'Very high.',
+          },
+          {
+            topic: 'Cost',
+            generic: 'A separate subscription that grows with the contact base.',
+            redicom: 'Included in the platform.',
+          },
+        ],
+      },
       closing: {
         title: 'Do your campaigns know what is in stock?',
         body: 'We will talk through how you communicate today and where automation can add revenue without adding headcount.',

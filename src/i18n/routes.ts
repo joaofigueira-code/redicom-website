@@ -47,6 +47,34 @@ export const routes = {
   platformAnalytics: { pt: 'plataforma/analytics', en: 'platform/analytics' },
   platformMobileApp: { pt: 'plataforma/mobile-app', en: 'platform/mobile-app' },
 
+  // Subpaginas do site anterior, cada uma com pagina propria: eram temas com
+  // intencao de pesquisa autonoma e conteudo suficiente para se sustentarem.
+  platformMarketplaces: { pt: 'plataforma/marketplaces', en: 'platform/marketplaces' },
+  platformGlobal: { pt: 'plataforma/comercio-global', en: 'platform/global-commerce' },
+  platformPersonalization: {
+    pt: 'plataforma/marketing-personalizado',
+    en: 'platform/personalised-marketing',
+  },
+  platformB2BTools: { pt: 'plataforma/ferramentas-b2b', en: 'platform/b2b-tools' },
+  platformB2BMarketing: { pt: 'plataforma/marketing-b2b', en: 'platform/b2b-marketing' },
+  platformCustomerCare: { pt: 'plataforma/apoio-ao-cliente', en: 'platform/customer-care' },
+  platformInvoicing: {
+    pt: 'plataforma/faturacao-integrada',
+    en: 'platform/integrated-invoicing',
+  },
+  platformConversion: {
+    pt: 'plataforma/ferramentas-de-conversao',
+    en: 'platform/conversion-tools',
+  },
+  platformCampaigns: {
+    pt: 'plataforma/campanhas-automatizadas',
+    en: 'platform/automated-campaigns',
+  },
+  platformSegmentation: { pt: 'plataforma/segmentacao', en: 'platform/segmentation' },
+  platformSMS: { pt: 'plataforma/sms-marketing', en: 'platform/sms-marketing' },
+  platformEmail: { pt: 'plataforma/email-marketing', en: 'platform/email-marketing' },
+  platformSearch: { pt: 'plataforma/pesquisa-inteligente', en: 'platform/smart-search' },
+
   // --- Fashion Retail -------------------------------------------------
   fashion: { pt: 'fashion-retail', en: 'fashion-retail' },
   fashionB2C: { pt: 'fashion-retail/commerce-b2c', en: 'fashion-retail/commerce-b2c' },

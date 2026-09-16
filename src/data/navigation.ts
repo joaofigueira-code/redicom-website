@@ -121,6 +121,122 @@ export const mainNav: NavItem[] = [
               en: 'ERP, payments, carriers and marketplaces',
             },
           },
+          {
+            route: 'platformCustomerCare',
+            label: { pt: 'Apoio ao Cliente', en: 'Customer Care' },
+            description: {
+              pt: 'Visão 360º do cliente e da encomenda',
+              en: 'A 360º view of the customer and the order',
+            },
+          },
+          {
+            route: 'platformInvoicing',
+            label: { pt: 'Faturação Integrada', en: 'Integrated Invoicing' },
+            description: {
+              pt: 'Faturação certificada dentro da plataforma',
+              en: 'Certified invoicing inside the platform',
+            },
+          },
+        ],
+      },
+      {
+        id: 'growth',
+        title: { pt: 'Marketing', en: 'Marketing' },
+        links: [
+          {
+            route: 'platformCampaigns',
+            label: { pt: 'Campanhas Automatizadas', en: 'Automated Campaigns' },
+            description: {
+              pt: 'Jornadas prontas a ativar, sem trabalho manual',
+              en: 'Ready-made journeys, with no manual work',
+            },
+          },
+          {
+            route: 'platformSegmentation',
+            label: { pt: 'Segmentação', en: 'Segmentation' },
+            description: {
+              pt: 'Perfis construídos a partir do comportamento real',
+              en: 'Profiles built from real behaviour',
+            },
+          },
+          {
+            route: 'platformEmail',
+            label: { pt: 'Email Marketing', en: 'Email Marketing' },
+            description: {
+              pt: 'Emails dinâmicos, sem plugins nem sincronizações',
+              en: 'Dynamic emails, with no plugins and no syncing',
+            },
+          },
+          {
+            route: 'platformSMS',
+            label: { pt: 'SMS Marketing', en: 'SMS Marketing' },
+            description: {
+              pt: 'Login automático e retorno medido encomenda a encomenda',
+              en: 'Automatic login and return measured order by order',
+            },
+          },
+          {
+            route: 'platformConversion',
+            label: { pt: 'Ferramentas de Conversão', en: 'Conversion Tools' },
+            description: {
+              pt: 'Retenção, fidelização e ordenação inteligente',
+              en: 'Retention, loyalty and smart sorting',
+            },
+          },
+          {
+            route: 'platformPersonalization',
+            label: { pt: 'Marketing Personalizado', en: 'Personalised Marketing' },
+            description: {
+              pt: 'Recomendações e promoções cliente a cliente',
+              en: 'Recommendations and promotions customer by customer',
+            },
+          },
+        ],
+      },
+      {
+        id: 'reach',
+        title: { pt: 'Alcance e tecnologia', en: 'Reach and technology' },
+        links: [
+          {
+            route: 'platformMarketplaces',
+            label: { pt: 'Marketplaces', en: 'Marketplaces' },
+            description: {
+              pt: 'Novos canais sem duplicar a operação',
+              en: 'New channels without duplicating the operation',
+            },
+          },
+          {
+            route: 'platformGlobal',
+            label: { pt: 'Comércio Global', en: 'Global Commerce' },
+            description: {
+              pt: 'Vários mercados a partir de um só sítio',
+              en: 'Several markets from a single place',
+            },
+          },
+          {
+            route: 'platformSearch',
+            label: { pt: 'Pesquisa Inteligente', en: 'Smart Search' },
+            description: {
+              pt: 'Resultados em tempo real, sem feeds externos',
+              en: 'Real-time results, with no external feeds',
+            },
+          },
+          {
+            route: 'platformB2BTools',
+            label: { pt: 'Ferramentas de Negócio B2B', en: 'B2B Business Tools' },
+            description: {
+              pt: 'Pré-venda, grelha, packs e rappel',
+              en: 'Pre-season, matrix ordering, packs and rebates',
+            },
+          },
+          {
+            route: 'platformB2BMarketing',
+            label: { pt: 'Marketing B2B', en: 'B2B Marketing' },
+            description: {
+              pt: 'Descontos por volume e carrinhos múltiplos',
+              en: 'Volume discounts and multiple baskets',
+            },
+          },
         ],
       },
     ],
@@ -284,6 +400,37 @@ export const footerNav: NavGroup[] = [
       { route: 'platformAnalytics', label: { pt: 'Redicom Analytics', en: 'Redicom Analytics' } },
       { route: 'platformMobileApp', label: { pt: 'Mobile App', en: 'Mobile App' } },
       { route: 'integrations', label: { pt: 'Integrações', en: 'Integrations' } },
+      { route: 'platformMarketplaces', label: { pt: 'Marketplaces', en: 'Marketplaces' } },
+      { route: 'platformGlobal', label: { pt: 'Comércio Global', en: 'Global Commerce' } },
+      { route: 'platformSearch', label: { pt: 'Pesquisa Inteligente', en: 'Smart Search' } },
+      {
+        route: 'platformCustomerCare',
+        label: { pt: 'Apoio ao Cliente', en: 'Customer Care' },
+      },
+      {
+        route: 'platformInvoicing',
+        label: { pt: 'Faturação Integrada', en: 'Integrated Invoicing' },
+      },
+      {
+        route: 'platformB2BTools',
+        label: { pt: 'Ferramentas de Negócio B2B', en: 'B2B Business Tools' },
+      },
+      { route: 'platformB2BMarketing', label: { pt: 'Marketing B2B', en: 'B2B Marketing' } },
+      {
+        route: 'platformCampaigns',
+        label: { pt: 'Campanhas Automatizadas', en: 'Automated Campaigns' },
+      },
+      { route: 'platformSegmentation', label: { pt: 'Segmentação', en: 'Segmentation' } },
+      { route: 'platformEmail', label: { pt: 'Email Marketing', en: 'Email Marketing' } },
+      { route: 'platformSMS', label: { pt: 'SMS Marketing', en: 'SMS Marketing' } },
+      {
+        route: 'platformConversion',
+        label: { pt: 'Ferramentas de Conversão', en: 'Conversion Tools' },
+      },
+      {
+        route: 'platformPersonalization',
+        label: { pt: 'Marketing Personalizado', en: 'Personalised Marketing' },
+      },
     ],
   },
   {

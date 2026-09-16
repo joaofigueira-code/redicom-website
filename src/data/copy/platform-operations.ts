@@ -327,6 +327,49 @@ export const platformOperationsCopy: SolutionSet = {
           body: 'Uma ferramenta de medição digital é muito forte a explicar tráfego e aquisição. O Redicom Analytics é forte onde essas ferramentas são indiretas: stock e preço reais, promoções e contexto comercial, preços por segmento e decisão operacional — sem sampling, sem thresholds e sem exportar para outro sítio para ir ao fundo de uma pergunta.',
         },
       ],
+      comparison: {
+        title: 'Critério a critério',
+        lead: 'Uma ferramenta de medição digital e o Redicom Analytics respondem a perguntas diferentes. Vale a pena ver quais.',
+        genericTitle: 'Ferramenta de medição digital',
+        redicomTitle: 'Redicom Analytics',
+        rows: [
+          {
+            topic: 'Integração com a plataforma',
+            generic: 'Externa à plataforma de comércio.',
+            redicom: 'Nativa e total.',
+          },
+          {
+            topic: 'Foco principal',
+            generic: 'Medição digital: eventos, tráfego e aquisição.',
+            redicom: 'Negócio, operação e performance comercial.',
+          },
+          {
+            topic: 'Base analítica',
+            generic: 'Modelo orientado a eventos.',
+            redicom: 'Dados reais da operação.',
+          },
+          {
+            topic: 'Leitura de stock e preço reais',
+            generic: 'Não de forma nativa operacional.',
+            redicom: 'Sim, nativamente.',
+          },
+          {
+            topic: 'Promoções e contexto comercial',
+            generic: 'Dependem de implementação e modelação.',
+            redicom: 'Integrados na análise.',
+          },
+          {
+            topic: 'Preços por segmento',
+            generic: 'Não como capacidade nativa.',
+            redicom: 'Sim.',
+          },
+          {
+            topic: 'Custo de infraestrutura analítica',
+            generic: 'Pode exigir cloud analítica ou módulos pagos.',
+            redicom: 'Incluído na plataforma.',
+          },
+        ],
+      },
       closing: {
         title: 'Quanto tempo demora hoje a responder a "porquê"?',
         body: 'Falamos consigo sobre os indicadores que a sua equipa precisa de ver e sobre o que está a impedir que os veja.',
@@ -388,6 +431,49 @@ export const platformOperationsCopy: SolutionSet = {
           body: 'A digital measurement tool is very strong at explaining traffic and acquisition. Redicom Analytics is strong where those tools are indirect: real stock and price, promotions and commercial context, segment pricing and operational decisions — with no sampling, no thresholds and no export to somewhere else to get to the bottom of a question.',
         },
       ],
+      comparison: {
+        title: 'Criterion by criterion',
+        lead: 'A digital measurement tool and Redicom Analytics answer different questions. It is worth seeing which.',
+        genericTitle: 'Digital measurement tool',
+        redicomTitle: 'Redicom Analytics',
+        rows: [
+          {
+            topic: 'Platform integration',
+            generic: 'External to the commerce platform.',
+            redicom: 'Native and complete.',
+          },
+          {
+            topic: 'Main focus',
+            generic: 'Digital measurement: events, traffic and acquisition.',
+            redicom: 'Business, operations and commercial performance.',
+          },
+          {
+            topic: 'Analytical base',
+            generic: 'An event-driven model.',
+            redicom: 'The operation’s real data.',
+          },
+          {
+            topic: 'Real stock and price readings',
+            generic: 'Not natively, at an operational level.',
+            redicom: 'Yes, natively.',
+          },
+          {
+            topic: 'Promotions and commercial context',
+            generic: 'Dependent on implementation and modelling.',
+            redicom: 'Built into the analysis.',
+          },
+          {
+            topic: 'Segment-specific prices',
+            generic: 'Not as a native capability.',
+            redicom: 'Yes.',
+          },
+          {
+            topic: 'Analytics infrastructure cost',
+            generic: 'May require an analytics cloud or paid modules.',
+            redicom: 'Included in the platform.',
+          },
+        ],
+      },
       closing: {
         title: 'How long does it take you to answer "why" today?',
         body: 'Let’s talk about the indicators your team needs to see, and what is stopping them seeing it.',

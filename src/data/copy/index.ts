@@ -1,6 +1,9 @@
 import type { SolutionSet } from './types';
 import { platformCopy } from './platform';
 import { platformOperationsCopy } from './platform-operations';
+import { platformCommerceCopy } from './platform-commerce';
+import { platformMarketingCopy } from './platform-marketing';
+import { platformSupportCopy } from './platform-support';
 import { fashionCopy } from './fashion';
 import { standalonePagesCopy } from './pages';
 import type { Lang, RouteId } from '@i18n/routes';
@@ -16,6 +19,9 @@ import type { Lang, RouteId } from '@i18n/routes';
 export const solutions: SolutionSet = {
   ...platformCopy,
   ...platformOperationsCopy,
+  ...platformCommerceCopy,
+  ...platformMarketingCopy,
+  ...platformSupportCopy,
   ...fashionCopy,
   ...standalonePagesCopy,
 };

@@ -11,6 +11,7 @@ import SolutionSection from '@components/SolutionSection.astro';
 
 import type { HubCopy } from '@/data/copy/hubs';
 import { site } from '@/data/site';
+import { solutionLabels } from '@/data/copy';
 import { path, type Lang, type RouteId } from '@i18n/routes';
 import { useTranslations } from '@i18n/utils';
 
@@ -31,6 +32,7 @@ interface Props {
 
 const { lang, routeId, copy, secondaryRoute } = Astro.props;
 const t = useTranslations(lang);
+const labels = solutionLabels(lang);
 
 const schema = {
   '@context': 'https://schema.org',
@@ -102,6 +104,24 @@ const schema = {
     </div>
   </section>
 
+  {
+    copy.more && (
+      <section class="section section--tight more">
+        <div class="container">
+          <h2 class="more__title">{copy.more.title}</h2>
+          {copy.more.lead && <p class="more__lead">{copy.more.lead}</p>}
+          <ul class="more__list">
+            {copy.more.routes.map((route) => (
+              <li>
+                <a href={path(route, lang)}>{labels[route] ?? route}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
   <section class="section section--tight midform">
     <div class="container container--narrow">
       <LeadForm
@@ -158,6 +178,45 @@ const schema = {
   .modules :global(.card--link:hover) {
     background: rgba(255, 255, 255, 0.07);
     border-color: var(--brand-orange);
+  }
+
+  .more {
+    border-block-end: 1px solid var(--border);
+  }
+
+  .more__title {
+    font-size: var(--step-2);
+    margin-block-end: var(--space-xs);
+  }
+
+  .more__lead {
+    margin-block-end: var(--space-lg);
+    max-width: 62ch;
+  }
+
+  .more__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: var(--space-xs) var(--space-lg);
+  }
+
+  .more__list a {
+    font-family: var(--font-display);
+    font-weight: var(--weight-semibold);
+    font-size: var(--step--1);
+    color: var(--text-strong);
+    text-decoration: none;
+    display: block;
+    padding-block: var(--space-xs);
+    border-block-end: 1px solid var(--border);
+  }
+
+  .more__list a:hover {
+    color: var(--text-accent);
+    border-block-end-color: var(--brand-orange);
   }
 
   .midform {
