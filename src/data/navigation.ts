@@ -113,6 +113,14 @@ export const mainNav: NavItem[] = [
               en: 'A ready-to-use mobile app on the same platform',
             },
           },
+          {
+            route: 'integrations',
+            label: { pt: 'Integrações', en: 'Integrations' },
+            description: {
+              pt: 'ERP, pagamentos, transportadoras e marketplaces',
+              en: 'ERP, payments, carriers and marketplaces',
+            },
+          },
         ],
       },
     ],
@@ -230,6 +238,11 @@ export const mainNav: NavItem[] = [
     label: { pt: 'Agentic Commerce', en: 'Agentic Commerce' },
   },
   {
+    id: 'cases',
+    route: 'cases',
+    label: { pt: 'Casos de Sucesso', en: 'Success Stories' },
+  },
+  {
     id: 'why',
     route: 'why',
     label: { pt: 'Porquê Redicom', en: 'Why Redicom' },
@@ -245,6 +258,7 @@ export const mainNav: NavItem[] = [
  * repor a linha quando a seccao estiver pronta.
  */
 export const utilityNav: NavLink[] = [
+  { route: 'audience', label: { pt: 'Para quem é a Redicom', en: 'Who it is for' } },
   { route: 'about', label: { pt: 'Sobre Nós', en: 'About Us' } },
   { route: 'contact', label: { pt: 'Contactos', en: 'Contact' } },
 ];
@@ -269,6 +283,7 @@ export const footerNav: NavGroup[] = [
       },
       { route: 'platformAnalytics', label: { pt: 'Redicom Analytics', en: 'Redicom Analytics' } },
       { route: 'platformMobileApp', label: { pt: 'Mobile App', en: 'Mobile App' } },
+      { route: 'integrations', label: { pt: 'Integrações', en: 'Integrations' } },
     ],
   },
   {
@@ -300,6 +315,8 @@ export const footerNav: NavGroup[] = [
     title: { pt: 'Redicom', en: 'Redicom' },
     links: [
       { route: 'why', label: { pt: 'Porquê Redicom', en: 'Why Redicom' } },
+      { route: 'audience', label: { pt: 'Para quem é a Redicom', en: 'Who Redicom is for' } },
+      { route: 'cases', label: { pt: 'Casos de Sucesso', en: 'Success Stories' } },
       { route: 'agentic', label: { pt: 'Agentic Commerce', en: 'Agentic Commerce' } },
       { route: 'about', label: { pt: 'Sobre Nós', en: 'About Us' } },
       { route: 'careers', label: { pt: 'Trabalhe Connosco', en: 'Careers' } },

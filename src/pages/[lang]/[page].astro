@@ -4,6 +4,7 @@ import SolutionPage from '@components/SolutionPage.astro';
 import AboutPage from '@components/pages/AboutPage.astro';
 import ContactPage from '@components/pages/ContactPage.astro';
 import CareersPage from '@components/pages/CareersPage.astro';
+import CasesPage from '@components/pages/CasesPage.astro';
 import PrivacyPage from '@components/pages/PrivacyPage.astro';
 import ThanksPage from '@components/pages/ThanksPage.astro';
 
@@ -46,7 +47,11 @@ const lang = Astro.params.lang as Lang;
 const { routeId } = Astro.props as { routeId: SinglePageId };
 
 const isHub = routeId === 'platform' || routeId === 'fashion';
-const isSolution = routeId === 'agentic' || routeId === 'why';
+const isSolution =
+  routeId === 'agentic' ||
+  routeId === 'why' ||
+  routeId === 'audience' ||
+  routeId === 'integrations';
 
 // O segundo botao do hero leva sempre ao passo seguinte mais provavel: de
 // Fashion Retail entra-se no B2C, da Plataforma vai-se ver o que nos
@@ -76,6 +81,7 @@ const secondaryRoute: RouteId = routeId === 'fashion' ? 'fashionB2C' : 'why';
   )
 }
 
+{routeId === 'cases' && <CasesPage lang={lang} />}
 {routeId === 'about' && <AboutPage lang={lang} />}
 {routeId === 'contact' && <ContactPage lang={lang} />}
 {routeId === 'careers' && <CareersPage lang={lang} />}

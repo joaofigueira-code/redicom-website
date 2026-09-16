@@ -1,12 +1,20 @@
 ---
 import SolutionPage from '@components/SolutionPage.astro';
+import CaseStudyPage from '@components/pages/CaseStudyPage.astro';
+
 import { solutions, solutionIds, solutionLabels } from '@/data/copy';
+import { caseStudies } from '@/data/cases';
 import { LANGUAGES, routes, type Lang, type RouteId } from '@i18n/routes';
 
 /**
- * Gera todas as paginas de solucao de dois segmentos, em ambos os idiomas.
- * Os slugs saem do mapa de rotas, por isso PT e EN nunca podem divergir.
+ * Paginas de dois segmentos.
+ *
+ * Sao duas familias com a mesma forma de URL: as paginas de solucao
+ * (/pt/plataforma/b2c/) e os casos de sucesso (/pt/casos-de-sucesso/<slug>/).
+ * Tem de partilhar este ficheiro porque o Astro so admite uma rota dinamica
+ * por profundidade — dai o despacho no fim.
  */
+
 export function getStaticPaths() {
   const paths = [];
 
@@ -18,7 +26,14 @@ export function getStaticPaths() {
 
       paths.push({
         params: { lang, section: parts[0], page: parts[1] },
-        props: { routeId: id },
+        props: { kind: 'solution', routeId: id },
+      });
+    }
+
+    for (const study of caseStudies) {
+      paths.push({
+        params: { lang, section: routes.cases[lang], page: study.slug },
+        props: { kind: 'case', slug: study.slug },
       });
     }
   }
@@ -27,21 +42,29 @@ export function getStaticPaths() {
 }
 
 const lang = Astro.params.lang as Lang;
-const { routeId } = Astro.props as { routeId: RouteId };
+const props = Astro.props as
+  | { kind: 'solution'; routeId: RouteId }
+  | { kind: 'case'; slug: string };
 
-const copy = solutions[routeId]![lang];
+const study = props.kind === 'case' ? caseStudies.find((item) => item.slug === props.slug) : undefined;
 
-// O primeiro segmento corresponde sempre a pagina-mae da seccao.
-const parentRoute: RouteId = routeId.startsWith('fashion') ? 'fashion' : 'platform';
-const parentLabel = lang === 'pt'
-  ? parentRoute === 'fashion' ? 'Fashion Retail' : 'Plataforma'
-  : parentRoute === 'fashion' ? 'Fashion Retail' : 'Platform';
+// Nas paginas de solucao, o primeiro segmento corresponde sempre a pagina-mae.
+const parentRoute: RouteId =
+  props.kind === 'solution' && props.routeId.startsWith('fashion') ? 'fashion' : 'platform';
+const parentLabel =
+  parentRoute === 'fashion' ? 'Fashion Retail' : lang === 'pt' ? 'Plataforma' : 'Platform';
 ---
 
-<SolutionPage
-  lang={lang}
-  routeId={routeId}
-  copy={copy}
-  parent={{ label: parentLabel, route: parentRoute }}
-  relatedLabels={solutionLabels(lang)}
-/>
+{
+  props.kind === 'solution' && (
+    <SolutionPage
+      lang={lang}
+      routeId={props.routeId}
+      copy={solutions[props.routeId]![lang]}
+      parent={{ label: parentLabel, route: parentRoute }}
+      relatedLabels={solutionLabels(lang)}
+    />
+  )
+}
+
+{study && <CaseStudyPage lang={lang} study={study} />}

@@ -30,8 +30,7 @@ const extraLabels: Record<Lang, Partial<Record<RouteId, string>>> = {
   pt: {
     platform: 'Redicom Commerce Cloud',
     fashion: 'Fashion Retail',
-    agentic: 'Agentic Commerce',
-    why: 'Porquê Redicom',
+    cases: 'Casos de Sucesso',
     about: 'Sobre Nós',
     contact: 'Contactos',
     docs: 'Documentação',
@@ -39,8 +38,7 @@ const extraLabels: Record<Lang, Partial<Record<RouteId, string>>> = {
   en: {
     platform: 'Redicom Commerce Cloud',
     fashion: 'Fashion Retail',
-    agentic: 'Agentic Commerce',
-    why: 'Why Redicom',
+    cases: 'Success Stories',
     about: 'About Us',
     contact: 'Contact',
     docs: 'Documentation',

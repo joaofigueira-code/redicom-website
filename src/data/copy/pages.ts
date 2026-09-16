@@ -581,4 +581,396 @@ export const standalonePagesCopy: SolutionSet = {
       related: ['fashion', 'platformOMS', 'why'],
     },
   },
+
+  integrations: {
+    pt: {
+      meta: {
+        title: 'Integrações — ERP, pagamentos, transportadoras e marketplaces',
+        description:
+          'A Redicom Commerce Cloud integra com ERP, sistemas de pagamento, transportadoras, marketplaces e catálogos técnicos, sem limites artificiais de chamadas à API.',
+      },
+      breadcrumb: 'Integrações',
+
+      hero: {
+        eyebrow: 'Integrações',
+        title: 'Integre com os sistemas que já usa',
+        lead: 'A plataforma foi feita para conversar com o resto da operação: ERP, faturação, transportadoras, pagamentos, marketplaces e catálogos técnicos. Sem limites artificiais de volume e sem uma camada intermédia para manter.',
+        primary: 'Falar com especialista',
+      },
+
+      features: [
+        {
+          title: 'Software de gestão (ERP)',
+          body: 'Artigos, stock, preços, clientes e encomendas sincronizados com o ERP, nos dois sentidos. É a integração que mais reduz trabalho manual e a primeira que fazemos na maioria dos projetos.',
+        },
+        {
+          title: 'Sistemas de pagamento',
+          body: 'Vários métodos pré-configurados, com estornos automáticos que reduzem o esforço no processamento de trocas e devoluções.',
+        },
+        {
+          title: 'Transportadoras',
+          body: 'Acompanhamento da encomenda desde a expedição até à entrega, com tracking automático, impressão de carta de porte e mudança de estado sem intervenção.',
+        },
+        {
+          title: 'Marketplaces',
+          body: 'Encomendas, clientes e stock de todos os marketplaces centralizados num só sítio, com preço e disponibilidade atualizados em tempo real.',
+        },
+      ],
+
+      sections: [
+        {
+          eyebrow: 'Produto e stock',
+          title: 'A informação de produto atualizada em todos os canais',
+          body: 'O catálogo e o stock são a base de tudo o resto: se divergirem, divergem em todos os canais ao mesmo tempo. A plataforma mantém-nos centralizados e permite controlar armazéns, canais e localizações diferentes sobre os mesmos dados.',
+          bullets: [
+            'Stock centralizado, multi-depósito e multi-localização',
+            'Atualização de stock em tempo real',
+            'Priorização de stock por canal ou por depósito',
+            'Integração com catálogos técnicos como o TecDoc ou o IceCat',
+          ],
+        },
+        {
+          eyebrow: 'Logística',
+          title: 'Da expedição à entrega, sem passos manuais',
+          body: 'A integração com as transportadoras escolhidas para cada projeto garante um fluxo de comunicação constante: a encomenda muda de estado sozinha à medida que avança, e o cliente final é informado sem ninguém ter de o fazer.',
+          bullets: [
+            'Tracking automático das encomendas',
+            'Impressão de carta de porte',
+            'Alteração automática de estados da encomenda',
+          ],
+          link: { route: 'platformOMS', label: 'Ver a Plataforma OMS' },
+        },
+        {
+          eyebrow: 'Pagamentos e faturação',
+          title: 'Receber, faturar e estornar na mesma plataforma',
+          body: 'Os métodos de pagamento são à sua escolha e a faturação é emitida na própria plataforma, certificada pela Autoridade Tributária. Quando há uma devolução, o estorno é automático — e é essa automatização que se nota no fim do mês.',
+          bullets: [
+            'Estornos automáticos',
+            'Criação de faturas na plataforma',
+            'Importação de faturas de sistema externo',
+            'Faturação certificada pela AT, também no POS',
+          ],
+          link: { route: 'platformPOS', label: 'Ver o POS Omnicanal' },
+        },
+        {
+          eyebrow: 'Marketplaces',
+          title: 'Vender em marketplaces sem duplicar a operação',
+          body: 'Ter uma visão global do estado das encomendas, dos clientes e do stock em todos os marketplaces evita o pior problema deste canal: vender o que já não existe. As encomendas entram no mesmo OMS que as do site e seguem o mesmo processo.',
+          bullets: [
+            'Atualização de stock e preço em tempo real',
+            'Acompanhamento do estado das encomendas',
+            'Gestão de stock partilhado entre canais',
+            'Controlo de devoluções e reembolsos',
+          ],
+        },
+      ],
+
+      midForm: {
+        heading: 'Que sistemas precisa de integrar?',
+        body: 'Diga-nos o que tem hoje — ERP, transportadoras, marketplaces — e dizemos-lhe o que está feito de raiz e o que exige trabalho.',
+        submit: 'Falar com especialista',
+      },
+
+      closing: {
+        title: 'Vamos ver o que já está ligado',
+        body: 'Deixe o seu contacto e olhamos para o seu ecossistema atual antes de falar de plataforma.',
+        points: [
+          'Analisamos os sistemas que já tem antes de propor seja o que for',
+          'Dizemos-lhe o que é integração padrão e o que é desenvolvimento',
+          'Sem limites artificiais de chamadas à API',
+        ],
+        submit: 'Falar com especialista',
+      },
+
+      related: ['platformOMS', 'platformB2B', 'platform'],
+    },
+
+    en: {
+      meta: {
+        title: 'Integrations — ERP, payments, carriers and marketplaces',
+        description:
+          'The Redicom Commerce Cloud integrates with ERP, payment systems, carriers, marketplaces and technical catalogues, with no artificial API call limits.',
+      },
+      breadcrumb: 'Integrations',
+
+      hero: {
+        eyebrow: 'Integrations',
+        title: 'Connect the systems you already run',
+        lead: 'The platform was built to talk to the rest of the operation: ERP, invoicing, carriers, payments, marketplaces and technical catalogues. With no artificial volume limits and no middle layer to maintain.',
+        primary: 'Talk to a specialist',
+      },
+
+      features: [
+        {
+          title: 'Management software (ERP)',
+          body: 'Items, stock, prices, customers and orders synchronised with the ERP, both ways. It is the integration that removes the most manual work, and the first one we build on most projects.',
+        },
+        {
+          title: 'Payment systems',
+          body: 'Several pre-configured methods, with automatic refunds that cut the effort of processing exchanges and returns.',
+        },
+        {
+          title: 'Carriers',
+          body: 'Order tracking from dispatch to delivery, with automatic tracking, waybill printing and status changes that need no intervention.',
+        },
+        {
+          title: 'Marketplaces',
+          body: 'Orders, customers and stock from every marketplace in one place, with price and availability updated in real time.',
+        },
+      ],
+
+      sections: [
+        {
+          eyebrow: 'Product and stock',
+          title: 'Product information kept current across every channel',
+          body: 'Catalogue and stock are the foundation of everything else: if they drift, they drift across every channel at once. The platform keeps them centralised and lets you manage different warehouses, channels and locations on the same data.',
+          bullets: [
+            'Centralised stock, multi-warehouse and multi-location',
+            'Real-time stock updates',
+            'Stock prioritisation by channel or warehouse',
+            'Integration with technical catalogues such as TecDoc and IceCat',
+          ],
+        },
+        {
+          eyebrow: 'Logistics',
+          title: 'From dispatch to delivery, with no manual steps',
+          body: 'Integration with the carriers chosen for each project keeps a constant flow of information: the order changes status on its own as it moves, and the end customer is informed without anyone having to do it.',
+          bullets: [
+            'Automatic order tracking',
+            'Waybill printing',
+            'Automatic order status changes',
+          ],
+          link: { route: 'platformOMS', label: 'See the OMS Platform' },
+        },
+        {
+          eyebrow: 'Payments and invoicing',
+          title: 'Take payment, invoice and refund on one platform',
+          body: 'Payment methods are yours to choose and invoicing is issued inside the platform, certified by the Portuguese tax authority. When there is a return, the refund is automatic — and that automation is what you notice at month end.',
+          bullets: [
+            'Automatic refunds',
+            'Invoice creation inside the platform',
+            'Import of invoices from an external system',
+            'Certified invoicing, in the POS too',
+          ],
+          link: { route: 'platformPOS', label: 'See the Omnichannel POS' },
+        },
+        {
+          eyebrow: 'Marketplaces',
+          title: 'Sell on marketplaces without duplicating the operation',
+          body: 'Having one view of order status, customers and stock across every marketplace avoids this channel’s worst problem: selling what is no longer there. Orders land in the same OMS as the ones from the site and follow the same process.',
+          bullets: [
+            'Real-time stock and price updates',
+            'Order status tracking',
+            'Shared stock management across channels',
+            'Returns and refunds control',
+          ],
+        },
+      ],
+
+      midForm: {
+        heading: 'Which systems do you need to connect?',
+        body: 'Tell us what you run today — ERP, carriers, marketplaces — and we will tell you what is standard and what needs building.',
+        submit: 'Talk to a specialist',
+      },
+
+      closing: {
+        title: 'Let us look at what is already connected',
+        body: 'Leave your details and we will review your current ecosystem before talking about platforms.',
+        points: [
+          'We look at the systems you already run before proposing anything',
+          'We tell you what is a standard integration and what is development',
+          'No artificial API call limits',
+        ],
+        submit: 'Talk to a specialist',
+      },
+
+      related: ['platformOMS', 'platformB2B', 'platform'],
+    },
+  },
+
+  audience: {
+    pt: {
+      meta: {
+        title: 'Para quem é a Redicom — e para quem não é',
+        description:
+          'A Redicom Commerce Cloud foi feita para operações com complexidade real: retalho multicanal, marcas de moda, distribuição B2B e expansão internacional.',
+      },
+      breadcrumb: 'Para quem é a Redicom',
+
+      hero: {
+        eyebrow: 'Para quem é a Redicom',
+        title: 'Não servimos qualquer negócio da mesma maneira',
+        lead: 'As plataformas generalistas são construídas para servir toda a gente. Nós escolhemos servir bem um conjunto de operações — aquelas onde a complexidade é real e onde essa complexidade custa dinheiro todos os dias.',
+        primary: 'Ver se encaixa no seu caso',
+      },
+
+      features: [
+        {
+          title: 'Retalho multicanal',
+          body: 'Tem lojas físicas e loja online e precisa que partilhem stock, cliente e faturação. O POS e o e-commerce deixam de ser dois sistemas com uma integração noturna pelo meio.',
+        },
+        {
+          title: 'Marcas de moda',
+          body: 'Coleções sazonais, matrizes de tamanho e cor, devoluções altas e uma operação de wholesale que não é uma variação do B2C. É a nossa especialização mais forte.',
+        },
+        {
+          title: 'Distribuição e B2B',
+          body: 'Milhares de referências, preços e condições por cliente, encomendas em matriz e um ERP que tem de estar sempre em linha com o portal.',
+        },
+        {
+          title: 'Expansão internacional',
+          body: 'Vender em vários mercados com idioma, moeda, preço, regras fiscais e logística próprios, sem duplicar a plataforma por cada país.',
+        },
+      ],
+
+      sections: [
+        {
+          eyebrow: 'Sinais',
+          title: 'Reconhece-se nisto?',
+          body: 'A maioria das empresas não nos procura porque quer mudar de plataforma. Procura-nos porque a operação cresceu e a plataforma não cresceu com ela. Estes são os sinais que ouvimos com mais frequência na primeira conversa.',
+          bullets: [
+            'Cada nova ligação a um sistema é um projeto à parte, com orçamento próprio',
+            'A equipa exporta ficheiros para conciliar stock, preços ou encomendas',
+            'Abrir um mercado, um canal ou uma loja exige um ciclo de desenvolvimento',
+            'A fatura da plataforma cresce ao mesmo ritmo das vendas',
+            'Há funcionalidades essenciais que só existem em aplicações de terceiros',
+          ],
+        },
+        {
+          eyebrow: 'Dimensão',
+          title: 'A partir de que ponto é que compensa',
+          body: 'Não há um número mágico de encomendas. O que costuma marcar a diferença é o momento em que o custo de manter a operação de pé — integrações, processos manuais, taxas sobre as vendas — começa a competir com o custo de a fazer crescer. Normalmente isso acontece antes de a equipa dar por isso.',
+          bullets: [
+            'Operações com mais do que um canal de venda',
+            'Catálogos com variantes, regras de preço ou condições por cliente',
+            'Equipas que já têm alguém dedicado à operação de e-commerce',
+            'Empresas que querem controlar os seus dados e os seus custos',
+          ],
+          link: { route: 'why', label: 'Ver o que nos distingue' },
+        },
+        {
+          eyebrow: 'Honestidade',
+          title: 'Quando não somos a melhor escolha',
+          body: 'Dizemo-lo na primeira conversa, e preferimos dizê-lo antes de haver proposta. Se o seu caso é um destes, há soluções no mercado que o servem melhor e mais depressa — e não ganhamos nada em fingir o contrário.',
+          bullets: [
+            'Está a começar, com catálogo pequeno e um só canal de venda',
+            'Precisa de estar no ar esta semana, com o mínimo de configuração',
+            'A operação não tem complexidade de stock, preço ou canal',
+            'Não tem, nem quer ter, ninguém dedicado à operação digital',
+          ],
+        },
+      ],
+
+      midForm: {
+        heading: 'Não tem a certeza se encaixa?',
+        body: 'Diga-nos em duas linhas como é a sua operação. Respondemos com uma opinião honesta, mesmo quando essa opinião é «não».',
+        submit: 'Pedir uma opinião',
+      },
+
+      closing: {
+        title: 'Vamos ver se faz sentido',
+        body: 'Deixe o seu contacto. Começamos por perceber a operação e dizemos-lhe francamente se somos a escolha certa.',
+        points: [
+          'Analisamos o seu contexto antes de propor qualquer solução',
+          'Falamos com quem conhece a plataforma, não com um call center',
+          'Se não formos a melhor opção para o seu caso, dizemos-lhe',
+        ],
+        submit: 'Falar com especialista',
+      },
+
+      related: ['fashion', 'platform', 'cases'],
+    },
+
+    en: {
+      meta: {
+        title: 'Who Redicom is for — and who it is not for',
+        description:
+          'The Redicom Commerce Cloud was built for operations with real complexity: multichannel retail, fashion brands, B2B distribution and international expansion.',
+      },
+      breadcrumb: 'Who Redicom is for',
+
+      hero: {
+        eyebrow: 'Who Redicom is for',
+        title: 'We do not serve every business the same way',
+        lead: 'Generalist platforms are built to serve everyone. We chose to serve a particular set of operations well — the ones where complexity is real, and where that complexity costs money every day.',
+        primary: 'See if it fits your case',
+      },
+
+      features: [
+        {
+          title: 'Multichannel retail',
+          body: 'You have physical stores and an online store, and they need to share stock, customers and invoicing. POS and e-commerce stop being two systems with an overnight integration in between.',
+        },
+        {
+          title: 'Fashion brands',
+          body: 'Seasonal collections, size and colour matrices, high returns and a wholesale operation that is not a variation of B2C. This is our strongest specialisation.',
+        },
+        {
+          title: 'Distribution and B2B',
+          body: 'Thousands of references, customer-specific prices and terms, matrix ordering and an ERP that has to stay in step with the portal at all times.',
+        },
+        {
+          title: 'International expansion',
+          body: 'Selling across several markets with their own language, currency, pricing, tax rules and logistics, without duplicating the platform per country.',
+        },
+      ],
+
+      sections: [
+        {
+          eyebrow: 'Signals',
+          title: 'Does any of this sound familiar?',
+          body: 'Most companies do not come to us because they want to change platform. They come because the operation grew and the platform did not grow with it. These are the signals we hear most often in a first conversation.',
+          bullets: [
+            'Every new system connection is its own project, with its own budget',
+            'The team exports files to reconcile stock, prices or orders',
+            'Opening a market, a channel or a store requires a development cycle',
+            'The platform bill grows at the same pace as sales',
+            'Essential features exist only as third-party apps',
+          ],
+        },
+        {
+          eyebrow: 'Size',
+          title: 'At what point it starts to pay off',
+          body: 'There is no magic order count. What usually marks the turning point is when the cost of keeping the operation standing — integrations, manual processes, transaction fees — starts competing with the cost of growing it. That normally happens before the team notices.',
+          bullets: [
+            'Operations with more than one sales channel',
+            'Catalogues with variants, pricing rules or customer-specific terms',
+            'Teams with someone already dedicated to the e-commerce operation',
+            'Companies that want control over their data and their costs',
+          ],
+          link: { route: 'why', label: 'See what sets us apart' },
+        },
+        {
+          eyebrow: 'Honesty',
+          title: 'When we are not the right choice',
+          body: 'We say so in the first conversation, and we would rather say it before there is a proposal. If your case is one of these, there are solutions on the market that will serve you better and faster — and we gain nothing by pretending otherwise.',
+          bullets: [
+            'You are starting out, with a small catalogue and a single channel',
+            'You need to be live this week, with minimal configuration',
+            'The operation has no real stock, pricing or channel complexity',
+            'You have nobody dedicated to the digital operation, and do not want one',
+          ],
+        },
+      ],
+
+      midForm: {
+        heading: 'Not sure whether you fit?',
+        body: 'Describe your operation in two lines. We will give you an honest answer, including when that answer is no.',
+        submit: 'Ask for an opinion',
+      },
+
+      closing: {
+        title: 'Let us see whether it makes sense',
+        body: 'Leave your details. We start by understanding the operation and tell you frankly whether we are the right choice.',
+        points: [
+          'We look at your context before proposing anything',
+          'You talk to people who know the platform, not a call centre',
+          'If we are not the best fit for your case, we will tell you',
+        ],
+        submit: 'Talk to a specialist',
+      },
+
+      related: ['fashion', 'platform', 'cases'],
+    },
+  },
 };

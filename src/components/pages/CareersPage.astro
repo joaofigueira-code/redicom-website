@@ -5,6 +5,7 @@ import Hero from '@components/Hero.astro';
 import SectionHeader from '@components/SectionHeader.astro';
 import Card from '@components/Card.astro';
 import Button from '@components/Button.astro';
+import LeadForm from '@components/LeadForm.astro';
 
 import { careersCopy } from '@/data/copy/institutional';
 import { site } from '@/data/site';
@@ -91,6 +92,22 @@ const schema = {
       </div>
     </div>
   </section>
+
+  <!-- Alternativa para quem prefere ser contactado: o CV segue depois, por
+       email. O topico 'careers' separa estas leads das comerciais. -->
+  <section class="section section--tight callback">
+    <div class="container container--narrow">
+      <LeadForm
+        lang={lang}
+        topic="careers"
+        variant="inline"
+        heading={copy.callback.heading}
+        body={copy.callback.body}
+        submitLabel={copy.callback.submit}
+        id="lead-careers"
+      />
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
@@ -138,5 +155,10 @@ const schema = {
     font-size: var(--step--1);
     color: var(--text-muted);
     max-width: 60ch;
+  }
+
+  .callback {
+    background: var(--surface-muted);
+    border-block-start: 1px solid var(--border);
   }
 </style>

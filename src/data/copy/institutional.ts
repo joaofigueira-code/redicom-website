@@ -42,6 +42,8 @@ export type CareersCopy = {
   intro: { title: string; paragraphs: string[] };
   work: { eyebrow: string; title: string; lead: string; items: { title: string; body: string }[] };
   apply: { title: string; body: string; steps: string[]; note: string; cta: string };
+  /** Alternativa ao email, para quem prefere que sejamos nos a contactar. */
+  callback: { heading: string; body: string; submit: string };
 };
 
 export type ThanksCopy = {
@@ -334,6 +336,12 @@ export const careersCopy: Record<Lang, CareersCopy> = {
       note: 'As candidaturas são tratadas pela equipa da Redicom e os seus dados são usados apenas para o processo de recrutamento.',
       cta: 'Enviar candidatura por email',
     },
+
+    callback: {
+      heading: 'Prefere que sejamos nós a contactar?',
+      body: 'Deixe o nome e o e-mail. Respondemos a dizer para onde enviar o currículo e com quem vai falar.',
+      submit: 'Quero ser contactado',
+    },
   },
 
   en: {
@@ -389,6 +397,12 @@ export const careersCopy: Record<Lang, CareersCopy> = {
       ],
       note: 'Applications are handled by the Redicom team and your details are used only for the recruitment process.',
       cta: 'Apply by email',
+    },
+
+    callback: {
+      heading: 'Would you rather we got in touch?',
+      body: 'Leave your name and email. We will reply with where to send your CV and who you will be speaking to.',
+      submit: 'Ask us to call',
     },
   },
 };

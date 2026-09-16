@@ -1,0 +1,324 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import Hero from '@components/Hero.astro';
+import CtaBand from '@components/CtaBand.astro';
+
+import { caseStudies, casesIndexCopy, caseDraftNotice } from '@/data/cases';
+import { site } from '@/data/site';
+import { casePath, path, type Lang } from '@i18n/routes';
+
+/**
+ * Indice dos casos de sucesso.
+ *
+ * O filtro por setor e progressivo: sem JavaScript aparecem todos os casos,
+ * que e o comportamento correto. Os casos por confirmar ficam visiveis para a
+ * equipa os poder rever, mas assinalados e fora do indice dos motores de
+ * busca.
+ */
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const copy = casesIndexCopy[lang];
+
+const entries = caseStudies.map((study) => ({
+  slug: study.slug,
+  status: study.status,
+  href: casePath(study.slug, lang),
+  ...study[lang],
+}));
+
+const sectors = [...new Set(entries.map((entry) => entry.sector))];
+const hasPublished = entries.some((entry) => entry.status === 'published');
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: copy.meta.title,
+  description: copy.meta.description,
+  url: `${site.url}${path('cases', lang)}`,
+  publisher: { '@id': `${site.url}/#organization` },
+};
+---
+
+<BaseLayout
+  lang={lang}
+  title={copy.meta.title}
+  description={copy.meta.description}
+  noindex={!hasPublished}
+  schema={schema}
+>
+  <Breadcrumbs lang={lang} items={[{ label: copy.breadcrumb }]} />
+
+  <Hero
+    eyebrow={copy.hero.eyebrow}
+    title={copy.hero.title}
+    lead={copy.hero.lead}
+    primaryCta={{ label: copy.hero.primary, href: '#falar-connosco' }}
+    compact
+  />
+
+  <section class="section cases">
+    <div class="container">
+      {
+        sectors.length > 1 && (
+          <div class="filters" data-filters>
+            <span class="filters__label" id="filters-label">
+              {copy.filterLabel}
+            </span>
+            <div class="filters__row" role="group" aria-labelledby="filters-label">
+              <button type="button" class="chip" data-sector="all" aria-pressed="true">
+                {copy.allLabel}
+              </button>
+              {sectors.map((sector) => (
+                <button type="button" class="chip" data-sector={sector} aria-pressed="false">
+                  {sector}
+                </button>
+              ))}
+            </div>
+          </div>
+        )
+      }
+
+      <div class="grid grid--3 cases__grid">
+        {
+          entries.map((entry) => (
+            <article class="case" data-sector={entry.sector}>
+              <div class="case__head">
+                <span class="case__sector">{entry.sector}</span>
+                {entry.status === 'draft' && <span class="case__draft">draft</span>}
+              </div>
+              <h2 class="case__client">{entry.client}</h2>
+              <p class="case__headline">{entry.headline}</p>
+              <p class="case__summary">{entry.summary}</p>
+
+              <ul class="case__results">
+                {entry.results.slice(0, 2).map((result) => (
+                  <li>
+                    <strong>{result.value}</strong>
+                    <span>{result.label}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <a class="case__link" href={entry.href}>
+                {copy.readLabel}
+                <span aria-hidden="true">→</span>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+
+      <p class="cases__empty" data-empty hidden>{copy.empty}</p>
+
+      {
+        !hasPublished && (
+          <p class="cases__notice">
+            {caseDraftNotice[lang]}
+          </p>
+        )
+      }
+    </div>
+
+    <script>
+      /**
+       * Filtro por setor. So corre se houver botoes — sem ele, a lista fica
+       * completa, que e o estado correto por omissao.
+       */
+      const filters = document.querySelector('[data-filters]');
+
+      if (filters) {
+        const chips = filters.querySelectorAll('.chip');
+        const cards = document.querySelectorAll('.case');
+        const empty = document.querySelector('[data-empty]');
+
+        filters.addEventListener('click', (event) => {
+          const chip = event.target.closest('.chip');
+          if (!chip) return;
+
+          const sector = chip.dataset.sector;
+          chips.forEach((item) => item.setAttribute('aria-pressed', String(item === chip)));
+
+          let visible = 0;
+          cards.forEach((card) => {
+            const match = sector === 'all' || card.dataset.sector === sector;
+            card.hidden = !match;
+            if (match) visible += 1;
+          });
+
+          if (empty) empty.hidden = visible > 0;
+        });
+      }
+    </script>
+  </section>
+
+  <CtaBand
+    lang={lang}
+    topic="cases"
+    title={copy.closing.title}
+    body={copy.closing.body}
+    points={copy.closing.points}
+    submitLabel={copy.closing.submit}
+  />
+</BaseLayout>
+
+<style>
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm) var(--space-md);
+    margin-block-end: var(--space-xl);
+  }
+
+  .filters__label {
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: var(--weight-semibold);
+    color: var(--text-muted);
+  }
+
+  .filters__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .chip {
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: var(--weight-semibold);
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--text-strong);
+    cursor: pointer;
+  }
+
+  .chip:hover {
+    border-color: var(--text-strong);
+  }
+
+  .chip[aria-pressed='true'] {
+    background: var(--brand-navy);
+    border-color: var(--brand-navy);
+    color: #fff;
+  }
+
+  .case {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding: var(--space-lg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+  }
+
+  .case__head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .case__sector {
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-accent);
+  }
+
+  .case__draft {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.45rem;
+    border-radius: var(--radius-sm);
+    background: var(--brand-orange);
+    color: var(--action-text);
+  }
+
+  .case__client {
+    font-size: var(--step-1);
+  }
+
+  .case__headline {
+    font-family: var(--font-display);
+    font-weight: var(--weight-semibold);
+    color: var(--text-strong);
+  }
+
+  .case__summary {
+    font-size: var(--step--1);
+  }
+
+  .case__results {
+    list-style: none;
+    margin: var(--space-xs) 0 0;
+    padding: var(--space-md) 0 0;
+    border-block-start: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-md);
+  }
+
+  .case__results li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .case__results strong {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-weight: var(--weight-extrabold);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-heading);
+  }
+
+  .case__results span {
+    font-size: var(--step--1);
+    color: var(--text-muted);
+    line-height: 1.3;
+  }
+
+  .case__link {
+    margin-block-start: auto;
+    padding-block-start: var(--space-sm);
+    font-family: var(--font-display);
+    font-weight: var(--weight-semibold);
+    font-size: var(--step--1);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+  }
+
+  .case__link:hover {
+    text-decoration: underline;
+  }
+
+  .cases__empty {
+    margin-block-start: var(--space-xl);
+    color: var(--text-muted);
+  }
+
+  .cases__notice {
+    margin-block-start: var(--space-2xl);
+    padding: var(--space-md) var(--space-lg);
+    border-inline-start: 3px solid var(--brand-orange);
+    background: var(--surface-muted);
+    font-size: var(--step--1);
+    max-width: 72ch;
+  }
+</style>

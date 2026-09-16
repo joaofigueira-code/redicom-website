@@ -1,0 +1,284 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import Stats from '@components/Stats.astro';
+import Card from '@components/Card.astro';
+import CtaBand from '@components/CtaBand.astro';
+
+import { caseDraftNotice, type CaseStudy } from '@/data/cases';
+import { solutionLabels } from '@/data/copy';
+import { site } from '@/data/site';
+import { casePath, path, type Lang } from '@i18n/routes';
+import { useTranslations } from '@i18n/utils';
+
+/**
+ * Pagina de um caso de sucesso.
+ *
+ * A ordem e a de uma historia: quem e o cliente, o que estava a correr mal, o
+ * que fizemos, o que mudou. Os numeros aparecem cedo, logo a seguir ao
+ * cabecalho, porque sao a razao pela qual alguem abre a pagina.
+ *
+ * Casos por confirmar levam noindex e um aviso visivel — e melhor mostra-los
+ * a equipa assim do que escondidos.
+ */
+
+interface Props {
+  lang: Lang;
+  study: CaseStudy;
+}
+
+const { lang, study } = Astro.props;
+const copy = study[lang];
+const t = useTranslations(lang);
+const isDraft = study.status === 'draft';
+
+const labels = solutionLabels(lang);
+const modules = study.modules.filter((route) => Boolean(labels[route]));
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: `${copy.client} — ${copy.headline}`,
+  description: copy.meta.description,
+  url: `${site.url}${casePath(study.slug, lang)}`,
+  publisher: { '@id': `${site.url}/#organization` },
+  about: { '@id': `${site.url}/#organization` },
+};
+---
+
+<BaseLayout
+  lang={lang}
+  title={copy.meta.title}
+  description={copy.meta.description}
+  noindex={isDraft}
+  schema={schema}
+>
+  <Breadcrumbs
+    lang={lang}
+    items={[
+      { label: lang === 'pt' ? 'Casos de Sucesso' : 'Success Stories', href: path('cases', lang) },
+      { label: copy.client },
+    ]}
+  />
+
+  <header class="casehero">
+    <div class="container">
+      <p class="casehero__sector">{copy.sector}</p>
+      <h1 class="casehero__client">{copy.client}</h1>
+      <p class="casehero__headline">{copy.headline}</p>
+    </div>
+  </header>
+
+  {
+    isDraft && (
+      <div class="container">
+        <p class="draftnote">{caseDraftNotice[lang]}</p>
+      </div>
+    )
+  }
+
+  <section class="section section--tight results">
+    <div class="container">
+      <Stats stats={copy.results} />
+    </div>
+  </section>
+
+  <article class="section story">
+    <div class="container container--narrow">
+      <section class="story__block">
+        <h2 class="story__title">{copy.context.title}</h2>
+        {copy.context.paragraphs.map((paragraph) => <p class="story__p">{paragraph}</p>)}
+      </section>
+
+      <section class="story__block">
+        <h2 class="story__title">{copy.challenge.title}</h2>
+        <p class="story__p">{copy.challenge.body}</p>
+        {
+          copy.challenge.bullets && (
+            <ul class="story__list">
+              {copy.challenge.bullets.map((bullet) => (
+                <li>{bullet}</li>
+              ))}
+            </ul>
+          )
+        }
+      </section>
+
+      <section class="story__block">
+        <h2 class="story__title">{copy.solution.title}</h2>
+        <p class="story__p">{copy.solution.body}</p>
+        {
+          copy.solution.bullets && (
+            <ul class="story__list">
+              {copy.solution.bullets.map((bullet) => (
+                <li>{bullet}</li>
+              ))}
+            </ul>
+          )
+        }
+      </section>
+
+      {
+        copy.quote && (
+          <figure class="quote">
+            <blockquote class="quote__text">{copy.quote.text}</blockquote>
+            <figcaption class="quote__by">
+              <span class="quote__author">{copy.quote.author}</span>
+              <span class="quote__role">{copy.quote.role}</span>
+            </figcaption>
+          </figure>
+        )
+      }
+    </div>
+  </article>
+
+  {
+    modules.length > 0 && (
+      <section class="section section--tight modules">
+        <div class="container">
+          <h2 class="modules__title">
+            {lang === 'pt' ? 'O que foi usado neste projeto' : 'What this project runs on'}
+          </h2>
+          <div class="grid grid--3">
+            {modules.map((route) => (
+              <Card title={labels[route]!} href={path(route, lang)} ctaLabel={t('cta.more')} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <CtaBand
+    lang={lang}
+    topic={`case-${study.slug}`}
+    title={copy.closing.title}
+    body={copy.closing.body}
+    submitLabel={copy.closing.submit}
+  />
+</BaseLayout>
+
+<style>
+  .casehero {
+    background: var(--surface-muted);
+    border-block-end: 1px solid var(--border);
+    padding-block: clamp(2.5rem, 1.8rem + 3vw, 4.5rem);
+  }
+
+  .casehero__sector {
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-accent);
+    margin-block-end: var(--space-sm);
+  }
+
+  .casehero__client {
+    font-size: var(--step-5);
+    font-weight: var(--weight-extrabold);
+    max-width: 16ch;
+  }
+
+  .casehero__headline {
+    font-size: var(--step-1);
+    line-height: var(--leading-snug);
+    max-width: 56ch;
+    margin-block-start: var(--space-md);
+  }
+
+  .draftnote {
+    margin-block: var(--space-lg) 0;
+    padding: var(--space-md) var(--space-lg);
+    border-inline-start: 3px solid var(--brand-orange);
+    background: var(--surface-muted);
+    font-size: var(--step--1);
+    max-width: 72ch;
+  }
+
+  .results {
+    border-block-end: 1px solid var(--border);
+  }
+
+  .story__block + .story__block {
+    margin-block-start: var(--space-3xl);
+  }
+
+  .story__title {
+    font-size: var(--step-2);
+    margin-block-end: var(--space-md);
+  }
+
+  .story__p + .story__p {
+    margin-block-start: var(--space-md);
+  }
+
+  .story__list {
+    list-style: none;
+    margin: var(--space-lg) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .story__list li {
+    position: relative;
+    padding-inline-start: 1.4rem;
+  }
+
+  .story__list li::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    top: 0.62em;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--brand-orange);
+  }
+
+  .quote {
+    margin: var(--space-3xl) 0 0;
+    padding: var(--space-xl);
+    background: var(--brand-navy);
+    border-radius: var(--radius-lg);
+    color: #fff;
+  }
+
+  .quote__text {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    line-height: var(--leading-snug);
+    font-weight: var(--weight-semibold);
+  }
+
+  .quote__by {
+    margin-block-start: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    font-size: var(--step--1);
+  }
+
+  .quote__author {
+    font-family: var(--font-display);
+    font-weight: var(--weight-semibold);
+    color: #fff;
+  }
+
+  .quote__role {
+    color: rgba(255, 255, 255, 0.66);
+  }
+
+  .modules {
+    background: var(--surface-muted);
+    border-block-start: 1px solid var(--border);
+  }
+
+  .modules__title {
+    font-size: var(--step-2);
+    margin-block-end: var(--space-lg);
+  }
+</style>

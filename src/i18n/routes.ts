@@ -76,6 +76,11 @@ export const routes = {
   // --- Diferenciacao e tendencia --------------------------------------
   agentic: { pt: 'agentic-commerce', en: 'agentic-commerce' },
   why: { pt: 'porque-redicom', en: 'why-redicom' },
+  audience: { pt: 'para-quem-e-a-redicom', en: 'who-redicom-is-for' },
+  integrations: { pt: 'integracoes', en: 'integrations' },
+
+  // --- Prova ----------------------------------------------------------
+  cases: { pt: 'casos-de-sucesso', en: 'success-stories' },
 
   // --- Documentacao ---------------------------------------------------
   docs: { pt: 'documentacao', en: 'documentation' },
@@ -96,6 +101,9 @@ export const SINGLE_PAGE_IDS = [
   'fashion',
   'agentic',
   'why',
+  'audience',
+  'integrations',
+  'cases',
   'about',
   'contact',
   'careers',
@@ -123,6 +131,17 @@ export function docsPath(slug: string, lang: Lang): string {
 }
 
 /**
+ * Caminho para um caso de sucesso.
+ *
+ * O slug e o mesmo nos dois idiomas — e o nome do cliente — por isso so muda
+ * o segmento da seccao: /pt/casos-de-sucesso/<slug>/ e
+ * /en/success-stories/<slug>/.
+ */
+export function casePath(slug: string, lang: Lang): string {
+  return `${path('cases', lang)}${slug}/`;
+}
+
+/**
  * Dado o caminho atual, devolve o equivalente no outro idioma.
  * Usado pelo seletor de idioma e pelas tags hreflang.
  */
@@ -138,10 +157,13 @@ export function alternatePath(currentPath: string, from: Lang, to: Lang): string
     if (routes[id][from] === rest) return path(id, to);
   }
 
-  // Documentacao: o slug do artigo mantem-se, so muda o segmento base.
-  const docsPrefix = routes.docs[from] + '/';
-  if (rest.startsWith(docsPrefix)) {
-    return `/${to}/${routes.docs[to]}/${rest.slice(docsPrefix.length)}/`;
+  // Documentacao e casos de sucesso: o slug mantem-se nos dois idiomas, so
+  // muda o segmento da seccao.
+  for (const section of ['docs', 'cases'] as const) {
+    const prefix = routes[section][from] + '/';
+    if (rest.startsWith(prefix)) {
+      return `/${to}/${routes[section][to]}/${rest.slice(prefix.length)}/`;
+    }
   }
 
   return `/${to}/`;
