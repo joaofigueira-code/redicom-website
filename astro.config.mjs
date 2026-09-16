@@ -28,9 +28,13 @@ export default defineConfig({
         defaultLocale: 'pt',
         locales: { pt: 'pt-PT', en: 'en' },
       },
-      // Fora do sitemap: a pagina de agradecimento (nao e um destino de
-      // pesquisa) e a raiz do dominio (so encaminha para /pt/).
-      filter: (page) => !page.includes('/obrigado/') && page !== `${site}/`,
+      // Fora do sitemap: as paginas de agradecimento e de erro (nao sao
+      // destinos de pesquisa) e a raiz do dominio (so encaminha para /pt/).
+      filter: (page) =>
+        page !== `${site}/` &&
+        !page.includes('/obrigado/') &&
+        !page.includes('/thank-you/') &&
+        !page.includes('/404'),
     }),
   ],
 

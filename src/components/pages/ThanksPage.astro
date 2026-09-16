@@ -1,0 +1,93 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Button from '@components/Button.astro';
+
+import { thanksCopy } from '@/data/copy/institutional';
+import { path, type Lang } from '@i18n/routes';
+
+/**
+ * Pagina de agradecimento.
+ *
+ * Destino para quem submete um formulario sem JavaScript, e URL util para
+ * marcar a conversao nas ferramentas de analitica. Fica fora do indice e fora
+ * do sitemap: nao e um destino de pesquisa.
+ */
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const copy = thanksCopy[lang];
+---
+
+<BaseLayout lang={lang} title={copy.meta.title} description={copy.meta.description} noindex>
+  <section class="section thanks">
+    <div class="container container--narrow">
+      <p class="thanks__mark" aria-hidden="true">✓</p>
+      <h1 class="thanks__title">{copy.title}</h1>
+      <p class="thanks__lead">{copy.lead}</p>
+
+      <h2 class="thanks__next">{copy.next.title}</h2>
+      <ol class="thanks__steps">
+        {copy.next.items.map((item) => <li>{item}</li>)}
+      </ol>
+
+      <div class="thanks__actions">
+        <Button href={path('home', lang)} variant="primary">{copy.backLabel}</Button>
+        <Button href={path('platform', lang)} variant="secondary">{copy.exploreLabel}</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .thanks {
+    padding-block: clamp(4rem, 3rem + 5vw, 8rem);
+  }
+
+  .thanks__mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--brand-orange);
+    color: var(--action-text);
+    font-size: 1.5rem;
+    font-weight: var(--weight-bold);
+    margin-block-end: var(--space-lg);
+  }
+
+  .thanks__title {
+    font-size: var(--step-4);
+    margin-block-end: var(--space-md);
+  }
+
+  .thanks__lead {
+    font-size: var(--step-1);
+    line-height: var(--leading-snug);
+    max-width: 52ch;
+  }
+
+  .thanks__next {
+    font-size: var(--step-1);
+    margin-block: var(--space-2xl) var(--space-md);
+  }
+
+  .thanks__steps {
+    margin: 0;
+    padding-inline-start: 1.25rem;
+    display: grid;
+    gap: var(--space-xs);
+    max-width: 56ch;
+  }
+
+  .thanks__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-block-start: var(--space-2xl);
+  }
+</style>

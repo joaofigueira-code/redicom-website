@@ -1,0 +1,93 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Button from '@components/Button.astro';
+import { DEFAULT_LANG } from '@i18n/routes';
+
+/**
+ * Pagina de erro 404.
+ *
+ * E servida a partir da raiz, sem prefixo de idioma, por isso nao sabe em que
+ * lingua estava o visitante. Mostra o portugues por omissao e troca para
+ * ingles quando o URL falhado estava sob /en/ — a alternativa seria duas
+ * paginas de erro e um redirecionamento que a maioria dos alojamentos
+ * estaticos nao faz.
+ */
+---
+
+<BaseLayout
+  lang={DEFAULT_LANG}
+  title="Página não encontrada"
+  description="A página que procura não existe ou mudou de endereço."
+  noindex
+>
+  <section class="section notfound">
+    <div class="container container--narrow">
+      <p class="notfound__code">404</p>
+
+      <div data-lang-block="pt">
+        <h1 class="notfound__title">Esta página não existe</h1>
+        <p class="notfound__lead">
+          O endereço pode estar incorreto ou a página pode ter mudado de sítio quando
+          renovámos o site. Comece pela página inicial ou fale connosco.
+        </p>
+        <div class="notfound__actions">
+          <Button href="/pt/" variant="primary">Ir para a página inicial</Button>
+          <Button href="/pt/contactos/" variant="secondary">Falar connosco</Button>
+        </div>
+      </div>
+
+      <div data-lang-block="en" hidden>
+        <h1 class="notfound__title">This page does not exist</h1>
+        <p class="notfound__lead">
+          The address may be wrong, or the page may have moved when we rebuilt the site.
+          Start from the home page, or get in touch.
+        </p>
+        <div class="notfound__actions">
+          <Button href="/en/" variant="primary">Go to the home page</Button>
+          <Button href="/en/contact/" variant="secondary">Talk to us</Button>
+        </div>
+      </div>
+
+      <script is:inline>
+        if (window.location.pathname.startsWith('/en/')) {
+          document.documentElement.lang = 'en';
+          document.querySelector('[data-lang-block="pt"]').hidden = true;
+          document.querySelector('[data-lang-block="en"]').hidden = false;
+        }
+      </script>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound {
+    padding-block: clamp(4rem, 3rem + 5vw, 8rem);
+  }
+
+  .notfound__code {
+    font-family: var(--font-display);
+    font-size: var(--step-5);
+    font-weight: var(--weight-extrabold);
+    color: var(--brand-orange);
+    line-height: 1;
+    margin-block-end: var(--space-md);
+  }
+
+  .notfound__title {
+    font-size: var(--step-4);
+    margin-block-end: var(--space-md);
+  }
+
+  .notfound__lead {
+    font-size: var(--step-1);
+    line-height: var(--leading-snug);
+    max-width: 52ch;
+  }
+
+  .notfound__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-block-start: var(--space-xl);
+  }
+</style>

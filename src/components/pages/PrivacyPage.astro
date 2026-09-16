@@ -1,0 +1,206 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+
+import {
+  privacyEffectiveDate,
+  privacyIntro,
+  privacyMeta,
+  privacyNotice,
+  privacyPlace,
+  privacySections,
+  privacyTitle,
+} from '@/data/legal/privacy';
+import { site } from '@/data/site';
+import { path, type Lang } from '@i18n/routes';
+import { useTranslations } from '@i18n/utils';
+
+/**
+ * Politica de Privacidade.
+ *
+ * Pagina de texto longo: coluna estreita, indice lateral e nada mais. Nao
+ * leva formulario — quem chega aqui quer ler, nao converter.
+ */
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const meta = privacyMeta[lang];
+const notice = privacyNotice[lang];
+const t = useTranslations(lang);
+
+/** Ancoras estaveis para o indice lateral. */
+const slug = (heading: string) =>
+  heading
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: meta.title,
+  description: meta.description,
+  url: `${site.url}${path('privacy', lang)}`,
+  publisher: { '@id': `${site.url}/#organization` },
+};
+---
+
+<BaseLayout
+  lang={lang}
+  title={meta.title}
+  description={meta.description}
+  schema={schema}
+>
+  <Breadcrumbs lang={lang} items={[{ label: meta.breadcrumb }]} />
+
+  <article class="section legal">
+    <div class="container legal__grid">
+      <nav class="legal__toc" aria-label={t('nav.onThisPage')}>
+        <h2 class="legal__toc-title">{t('nav.onThisPage')}</h2>
+        <ul>
+          {
+            privacySections.map((section) => (
+              <li>
+                <a href={`#${slug(section.heading)}`}>{section.heading}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="legal__body">
+        <header class="legal__header">
+          <h1 class="legal__title">{privacyTitle}</h1>
+          <p class="legal__date">{privacyEffectiveDate} — {privacyPlace}</p>
+        </header>
+
+        {notice && <p class="legal__notice">{notice}</p>}
+
+        {privacyIntro.map((paragraph) => <p class="legal__p">{paragraph}</p>)}
+
+        {
+          privacySections.map((section) => (
+            <section class="legal__section">
+              <h2 class="legal__heading" id={slug(section.heading)}>
+                {section.heading}
+              </h2>
+              {section.paragraphs?.map((paragraph) => <p class="legal__p">{paragraph}</p>)}
+              {section.list && (
+                <ul class="legal__list">
+                  {section.list.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              )}
+            </section>
+          ))
+        }
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .legal__grid {
+    display: grid;
+    grid-template-columns: 16rem minmax(0, 1fr);
+    gap: clamp(2rem, 1rem + 4vw, 4rem);
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .legal__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .legal__toc {
+      position: static;
+      border-block-end: 1px solid var(--border);
+      padding-block-end: var(--space-lg);
+    }
+  }
+
+  .legal__toc {
+    position: sticky;
+    top: calc(var(--header-height) + var(--space-lg));
+    font-size: var(--step--1);
+  }
+
+  .legal__toc-title {
+    font-size: var(--step--1);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-block-end: var(--space-sm);
+  }
+
+  .legal__toc ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .legal__toc a {
+    color: var(--text-body);
+    text-decoration: none;
+  }
+
+  .legal__toc a:hover {
+    color: var(--text-accent);
+    text-decoration: underline;
+  }
+
+  .legal__body {
+    max-width: 68ch;
+  }
+
+  .legal__title {
+    font-size: var(--step-4);
+  }
+
+  .legal__date {
+    color: var(--text-muted);
+    font-size: var(--step--1);
+    margin-block-start: var(--space-xs);
+  }
+
+  .legal__header {
+    margin-block-end: var(--space-xl);
+  }
+
+  .legal__notice {
+    border-inline-start: 3px solid var(--brand-orange);
+    background: var(--surface-muted);
+    padding: var(--space-md) var(--space-lg);
+    margin-block-end: var(--space-xl);
+    font-size: var(--step--1);
+  }
+
+  .legal__p + .legal__p {
+    margin-block-start: var(--space-md);
+  }
+
+  .legal__section {
+    margin-block-start: var(--space-2xl);
+  }
+
+  .legal__heading {
+    font-size: var(--step-2);
+    margin-block-end: var(--space-md);
+    scroll-margin-top: calc(var(--header-height) + var(--space-lg));
+  }
+
+  .legal__list {
+    margin-block-start: var(--space-md);
+    padding-inline-start: 1.25rem;
+    display: grid;
+    gap: var(--space-sm);
+  }
+</style>

@@ -1,0 +1,212 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import Hero from '@components/Hero.astro';
+import LeadForm from '@components/LeadForm.astro';
+
+import { contactCopy } from '@/data/copy/institutional';
+import { site } from '@/data/site';
+import { path, type Lang } from '@i18n/routes';
+import { useTranslations } from '@i18n/utils';
+
+/**
+ * Contactos.
+ *
+ * O formulario fica no topo, a par dos contactos diretos, porque quem abre
+ * esta pagina ja decidiu falar connosco — nao precisa de ser convencido, so
+ * de escolher o canal. Quem ja e cliente encontra o apoio ao cliente sem ter
+ * de passar pelo formulario comercial.
+ */
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const copy = contactCopy[lang];
+const t = useTranslations(lang);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: copy.meta.title,
+  description: copy.meta.description,
+  url: `${site.url}${path('contact', lang)}`,
+  mainEntity: { '@id': `${site.url}/#organization` },
+};
+---
+
+<BaseLayout
+  lang={lang}
+  title={copy.meta.title}
+  description={copy.meta.description}
+  schema={schema}
+>
+  <Breadcrumbs lang={lang} items={[{ label: copy.breadcrumb }]} />
+
+  <Hero eyebrow={copy.hero.eyebrow} title={copy.hero.title} lead={copy.hero.lead} compact />
+
+  <section class="section contact">
+    <div class="container contact__grid">
+      <div class="contact__form" id="falar-connosco">
+        <LeadForm
+          lang={lang}
+          topic="contact"
+          variant="inline"
+          heading={copy.form.heading}
+          body={copy.form.body}
+          submitLabel={copy.form.submit}
+          id="lead-contact"
+        />
+      </div>
+
+      <aside class="contact__aside">
+        <section class="panel">
+          <h2 class="panel__title">{copy.commercial.title}</h2>
+          <p class="panel__body">{copy.commercial.body}</p>
+          <a class="panel__link" href={`mailto:${site.email.general}`}>{site.email.general}</a>
+        </section>
+
+        <section class="panel">
+          <h2 class="panel__title">{copy.support.title}</h2>
+          <p class="panel__body">{copy.support.body}</p>
+          <a class="panel__link" href={`mailto:${site.email.support}`}>{site.email.support}</a>
+          <a class="panel__link" href={`tel:${site.support.phone}`}>{site.support.phoneDisplay}</a>
+          <p class="panel__note">{t('footer.landline')}</p>
+          <h3 class="panel__subtitle">{copy.support.hoursLabel}</h3>
+          <p class="panel__body">{copy.support.hours}</p>
+        </section>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--tight offices">
+    <div class="container">
+      <h2 class="offices__title">{copy.offices.title}</h2>
+      <div class="grid grid--2">
+        {
+          site.offices.map((office) => (
+            <article class="office">
+              <h3 class="office__city">{office.city}</h3>
+              <address class="office__address">
+                {office.street}
+                <br />
+                {office.postalCode} {office.city}
+              </address>
+              <p class="office__contact">
+                <a href={`tel:${office.phone}`}>{office.phoneDisplay}</a>
+                {office.fax && <span class="office__note">Fax: {office.fax}</span>}
+                <span class="office__note">{t('footer.landline')}</span>
+              </p>
+              <a class="office__map" href={office.mapUrl} target="_blank" rel="noopener">
+                {t('footer.viewMap')}
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: clamp(2rem, 1rem + 4vw, 4rem);
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .contact__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .contact__aside {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .panel {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    align-items: start;
+  }
+
+  .panel__title {
+    font-size: var(--step-1);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .panel__subtitle {
+    font-size: var(--step-0);
+    margin-block-start: var(--space-sm);
+  }
+
+  .panel__body {
+    font-size: var(--step--1);
+  }
+
+  .panel__link {
+    font-family: var(--font-display);
+    font-weight: var(--weight-semibold);
+  }
+
+  .panel__note {
+    font-size: var(--step--1);
+    color: var(--text-muted);
+  }
+
+  .offices {
+    background: var(--surface-muted);
+    border-block-start: 1px solid var(--border);
+  }
+
+  .offices__title {
+    font-size: var(--step-2);
+    margin-block-end: var(--space-lg);
+  }
+
+  .office {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    align-items: start;
+  }
+
+  .office__city {
+    font-size: var(--step-1);
+  }
+
+  .office__address {
+    font-style: normal;
+    color: var(--text-body);
+  }
+
+  .office__contact {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+  }
+
+  .office__note {
+    font-size: var(--step--1);
+    color: var(--text-muted);
+  }
+
+  .office__map {
+    font-family: var(--font-display);
+    font-weight: var(--weight-semibold);
+    font-size: var(--step--1);
+  }
+</style>

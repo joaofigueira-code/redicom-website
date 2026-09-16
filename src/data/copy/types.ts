@@ -38,6 +38,18 @@ export type SolutionCopy = {
   /** Blocos longos, alternados, com o detalhe da solucao. */
   sections: DeepSection[];
   /**
+   * Confronto entre a abordagem generica e a abordagem Redicom. So algumas
+   * paginas o usam — e o argumento central de "Porque Redicom" e de
+   * "Agentic Commerce", mas seria repetitivo em todas as paginas de produto.
+   */
+  comparison?: {
+    title: string;
+    lead?: string;
+    genericTitle: string;
+    redicomTitle: string;
+    rows: { topic?: string; generic: string; redicom: string }[];
+  };
+  /**
    * Formulario a meio da pagina. So o definimos em paginas longas — em
    * paginas curtas o bloco final e suficiente e um segundo formulario passa
    * a ruido.

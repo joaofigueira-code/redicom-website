@@ -1,0 +1,213 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import Hero from '@components/Hero.astro';
+import SectionHeader from '@components/SectionHeader.astro';
+import Card from '@components/Card.astro';
+import Stats from '@components/Stats.astro';
+import Button from '@components/Button.astro';
+import CtaBand from '@components/CtaBand.astro';
+
+import { aboutCopy } from '@/data/copy/institutional';
+import { site } from '@/data/site';
+import { path, type Lang } from '@i18n/routes';
+import { useTranslations } from '@i18n/utils';
+
+/**
+ * Sobre Nos.
+ *
+ * A pagina existe para responder a "com quem e que estou a falar", por isso
+ * lidera com a historia e nao com a plataforma. Os escritorios vem do mesmo
+ * ficheiro de dados que alimenta o rodape e os dados estruturados, para que
+ * uma morada so tenha de ser corrigida num sitio.
+ */
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const copy = aboutCopy[lang];
+const t = useTranslations(lang);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: copy.meta.title,
+  description: copy.meta.description,
+  url: `${site.url}${path('about', lang)}`,
+  mainEntity: { '@id': `${site.url}/#organization` },
+};
+---
+
+<BaseLayout
+  lang={lang}
+  title={copy.meta.title}
+  description={copy.meta.description}
+  schema={schema}
+>
+  <Breadcrumbs lang={lang} items={[{ label: copy.breadcrumb }]} />
+
+  <Hero
+    eyebrow={copy.hero.eyebrow}
+    title={copy.hero.title}
+    lead={copy.hero.lead}
+    primaryCta={{ label: copy.hero.primary, href: '#falar-connosco' }}
+    compact
+  />
+
+  <section class="section section--tight marks">
+    <div class="container">
+      <Stats stats={copy.marks} />
+    </div>
+  </section>
+
+  <section class="section story">
+    <div class="container container--narrow">
+      <h2 class="story__title">{copy.story.title}</h2>
+      {copy.story.paragraphs.map((paragraph) => <p class="story__paragraph">{paragraph}</p>)}
+    </div>
+  </section>
+
+  <section class="section values">
+    <div class="container">
+      <SectionHeader
+        eyebrow={copy.values.eyebrow}
+        title={copy.values.title}
+        lead={copy.values.lead}
+      />
+      <div class="grid grid--3">
+        {
+          copy.values.items.map((item) => (
+            <Card title={item.title}>
+              <p>{item.body}</p>
+            </Card>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section offices">
+    <div class="container">
+      <SectionHeader
+        eyebrow={copy.offices.eyebrow}
+        title={copy.offices.title}
+        lead={copy.offices.lead}
+      />
+      <div class="grid grid--2">
+        {
+          site.offices.map((office) => (
+            <article class="office">
+              <h3 class="office__city">{office.city}</h3>
+              <address class="office__address">
+                {office.street}
+                <br />
+                {office.postalCode} {office.city}
+              </address>
+              <p class="office__contact">
+                <a href={`tel:${office.phone}`}>{office.phoneDisplay}</a>
+                <span class="office__note">{t('footer.landline')}</span>
+              </p>
+              <a class="office__map" href={office.mapUrl} target="_blank" rel="noopener">
+                {t('footer.viewMap')}
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight careers">
+    <div class="container container--narrow careers__inner">
+      <div>
+        <h2 class="careers__title">{copy.careers.title}</h2>
+        <p>{copy.careers.body}</p>
+      </div>
+      <Button href={path('careers', lang)} variant="secondary">{copy.careers.cta}</Button>
+    </div>
+  </section>
+
+  <CtaBand
+    lang={lang}
+    topic="about"
+    title={copy.closing.title}
+    body={copy.closing.body}
+    points={copy.closing.points}
+    submitLabel={copy.closing.submit}
+  />
+</BaseLayout>
+
+<style>
+  .marks {
+    border-block-end: 1px solid var(--border);
+  }
+
+  .story {
+    background: var(--surface-muted);
+    border-block-end: 1px solid var(--border);
+  }
+
+  .story__title {
+    font-size: var(--step-3);
+    margin-block-end: var(--space-lg);
+  }
+
+  .story__paragraph + .story__paragraph {
+    margin-block-start: var(--space-md);
+  }
+
+  .office {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    align-items: start;
+  }
+
+  .office__city {
+    font-size: var(--step-1);
+  }
+
+  .office__address {
+    font-style: normal;
+    color: var(--text-body);
+  }
+
+  .office__contact {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+  }
+
+  .office__note {
+    font-size: var(--step--1);
+    color: var(--text-muted);
+  }
+
+  .office__map {
+    font-family: var(--font-display);
+    font-weight: var(--weight-semibold);
+    font-size: var(--step--1);
+  }
+
+  .careers {
+    border-block-start: 1px solid var(--border);
+  }
+
+  .careers__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-lg);
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .careers__title {
+    font-size: var(--step-2);
+    margin-block-end: var(--space-xs);
+  }
+</style>

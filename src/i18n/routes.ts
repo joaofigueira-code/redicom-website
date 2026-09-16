@@ -84,6 +84,28 @@ export const routes = {
 export type RouteId = keyof typeof routes;
 
 /**
+ * Paginas de um so segmento ja construidas.
+ *
+ * Vive aqui, e nao na pagina que as gera, porque o getStaticPaths do Astro
+ * corre num contexto proprio: so pode contar com o que vem de importacoes.
+ * A rota 'docs' esta definida acima mas fora desta lista ate a seccao de
+ * documentacao existir.
+ */
+export const SINGLE_PAGE_IDS = [
+  'platform',
+  'fashion',
+  'agentic',
+  'why',
+  'about',
+  'contact',
+  'careers',
+  'privacy',
+  'thanks',
+] as const;
+
+export type SinglePageId = (typeof SINGLE_PAGE_IDS)[number];
+
+/**
  * Constroi o caminho absoluto de uma rota, com prefixo de idioma e barra final.
  *   path('platformB2C', 'pt') -> '/pt/plataforma/b2c/'
  *   path('home', 'en')        -> '/en/'

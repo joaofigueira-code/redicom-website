@@ -1,0 +1,83 @@
+---
+import HubPage from '@components/HubPage.astro';
+import SolutionPage from '@components/SolutionPage.astro';
+import AboutPage from '@components/pages/AboutPage.astro';
+import ContactPage from '@components/pages/ContactPage.astro';
+import CareersPage from '@components/pages/CareersPage.astro';
+import PrivacyPage from '@components/pages/PrivacyPage.astro';
+import ThanksPage from '@components/pages/ThanksPage.astro';
+
+import { hubCopy } from '@/data/copy/hubs';
+import { solutions, solutionLabels } from '@/data/copy';
+import {
+  LANGUAGES,
+  routes,
+  SINGLE_PAGE_IDS,
+  type Lang,
+  type RouteId,
+  type SinglePageId,
+} from '@i18n/routes';
+
+/**
+ * Paginas de um so segmento.
+ *
+ * Os slugs mudam com o idioma (plataforma / platform, contactos / contact),
+ * por isso nao podem ser ficheiros fixos: teriam de existir duas vezes e
+ * sairiam do mapa de rotas. Este ficheiro gera-os todos e limita-se a
+ * escolher o modelo certo — cada modelo continua no seu proprio componente.
+ */
+
+export function getStaticPaths() {
+  const paths = [];
+
+  for (const lang of LANGUAGES) {
+    for (const id of SINGLE_PAGE_IDS) {
+      const slug = routes[id][lang];
+      if (!slug || slug.includes('/')) continue;
+
+      paths.push({ params: { lang, page: slug }, props: { routeId: id } });
+    }
+  }
+
+  return paths;
+}
+
+const lang = Astro.params.lang as Lang;
+const { routeId } = Astro.props as { routeId: SinglePageId };
+
+const isHub = routeId === 'platform' || routeId === 'fashion';
+const isSolution = routeId === 'agentic' || routeId === 'why';
+
+// O segundo botao do hero leva sempre ao passo seguinte mais provavel: de
+// Fashion Retail entra-se no B2C, da Plataforma vai-se ver o que nos
+// distingue.
+const secondaryRoute: RouteId = routeId === 'fashion' ? 'fashionB2C' : 'why';
+---
+
+{
+  isHub && (
+    <HubPage
+      lang={lang}
+      routeId={routeId as 'platform' | 'fashion'}
+      copy={hubCopy[routeId as 'platform' | 'fashion'][lang]}
+      secondaryRoute={secondaryRoute}
+    />
+  )
+}
+
+{
+  isSolution && (
+    <SolutionPage
+      lang={lang}
+      routeId={routeId}
+      copy={solutions[routeId]![lang]}
+      relatedLabels={solutionLabels(lang)}
+    />
+  )
+}
+
+{routeId === 'about' && <AboutPage lang={lang} />}
+{routeId === 'contact' && <ContactPage lang={lang} />}
+{routeId === 'careers' && <CareersPage lang={lang} />}
+{routeId === 'privacy' && <PrivacyPage lang={lang} />}
+{routeId === 'thanks' && <ThanksPage lang={lang} />}

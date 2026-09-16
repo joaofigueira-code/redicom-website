@@ -1,0 +1,171 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import Hero from '@components/Hero.astro';
+import SectionHeader from '@components/SectionHeader.astro';
+import Card from '@components/Card.astro';
+import Comparison from '@components/Comparison.astro';
+import LeadForm from '@components/LeadForm.astro';
+import CtaBand from '@components/CtaBand.astro';
+import SolutionSection from '@components/SolutionSection.astro';
+
+import type { HubCopy } from '@/data/copy/hubs';
+import { site } from '@/data/site';
+import { path, type Lang, type RouteId } from '@i18n/routes';
+import { useTranslations } from '@i18n/utils';
+
+/**
+ * Modelo das paginas-mae (Plataforma e Fashion Retail).
+ *
+ * A ordem responde a uma pergunta de cada vez: o que e isto (hero), porque e
+ * que e diferente (pilares), o que inclui (modulos), quero falar (formulario),
+ * como funciona ao detalhe (seccoes) e porque nao uma generica (comparacao).
+ */
+
+interface Props {
+  lang: Lang;
+  routeId: Extract<RouteId, 'platform' | 'fashion'>;
+  copy: HubCopy;
+  secondaryRoute: RouteId;
+}
+
+const { lang, routeId, copy, secondaryRoute } = Astro.props;
+const t = useTranslations(lang);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: routeId === 'fashion' ? `${site.product} — Fashion Retail` : site.product,
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  url: `${site.url}${path(routeId, lang)}`,
+  provider: { '@id': `${site.url}/#organization` },
+  description: copy.meta.description,
+};
+---
+
+<BaseLayout
+  lang={lang}
+  title={copy.meta.title}
+  description={copy.meta.description}
+  schema={schema}
+>
+  <Breadcrumbs lang={lang} items={[{ label: copy.breadcrumb }]} />
+
+  <Hero
+    eyebrow={copy.hero.eyebrow}
+    title={copy.hero.title}
+    lead={copy.hero.lead}
+    primaryCta={{ label: copy.hero.primary, href: '#falar-connosco' }}
+    secondaryCta={{ label: copy.hero.secondary, href: path(secondaryRoute, lang) }}
+  />
+
+  <section class="section pillars">
+    <div class="container">
+      <SectionHeader
+        eyebrow={copy.pillars.eyebrow}
+        title={copy.pillars.title}
+        lead={copy.pillars.lead}
+      />
+      <div class="grid grid--4">
+        {
+          copy.pillars.items.map((item) => (
+            <Card title={item.title}>
+              <p>{item.body}</p>
+            </Card>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section modules on-dark">
+    <div class="container">
+      <SectionHeader
+        eyebrow={copy.modules.eyebrow}
+        title={copy.modules.title}
+        lead={copy.modules.lead}
+      />
+      <div class="grid grid--4">
+        {
+          copy.modules.items.map((item) => (
+            <Card
+              title={item.title}
+              href={path(item.route, lang)}
+              ctaLabel={t('cta.more')}
+            >
+              <p>{item.body}</p>
+            </Card>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight midform">
+    <div class="container container--narrow">
+      <LeadForm
+        lang={lang}
+        topic={routeId}
+        variant="inline"
+        heading={copy.midForm.heading}
+        body={copy.midForm.body}
+        submitLabel={copy.midForm.submit}
+        id={`lead-${routeId}-mid`}
+      />
+    </div>
+  </section>
+
+  {copy.sections.map((section, index) => <SolutionSection section={section} lang={lang} index={index} />)}
+
+  {
+    copy.comparison && (
+      <section class="section comparison">
+        <div class="container">
+          <SectionHeader title={copy.comparison.title} lead={copy.comparison.lead} />
+          <Comparison
+            genericTitle={copy.comparison.genericTitle}
+            redicomTitle={copy.comparison.redicomTitle}
+            rows={copy.comparison.rows}
+          />
+        </div>
+      </section>
+    )
+  }
+
+  <CtaBand
+    lang={lang}
+    topic={routeId}
+    title={copy.closing.title}
+    body={copy.closing.body}
+    points={copy.closing.points}
+    submitLabel={copy.closing.submit}
+  />
+</BaseLayout>
+
+<style>
+  .pillars {
+    background: var(--surface-muted);
+    border-block-end: 1px solid var(--border);
+  }
+
+  /* Dentro do bloco escuro os cartoes assentam em vidro, nao em branco. */
+  .modules :global(.card) {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: var(--border-inverse);
+  }
+
+  .modules :global(.card--link:hover) {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: var(--brand-orange);
+  }
+
+  .midform {
+    border-block-end: 1px solid var(--border);
+  }
+
+  .comparison {
+    background: var(--surface-muted);
+    border-block-start: 1px solid var(--border);
+  }
+</style>

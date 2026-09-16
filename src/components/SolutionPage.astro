@@ -6,6 +6,8 @@ import Card from '@components/Card.astro';
 import LeadForm from '@components/LeadForm.astro';
 import CtaBand from '@components/CtaBand.astro';
 import SolutionSection from '@components/SolutionSection.astro';
+import SectionHeader from '@components/SectionHeader.astro';
+import Comparison from '@components/Comparison.astro';
 
 import type { SolutionCopy } from '@/data/copy/types';
 import { site } from '@/data/site';
@@ -114,6 +116,21 @@ const sectionsAfter = copy.sections.slice(splitAt);
   }
 
   {
+    copy.comparison && (
+      <section class="section comparison">
+        <div class="container">
+          <SectionHeader title={copy.comparison.title} lead={copy.comparison.lead} />
+          <Comparison
+            genericTitle={copy.comparison.genericTitle}
+            redicomTitle={copy.comparison.redicomTitle}
+            rows={copy.comparison.rows}
+          />
+        </div>
+      </section>
+    )
+  }
+
+  {
     copy.related && copy.related.length > 0 && (
       <section class="section section--tight related">
         <div class="container">
@@ -151,6 +168,11 @@ const sectionsAfter = copy.sections.slice(splitAt);
   }
 
   .midform {
+    border-block: 1px solid var(--border);
+  }
+
+  .comparison {
+    background: var(--surface-muted);
     border-block: 1px solid var(--border);
   }
 

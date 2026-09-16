@@ -1,0 +1,142 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import Hero from '@components/Hero.astro';
+import SectionHeader from '@components/SectionHeader.astro';
+import Card from '@components/Card.astro';
+import Button from '@components/Button.astro';
+
+import { careersCopy } from '@/data/copy/institutional';
+import { site } from '@/data/site';
+import { path, type Lang } from '@i18n/routes';
+
+/**
+ * Trabalhe Connosco.
+ *
+ * O site em producao usa aqui um formulario com anexo de CV. O formulario de
+ * leads deste site nao aceita ficheiros — e nao devia, porque mistura
+ * candidaturas com pedidos comerciais no mesmo destino — por isso a
+ * candidatura segue por email, com o assunto ja preenchido. Quando a Redicom
+ * tiver um destino proprio para recrutamento, troca-se por um formulario.
+ */
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const copy = careersCopy[lang];
+
+const subject = lang === 'pt' ? 'Candidatura espontânea' : 'Speculative application';
+const mailto = `mailto:${site.email.general}?subject=${encodeURIComponent(subject)}`;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: copy.meta.title,
+  description: copy.meta.description,
+  url: `${site.url}${path('careers', lang)}`,
+  publisher: { '@id': `${site.url}/#organization` },
+};
+---
+
+<BaseLayout
+  lang={lang}
+  title={copy.meta.title}
+  description={copy.meta.description}
+  schema={schema}
+>
+  <Breadcrumbs lang={lang} items={[{ label: copy.breadcrumb }]} />
+
+  <Hero
+    eyebrow={copy.hero.eyebrow}
+    title={copy.hero.title}
+    lead={copy.hero.lead}
+    primaryCta={{ label: copy.hero.primary, href: '#candidatura' }}
+    compact
+  />
+
+  <section class="section intro">
+    <div class="container container--narrow">
+      <h2 class="intro__title">{copy.intro.title}</h2>
+      {copy.intro.paragraphs.map((paragraph) => <p class="intro__paragraph">{paragraph}</p>)}
+    </div>
+  </section>
+
+  <section class="section areas">
+    <div class="container">
+      <SectionHeader eyebrow={copy.work.eyebrow} title={copy.work.title} lead={copy.work.lead} />
+      <div class="grid grid--3">
+        {
+          copy.work.items.map((item) => (
+            <Card title={item.title}>
+              <p>{item.body}</p>
+            </Card>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section apply" id="candidatura">
+    <div class="container container--narrow">
+      <div class="apply__box">
+        <h2 class="apply__title">{copy.apply.title}</h2>
+        <p class="apply__body">{copy.apply.body}</p>
+        <ol class="apply__steps">
+          {copy.apply.steps.map((step) => <li>{step}</li>)}
+        </ol>
+        <Button href={mailto} variant="primary" size="lg">{copy.apply.cta}</Button>
+        <p class="apply__note">{copy.apply.note}</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .intro {
+    background: var(--surface-muted);
+    border-block-end: 1px solid var(--border);
+  }
+
+  .intro__title {
+    font-size: var(--step-3);
+    margin-block-end: var(--space-lg);
+  }
+
+  .intro__paragraph + .intro__paragraph {
+    margin-block-start: var(--space-md);
+  }
+
+  .apply {
+    border-block-start: 1px solid var(--border);
+  }
+
+  .apply__box {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+    background: var(--surface-muted);
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: var(--space-md);
+  }
+
+  .apply__title {
+    font-size: var(--step-2);
+  }
+
+  .apply__steps {
+    margin: 0;
+    padding-inline-start: 1.25rem;
+    display: grid;
+    gap: var(--space-xs);
+  }
+
+  .apply__note {
+    font-size: var(--step--1);
+    color: var(--text-muted);
+    max-width: 60ch;
+  }
+</style>

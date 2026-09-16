@@ -2,13 +2,22 @@ import type { SolutionSet } from './types';
 import { platformCopy } from './platform';
 import { platformOperationsCopy } from './platform-operations';
 import { fashionCopy } from './fashion';
+import { standalonePagesCopy } from './pages';
 import type { Lang, RouteId } from '@i18n/routes';
 
-/** Registo unico de todas as paginas de solucao. */
+/**
+ * Registo unico de todas as paginas que usam o modelo de solucao.
+ *
+ * Inclui as de dois segmentos (plataforma/… e fashion-retail/…) e as de um
+ * segmento que seguem a mesma estrutura de leitura (porque-redicom e
+ * agentic-commerce). Quem gera os URLs filtra pelo numero de segmentos do
+ * slug, por isso as duas familias podem viver no mesmo sitio.
+ */
 export const solutions: SolutionSet = {
   ...platformCopy,
   ...platformOperationsCopy,
   ...fashionCopy,
+  ...standalonePagesCopy,
 };
 
 export const solutionIds = Object.keys(solutions) as RouteId[];
