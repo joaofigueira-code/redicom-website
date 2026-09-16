@@ -194,6 +194,13 @@ ol {
   max-width: var(--container-narrow);
 }
 
+/* Para barras e grelhas que nao sao texto corrido e por isso nao ganham
+   nada em ficarem limitadas a largura de leitura. */
+.container--wide {
+  max-width: var(--container-wide);
+  padding-inline: var(--gutter-sm);
+}
+
 .section {
   padding-block: var(--section-y);
 }

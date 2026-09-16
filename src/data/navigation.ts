@@ -14,9 +14,14 @@ import { path, type Lang, type RouteId } from '@i18n/routes';
  * 2. O menu nao e um mapa do site. Cada painel mostra o essencial; a cauda
  *    longa vive na propria pagina-mae, que ja a lista toda.
  *
- * 3. O cartao da direita e sempre a mesma coisa em todos os paineis — a
+ * 3. O cartao de destaque e sempre a mesma coisa em todos os paineis — a
  *    pagina-mae — e diz pelo nome para onde vai ("Ver a Plataforma"), em vez
- *    de um "Saber mais" que nao se percebe a que se refere.
+ *    de um "Saber mais" que nao se percebe a que se refere. Esta em cima,
+ *    a toda a largura, porque e a frase que enquadra tudo o que vem abaixo.
+ *
+ * As tres entradas com painel sao botoes divididos: o nome navega para a
+ * pagina-mae, a seta abre o painel. Quem ja sabe o que quer nao e obrigado
+ * a passar pelo menu.
  */
 
 export type NavLink = {
@@ -30,6 +35,8 @@ export type NavLink = {
 export type NavGroup = {
   id: string;
   title: Record<Lang, string>;
+  /** Quando existe, o titulo do grupo e ele proprio uma ligacao. */
+  route?: RouteId;
   links: NavLink[];
 };
 
@@ -49,6 +56,31 @@ export type NavItem = {
     cta: Record<Lang, string>;
   };
 };
+
+/**
+ * Integracoes e Documentacao atravessam as tres seccoes e nao pertencem a
+ * nenhuma. Estavam em letra pequena no fundo de um unico painel; agora sao
+ * cartoes visiveis nos tres, porque sao as duas perguntas que toda a gente
+ * faz antes de decidir: liga-se ao que ja tenho, e onde vejo como funciona.
+ */
+const SUPPORT_LINKS: NavLink[] = [
+  {
+    route: 'integrations',
+    label: { pt: 'Integrações', en: 'Integrations' },
+    description: {
+      pt: 'ERP, faturação, pagamentos, transportadoras e marketplaces',
+      en: 'ERP, invoicing, payments, carriers and marketplaces',
+    },
+  },
+  {
+    route: 'docs',
+    label: { pt: 'Documentação', en: 'Documentation' },
+    description: {
+      pt: 'O manual da plataforma, aberto a quem quiser ver antes de falar',
+      en: 'The platform manual, open to anyone who wants to look before talking',
+    },
+  },
+];
 
 export const mainNav: NavItem[] = [
   {
@@ -142,10 +174,7 @@ export const mainNav: NavItem[] = [
         ],
       },
     ],
-    extras: [
-      { route: 'integrations', label: { pt: 'Integrações', en: 'Integrations' } },
-      { route: 'docs', label: { pt: 'Documentação', en: 'Documentation' } },
-    ],
+    extras: SUPPORT_LINKS,
     featured: {
       route: 'platform',
       title: {
@@ -153,8 +182,8 @@ export const mainNav: NavItem[] = [
         en: 'Redicom Commerce Cloud',
       },
       body: {
-        pt: 'B2C, B2B, OMS, POS e marketing na mesma base. A página-mãe lista todos os temas, incluindo os que não cabem neste menu.',
-        en: 'B2C, B2B, OMS, POS and marketing on one foundation. The overview page lists every topic, including the ones that do not fit in this menu.',
+        pt: 'B2C, B2B, OMS, POS e marketing sobre a mesma base de dados. Sem integrações entre módulos, porque não há módulos separados.',
+        en: 'B2C, B2B, OMS, POS and marketing on one database. No integrations between modules, because there are no separate modules.',
       },
       cta: { pt: 'Ver a Plataforma', en: 'See the Platform' },
     },
@@ -212,12 +241,13 @@ export const mainNav: NavItem[] = [
         ],
       },
     ],
+    extras: SUPPORT_LINKS,
     featured: {
       route: 'services',
       title: { pt: 'Serviços Cloud de Marketing', en: 'Cloud Marketing Services' },
       body: {
-        pt: 'Correm sobre a plataforma que já tem, sem ferramentas externas nem sincronizações.',
-        en: 'They run on the platform you already have, with no external tools and no syncing.',
+        pt: 'Correm dentro da plataforma, sobre os dados de venda que já lá estão. Sem ferramentas externas e sem sincronizações para manter.',
+        en: 'They run inside the platform, on the sales data already there. No external tools and no syncing to maintain.',
       },
       cta: { pt: 'Ver os Serviços', en: 'See the Services' },
     },
@@ -305,12 +335,13 @@ export const mainNav: NavItem[] = [
         ],
       },
     ],
+    extras: SUPPORT_LINKS,
     featured: {
       route: 'fashion',
       title: { pt: 'Fashion Retail', en: 'Fashion Retail' },
       body: {
-        pt: 'Sazonalidade, devoluções e matrizes complexas tratadas como regra, não como exceção.',
-        en: 'Seasonality, returns and complex matrices handled as the rule, not the exception.',
+        pt: 'Coleções, tamanhos, cores e devoluções tratados como regra do negócio e não como exceção a configurar.',
+        en: 'Collections, sizes, colours and returns handled as the rule of the business, not as an exception to configure.',
       },
       cta: { pt: 'Ver Fashion Retail', en: 'See Fashion Retail' },
     },
@@ -338,65 +369,49 @@ export const mainNav: NavItem[] = [
  * telemovel, onde o rodape fica longe.
  */
 export const utilityNav: NavLink[] = [
+  { route: 'integrations', label: { pt: 'Integrações', en: 'Integrations' } },
   { route: 'docs', label: { pt: 'Documentação', en: 'Documentation' } },
   { route: 'careers', label: { pt: 'Trabalhe Connosco', en: 'Careers' } },
 ];
 
-export const footerNav: NavGroup[] = [
+/**
+ * As tres seccoes do site, no rodape. Sao so os destinos: a lista de
+ * subpaginas ja esta no menu de navegacao e outra vez dentro de cada
+ * pagina-mae, e repeti-la aqui era a terceira copia da mesma coisa.
+ */
+export const footerSections: NavGroup[] = [
   {
     id: 'platform',
+    route: 'platform',
     title: { pt: 'Plataforma', en: 'Platform' },
-    links: [
-      { route: 'platform', label: { pt: 'Visão geral', en: 'Overview' } },
-      { route: 'platformB2C', label: { pt: 'Plataforma B2C', en: 'B2C Platform' } },
-      { route: 'platformB2B', label: { pt: 'Plataforma B2B', en: 'B2B Platform' } },
-      { route: 'platformOMS', label: { pt: 'Plataforma OMS', en: 'OMS Platform' } },
-      {
-        route: 'platformMarketingCloud',
-        label: { pt: 'Marketing Cloud', en: 'Marketing Cloud' },
-      },
-      { route: 'integrations', label: { pt: 'Integrações', en: 'Integrations' } },
-    ],
+    links: [],
   },
   {
     id: 'services',
+    route: 'services',
     title: { pt: 'Serviços', en: 'Services' },
-    links: [
-      { route: 'services', label: { pt: 'Visão geral', en: 'Overview' } },
-      {
-        route: 'serviceCampaigns',
-        label: { pt: 'Campanhas Automatizadas', en: 'Automated Campaigns' },
-      },
-      { route: 'serviceEmail', label: { pt: 'Email Marketing', en: 'Email Marketing' } },
-      { route: 'serviceSMS', label: { pt: 'SMS Marketing', en: 'SMS Marketing' } },
-      { route: 'serviceDescriptions', label: { pt: 'Descrições AI', en: 'AI Descriptions' } },
-      { route: 'serviceSEO', label: { pt: 'SEO Automático', en: 'Automated SEO' } },
-    ],
+    links: [],
   },
   {
     id: 'fashion',
+    route: 'fashion',
     title: { pt: 'Fashion Retail', en: 'Fashion Retail' },
-    links: [
-      { route: 'fashion', label: { pt: 'Visão geral', en: 'Overview' } },
-      { route: 'fashionB2C', label: { pt: 'Commerce B2C', en: 'B2C Commerce' } },
-      { route: 'fashionB2B', label: { pt: 'Wholesale B2B', en: 'B2B Wholesale' } },
-      { route: 'fashionAIStudio', label: { pt: 'AI Studio', en: 'AI Studio' } },
-      { route: 'fashionAIAssistant', label: { pt: 'Assistente IA', en: 'AI Assistant' } },
-    ],
-  },
-  {
-    id: 'company',
-    title: { pt: 'Redicom', en: 'Redicom' },
-    links: [
-      { route: 'about', label: { pt: 'Sobre Nós', en: 'About Us' } },
-      { route: 'cases', label: { pt: 'Casos de Sucesso', en: 'Success Stories' } },
-      { route: 'agentic', label: { pt: 'Agentic Commerce', en: 'Agentic Commerce' } },
-      { route: 'docs', label: { pt: 'Documentação', en: 'Documentation' } },
-      { route: 'careers', label: { pt: 'Trabalhe Connosco', en: 'Careers' } },
-      { route: 'contact', label: { pt: 'Contactos', en: 'Contact' } },
-    ],
+    links: [],
   },
 ];
+
+/** A empresa. Aqui a lista fica, porque nao existe em mais lado nenhum. */
+export const footerCompany: NavGroup = {
+  id: 'company',
+  title: { pt: 'Redicom', en: 'Redicom' },
+  links: [
+    { route: 'about', label: { pt: 'Sobre Nós', en: 'About Us' } },
+    { route: 'cases', label: { pt: 'Casos de Sucesso', en: 'Success Stories' } },
+    { route: 'docs', label: { pt: 'Documentação', en: 'Documentation' } },
+    { route: 'careers', label: { pt: 'Trabalhe Connosco', en: 'Careers' } },
+    { route: 'contact', label: { pt: 'Contactos', en: 'Contact' } },
+  ],
+};
 
 /** Resolve uma NavLink para href + texto no idioma pedido. */
 export function resolveLink(link: NavLink, lang: Lang) {

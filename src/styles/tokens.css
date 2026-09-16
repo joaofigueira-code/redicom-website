@@ -86,12 +86,19 @@
   --space-2xl: 3rem;
   --space-3xl: 4rem;
   --space-4xl: 6rem;
-  --section-y: clamp(3.5rem, 2.5rem + 4vw, 7rem);
+  --section-y: clamp(2.75rem, 2rem + 3.2vw, 5.5rem);
 
-  /* ---- Layout ----------------------------------------------------- */
-  --container: 76rem;
+  /* ---- Layout -----------------------------------------------------
+     As margens laterais acompanham o ecra em vez de saltarem de um valor
+     para outro: no telemovel encostam ao minimo legivel (16px) e so abrem
+     quando ha largura a sobrar. --gutter-sm e para barras que devem usar
+     o ecra quase todo (a de navegacao); --container-wide para os blocos
+     que ficariam apertados dentro dos 76rem do texto. */
+  --container: 78rem;
+  --container-wide: 92rem;
   --container-narrow: 52rem;
-  --gutter: clamp(1rem, 0.6rem + 1.8vw, 2rem);
+  --gutter: clamp(1rem, 0.55rem + 1.5vw, 2rem);
+  --gutter-sm: clamp(0.9rem, 0.5rem + 1vw, 1.5rem);
 
   /* ---- Forma ------------------------------------------------------ */
   --radius-sm: 6px;

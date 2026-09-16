@@ -22,7 +22,7 @@ function isCurrentSection(routeId: string): boolean {
 
 <header class:list={['header', transparent && 'header--transparent']} data-header>
   <div class="header__bar">
-    <div class="header__container container">
+    <div class="header__container container container--wide">
       <Logo lang={lang} />
 
       <nav class="header__nav" aria-label={t('nav.main')}>
@@ -35,20 +35,51 @@ function isCurrentSection(routeId: string): boolean {
                 <li class="header__item">
                   {item.groups ? (
                     <>
-                      <button
-                        class="header__link header__link--toggle"
-                        aria-expanded="false"
-                        aria-controls={`panel-${item.id}`}
-                        data-panel-toggle={item.id}
-                        aria-current={current ? 'true' : undefined}
-                      >
-                        {item.label[lang]}
-                        <span class="header__chevron" aria-hidden="true" />
-                      </button>
+                      {/* Botao dividido: o nome vai direto a pagina-mae, a seta
+                          abre o painel. Quem ja sabe o que quer nao passa pelo
+                          menu; quem nao sabe, abre-o. */}
+                      <span class="header__split" data-current={current ? 'true' : undefined}>
+                        <a
+                          class="header__link header__link--split"
+                          href={href}
+                          aria-current={current ? 'page' : undefined}
+                        >
+                          {item.label[lang]}
+                        </a>
+                        <button
+                          class="header__disclosure"
+                          aria-expanded="false"
+                          aria-controls={`panel-${item.id}`}
+                          aria-label={`${t('nav.open')}: ${item.label[lang]}`}
+                          data-panel-toggle={item.id}
+                        >
+                          <span class="header__chevron" aria-hidden="true" />
+                        </button>
+                      </span>
 
                       <div class="header__panel" id={`panel-${item.id}`} data-panel={item.id} hidden>
-                        <div class="header__panel-inner container">
-                          <div class="header__groups">
+                        <div class="header__panel-inner container container--wide">
+                          {item.featured && (
+                            <a class="header__featured" href={path(item.featured.route, lang)}>
+                              <span class="header__featured-text">
+                                <span class="header__featured-title">
+                                  {item.featured.title[lang]}
+                                </span>
+                                <span class="header__featured-body">{item.featured.body[lang]}</span>
+                              </span>
+                              <span class="header__featured-cta">
+                                {item.featured.cta[lang]}
+                                <span aria-hidden="true">→</span>
+                              </span>
+                            </a>
+                          )}
+
+                          <div
+                            class:list={[
+                              'header__groups',
+                              item.groups.length === 1 && 'header__groups--single',
+                            ]}
+                          >
                             {item.groups.map((group) => (
                               <div class="header__group">
                                 <p class="header__group-title">{group.title[lang]}</p>
@@ -65,7 +96,9 @@ function isCurrentSection(routeId: string): boolean {
                                             )}
                                           </span>
                                           {resolved.description && (
-                                            <span class="header__card-body">{resolved.description}</span>
+                                            <span class="header__card-body">
+                                              {resolved.description}
+                                            </span>
                                           )}
                                         </a>
                                       </li>
@@ -74,30 +107,29 @@ function isCurrentSection(routeId: string): boolean {
                                 </ul>
                               </div>
                             ))}
-
-                            {item.extras && (
-                              <ul class="header__extras">
-                                {item.extras.map((link) => {
-                                  const resolved = resolveLink(link, lang);
-                                  return (
-                                    <li>
-                                      <a href={resolved.href}>{resolved.label}</a>
-                                    </li>
-                                  );
-                                })}
-                              </ul>
-                            )}
                           </div>
 
-                          {item.featured && (
-                            <a class="header__featured" href={path(item.featured.route, lang)}>
-                              <span class="header__featured-title">{item.featured.title[lang]}</span>
-                              <span class="header__featured-body">{item.featured.body[lang]}</span>
-                              <span class="header__featured-cta">
-                                {item.featured.cta[lang]}
-                                <span aria-hidden="true">→</span>
-                              </span>
-                            </a>
+                          {item.extras && (
+                            <ul class="header__extras">
+                              {item.extras.map((link) => {
+                                const resolved = resolveLink(link, lang);
+                                return (
+                                  <li>
+                                    <a class="header__extra" href={resolved.href}>
+                                      <span class="header__extra-title">
+                                        {resolved.label}
+                                        <span aria-hidden="true">→</span>
+                                      </span>
+                                      {resolved.description && (
+                                        <span class="header__extra-body">
+                                          {resolved.description}
+                                        </span>
+                                      )}
+                                    </a>
+                                  </li>
+                                );
+                              })}
+                            </ul>
                           )}
                         </div>
                       </div>
@@ -154,7 +186,9 @@ function isCurrentSection(routeId: string): boolean {
     </div>
   </div>
 
-  <!-- Menu movel: uma lista simples, sem paineis sobrepostos. -->
+  <!-- Menu movel: uma lista simples, sem paineis sobrepostos. As ligacoes
+       transversais (Integracoes, Documentacao) aparecem uma unica vez no
+       fim, e nao repetidas dentro de cada seccao. -->
   <div class="header__mobile" id="mobile-menu" hidden>
     <div class="header__mobile-inner container">
       <nav aria-label={t('nav.main')}>
@@ -166,17 +200,16 @@ function isCurrentSection(routeId: string): boolean {
               </a>
               {item.groups && (
                 <ul class="mobile-section__list">
-                  {[
-                    ...item.groups.flatMap((group) => group.links),
-                    ...(item.extras ?? []),
-                  ].map((link) => {
-                    const resolved = resolveLink(link, lang);
-                    return (
-                      <li>
-                        <a href={resolved.href}>{resolved.label}</a>
-                      </li>
-                    );
-                  })}
+                  {item.groups
+                    .flatMap((group) => group.links)
+                    .map((link) => {
+                      const resolved = resolveLink(link, lang);
+                      return (
+                        <li>
+                          <a href={resolved.href}>{resolved.label}</a>
+                        </li>
+                      );
+                    })}
                 </ul>
               )}
             </div>
@@ -310,10 +343,13 @@ function isCurrentSection(routeId: string): boolean {
     box-shadow: var(--shadow-sm);
   }
 
+  /* A barra nao e texto corrido: usa a largura do ecra em vez de ficar
+     presa a largura de leitura. E por isso que o logotipo encosta a
+     esquerda e sobra espaco para o menu respirar ao centro. */
   .header__container {
     display: flex;
     align-items: center;
-    gap: var(--space-md);
+    gap: var(--space-sm);
     min-height: var(--header-height);
   }
 
@@ -325,18 +361,17 @@ function isCurrentSection(routeId: string): boolean {
   .header__list {
     display: flex;
     align-items: center;
-    gap: 0.1rem;
+    gap: 0.15rem;
     list-style: none;
     margin: 0;
     padding: 0;
   }
 
-
   .header__link {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    padding: 0.55rem 0.65rem;
+    padding: 0.5rem 0.6rem;
     background: none;
     border: 0;
     border-radius: var(--radius-sm);
@@ -357,6 +392,50 @@ function isCurrentSection(routeId: string): boolean {
     color: var(--text-accent);
   }
 
+  /* --- Botao dividido ------------------------------------------------ */
+  .header__split {
+    display: inline-flex;
+    align-items: center;
+    border-radius: var(--radius-sm);
+    transition: background-color var(--duration) var(--ease);
+  }
+
+  .header__split:hover {
+    background: var(--surface-muted);
+  }
+
+  /* O fundo e do conjunto, nao de cada metade: de outro modo o rato
+     acende meio botao e o outro meio fica branco. */
+  .header__split .header__link:hover {
+    background: none;
+  }
+
+  .header__link--split {
+    padding-inline-end: 0.25rem;
+  }
+
+  .header__split[data-current] .header__link {
+    color: var(--text-accent);
+  }
+
+  .header__disclosure {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6rem;
+    height: 2rem;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    cursor: pointer;
+  }
+
+  .header__disclosure:hover {
+    color: var(--text-heading);
+  }
+
   .header__chevron {
     width: 0.4rem;
     height: 0.4rem;
@@ -366,7 +445,11 @@ function isCurrentSection(routeId: string): boolean {
     transition: transform var(--duration) var(--ease);
   }
 
-  .header__link--toggle[aria-expanded='true'] .header__chevron {
+  .header__disclosure[aria-expanded='true'] {
+    color: var(--text-accent);
+  }
+
+  .header__disclosure[aria-expanded='true'] .header__chevron {
     transform: translateY(1px) rotate(225deg);
   }
 
@@ -382,29 +465,37 @@ function isCurrentSection(routeId: string): boolean {
 
   .header__panel-inner {
     display: grid;
-    gap: var(--space-xl);
-    padding-block: var(--space-xl);
-  }
-
-  @media (min-width: 62rem) {
-    .header__panel-inner {
-      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr);
-    }
+    gap: var(--space-lg);
+    padding-block: var(--space-lg) var(--space-xl);
   }
 
   .header__groups {
     display: grid;
-    gap: var(--space-xl);
+    gap: var(--space-lg);
     align-content: start;
   }
 
   @media (min-width: 48rem) {
     .header__groups {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-2xl);
     }
 
-    .header__extras {
-      grid-column: 1 / -1;
+    /* Um unico grupo nao justifica uma coluna estreita com espaco vazio
+       ao lado: a lista e que passa a ter colunas. */
+    .header__groups--single {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .header__groups--single .header__group-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.15rem var(--space-lg);
+    }
+  }
+
+  @media (min-width: 72rem) {
+    .header__groups--single .header__group-list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 
@@ -428,7 +519,7 @@ function isCurrentSection(routeId: string): boolean {
 
   .header__card {
     display: block;
-    padding: 0.6rem 0.7rem;
+    padding: 0.55rem 0.7rem;
     border-radius: var(--radius-md);
     text-decoration: none;
     transition: background-color var(--duration) var(--ease);
@@ -466,41 +557,87 @@ function isCurrentSection(routeId: string): boolean {
     color: var(--text-muted);
   }
 
-  /* Ligacoes de apoio, fora dos grupos: o menu nao e um mapa do site. */
+  /* --- Integracoes e Documentacao ------------------------------------ */
+  /* Atravessam as tres seccoes e nao pertencem a nenhuma. Sao cartoes com
+     moldura, e nao letra pequena no rodape do painel, porque sao duas das
+     primeiras perguntas de quem esta a avaliar: liga-se ao que ja tenho,
+     e posso ver como funciona antes de falar com alguem. */
   .header__extras {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-md);
+    display: grid;
+    gap: var(--space-sm);
     list-style: none;
     margin: 0;
-    padding-block-start: var(--space-md);
-    border-block-start: 1px solid var(--border);
+    padding: 0;
   }
 
-  .header__extras a {
-    font-family: var(--font-display);
-    font-size: var(--step--1);
-    font-weight: var(--weight-semibold);
-    color: var(--text-muted);
+  @media (min-width: 48rem) {
+    .header__extras {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .header__extra {
+    display: block;
+    height: 100%;
+    padding: 0.75rem 0.95rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface-muted);
     text-decoration: none;
+    transition:
+      border-color var(--duration) var(--ease),
+      background-color var(--duration) var(--ease);
   }
 
-  .header__extras a:hover {
+  .header__extra:hover {
+    border-color: var(--brand-orange);
+    background: var(--surface);
+  }
+
+  .header__extra-title {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-display);
+    font-weight: var(--weight-semibold);
+    color: var(--text-heading);
+  }
+
+  .header__extra:hover .header__extra-title {
     color: var(--text-accent);
   }
 
+  .header__extra-body {
+    display: block;
+    margin-block-start: 0.1rem;
+    font-size: var(--step--1);
+    line-height: 1.45;
+    color: var(--text-muted);
+  }
+
+  /* --- Cartao de destaque -------------------------------------------- */
+  /* Em cima e a toda a largura: e a frase que enquadra tudo o que vem a
+     seguir, e nao uma coluna lateral que se le por ultimo. */
   .header__featured {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: var(--space-lg);
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md) var(--space-xl);
+    padding: var(--space-md) var(--space-lg);
     border-radius: var(--radius-lg);
     background: var(--brand-navy);
     color: #fff;
     text-decoration: none;
   }
 
+  .header__featured-text {
+    display: block;
+    max-width: 62ch;
+  }
+
   .header__featured-title {
+    display: block;
     font-family: var(--font-display);
     font-size: var(--step-1);
     font-weight: var(--weight-extrabold);
@@ -508,6 +645,8 @@ function isCurrentSection(routeId: string): boolean {
   }
 
   .header__featured-body {
+    display: block;
+    margin-block-start: 0.2rem;
     font-size: var(--step--1);
     line-height: 1.5;
     color: rgba(255, 255, 255, 0.75);
@@ -517,16 +656,19 @@ function isCurrentSection(routeId: string): boolean {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    margin-block-start: auto;
-    padding-block-start: var(--space-sm);
+    flex: 0 0 auto;
+    padding: 0.45rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: var(--radius-pill);
     font-family: var(--font-display);
+    font-size: var(--step--1);
     font-weight: var(--weight-semibold);
     color: var(--brand-orange-bright);
+    white-space: nowrap;
   }
 
   .header__featured:hover .header__featured-cta {
-    text-decoration: underline;
-    text-underline-offset: 0.25em;
+    border-color: var(--brand-orange-bright);
   }
 
   /* --- Fim da barra -------------------------------------------------- */
@@ -603,8 +745,8 @@ function isCurrentSection(routeId: string): boolean {
 
   /* --- Botao do menu movel ------------------------------------------- */
   .header__burger {
-    width: 2.75rem;
-    height: 2.75rem;
+    width: 2.6rem;
+    height: 2.6rem;
     display: grid;
     place-items: center;
     background: none;
@@ -665,9 +807,9 @@ function isCurrentSection(routeId: string): boolean {
   }
 
   .header__mobile-inner {
-    padding-block: var(--space-xl) var(--space-3xl);
+    padding-block: var(--space-lg) var(--space-3xl);
     display: grid;
-    gap: var(--space-xl);
+    gap: var(--space-lg);
     justify-items: start;
   }
 
@@ -676,8 +818,8 @@ function isCurrentSection(routeId: string): boolean {
   }
 
   .mobile-section + .mobile-section {
-    margin-block-start: var(--space-lg);
-    padding-block-start: var(--space-lg);
+    margin-block-start: var(--space-md);
+    padding-block-start: var(--space-md);
     border-block-start: 1px solid var(--border);
   }
 
@@ -692,7 +834,7 @@ function isCurrentSection(routeId: string): boolean {
 
   .mobile-section__list {
     list-style: none;
-    margin: var(--space-sm) 0 0;
+    margin: var(--space-xs) 0 0;
     padding: 0;
     display: grid;
     gap: 0.1rem;
@@ -700,7 +842,7 @@ function isCurrentSection(routeId: string): boolean {
 
   .mobile-section__list a {
     display: block;
-    padding: 0.5rem 0;
+    padding: 0.45rem 0;
     font-family: var(--font-display);
     font-size: var(--step--1);
     color: var(--text-body);
@@ -714,7 +856,7 @@ function isCurrentSection(routeId: string): boolean {
   .header__cta--mobile {
     display: inline-flex;
     justify-content: center;
-    padding: 0.9rem 1.5rem;
+    padding: 0.75rem 1.5rem;
     font-size: var(--step-0);
   }
 
@@ -727,8 +869,12 @@ function isCurrentSection(routeId: string): boolean {
       position: relative;
     }
 
+    /* O menu ocupa o espaco que sobra entre o logotipo e o fim da barra, e
+       fica centrado dentro dele. */
     .header__nav {
       display: flex;
+      flex: 1 1 auto;
+      justify-content: center;
     }
 
     .header__cta {
@@ -738,6 +884,44 @@ function isCurrentSection(routeId: string): boolean {
     .header__burger,
     .header__mobile {
       display: none;
+    }
+  }
+
+  /* Entre os 1152px e os 1312px a barra cabe, mas so. Aperta-se aqui o que
+     nao se nota — o espaco a volta das palavras — em vez de deixar os
+     elementos encostarem uns aos outros. */
+  @media (min-width: 72rem) and (max-width: 81.99rem) {
+    .header__link {
+      padding-inline: 0.45rem;
+    }
+
+    .header__link--split {
+      padding-inline-end: 0.2rem;
+    }
+
+    .header__disclosure {
+      width: 1.35rem;
+    }
+  }
+
+  /* A partir daqui ha largura a sobrar: o menu respira. */
+  @media (min-width: 82rem) {
+    .header__container {
+      gap: var(--space-lg);
+    }
+
+    .header__list {
+      gap: 0.35rem;
+    }
+
+    .header__link {
+      padding-inline: 0.8rem;
+    }
+
+    /* Reafirmado porque a regra acima tambem apanha a metade esquerda do
+       botao dividido, e ela tem de continuar colada a seta. */
+    .header__link--split {
+      padding-inline-end: 0.3rem;
     }
   }
 </style>

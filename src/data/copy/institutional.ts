@@ -227,8 +227,8 @@ export const contactCopy: Record<Lang, ContactCopy> = {
     },
 
     support: {
-      title: 'Já é cliente?',
-      body: 'O apoio ao cliente responde diretamente, sem passar por formulário.',
+      title: 'Apoio ao cliente',
+      body: 'Se já é cliente, fale diretamente com a equipa de apoio — sem passar por formulário.',
       hoursLabel: 'Horário',
       hours: 'De segunda a sexta-feira, das 9h00 às 18h00. Encerrado aos sábados, domingos e feriados.',
     },
@@ -264,8 +264,8 @@ export const contactCopy: Record<Lang, ContactCopy> = {
     },
 
     support: {
-      title: 'Already a client?',
-      body: 'Customer support answers directly, with no form in between.',
+      title: 'Customer support',
+      body: 'If you are already a client, talk to the support team directly — with no form in between.',
       hoursLabel: 'Opening hours',
       hours: 'Monday to Friday, 9am to 6pm. Closed on Saturdays, Sundays and public holidays.',
     },

@@ -22,9 +22,17 @@ export const site = {
     phoneDisplay: '(+351) 252 850 731',
   },
 
+  /**
+   * Redes sociais. O rodape so desenha as que tem endereco: o Reddit ainda
+   * esta por criar e um icone que nao leva a lado nenhum e pior do que icone
+   * nenhum — assim que a conta existir, basta preencher aqui o endereco e o
+   * icone aparece sozinho.
+   */
   social: {
     linkedin: 'https://www.linkedin.com/company/redicom',
     instagram: 'https://www.instagram.com/redicomcommerce/',
+    facebook: 'https://www.facebook.com/redicomecommerce/',
+    reddit: null as string | null,
   },
 
   offices: [

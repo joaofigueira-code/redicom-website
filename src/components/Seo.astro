@@ -46,7 +46,7 @@ const organizationSchema = {
   logo: new URL('/brand/redicom-logo.svg', site.url).href,
   foundingDate: String(site.foundingYear),
   email: site.email.general,
-  sameAs: [site.social.linkedin, site.social.instagram],
+  sameAs: Object.values(site.social).filter(Boolean),
   contactPoint: [
     {
       '@type': 'ContactPoint',
