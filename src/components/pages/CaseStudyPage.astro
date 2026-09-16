@@ -5,7 +5,7 @@ import Stats from '@components/Stats.astro';
 import Card from '@components/Card.astro';
 import CtaBand from '@components/CtaBand.astro';
 
-import { caseDraftNotice, type CaseStudy } from '@/data/cases';
+import { caseDraftNotice, caseMissingCopy, defaultClosing, type CaseStudy } from '@/data/cases';
 import { solutionLabels } from '@/data/copy';
 import { site } from '@/data/site';
 import { casePath, path, type Lang } from '@i18n/routes';
@@ -14,12 +14,13 @@ import { useTranslations } from '@i18n/utils';
 /**
  * Pagina de um caso de sucesso.
  *
- * A ordem e a de uma historia: quem e o cliente, o que estava a correr mal, o
- * que fizemos, o que mudou. Os numeros aparecem cedo, logo a seguir ao
- * cabecalho, porque sao a razao pela qual alguem abre a pagina.
+ * A ordem e a de uma historia: com quem estamos a falar, o que estava a
+ * correr mal, o que fizemos, o que mudou. Os numeros aparecem cedo, logo a
+ * seguir ao cabecalho, porque sao a razao pela qual alguem abre a pagina.
  *
- * Casos por confirmar levam noindex e um aviso visivel — e melhor mostra-los
- * a equipa assim do que escondidos.
+ * Nem todos os casos tem historia escrita. Os que ainda so tem o resumo do
+ * site atual mostram a mesma estrutura, um aviso e a lista do que falta — e
+ * melhor mostra-los assim a equipa do que escondidos.
  */
 
 interface Props {
@@ -31,6 +32,9 @@ const { lang, study } = Astro.props;
 const copy = study[lang];
 const t = useTranslations(lang);
 const isDraft = study.status === 'draft';
+const missing = caseMissingCopy[lang];
+const closing = copy.closing ?? defaultClosing[lang];
+const hasStory = Boolean(copy.challenge || copy.solution || copy.outcome);
 
 const labels = solutionLabels(lang);
 const modules = study.modules.filter((route) => Boolean(labels[route]));
@@ -62,10 +66,26 @@ const schema = {
   />
 
   <header class="casehero">
-    <div class="container">
-      <p class="casehero__sector">{copy.sector}</p>
-      <h1 class="casehero__client">{copy.client}</h1>
-      <p class="casehero__headline">{copy.headline}</p>
+    <div class="container casehero__inner">
+      <div class="casehero__text">
+        <p class="casehero__sector">{copy.sector}</p>
+        <h1 class="casehero__client">{copy.client}</h1>
+        <p class="casehero__headline">{copy.headline}</p>
+        {copy.lead && <p class="casehero__lead">{copy.lead}</p>}
+      </div>
+
+      {/* Espaco reservado ate haver imagem do projeto. */}
+      <div class="casehero__media">
+        {
+          study.image ? (
+            <img src={study.image} alt={copy.client} />
+          ) : (
+            <span class="casehero__placeholder">
+              {lang === 'pt' ? 'Imagem do projeto por adicionar' : 'Project image to be added'}
+            </span>
+          )
+        }
+      </div>
     </div>
   </header>
 
@@ -77,49 +97,68 @@ const schema = {
     )
   }
 
-  <section class="section section--tight results">
-    <div class="container">
-      <Stats stats={copy.results} />
-    </div>
-  </section>
-
-  <article class="section story">
-    <div class="container container--narrow">
-      <section class="story__block">
-        <h2 class="story__title">{copy.context.title}</h2>
-        {copy.context.paragraphs.map((paragraph) => <p class="story__p">{paragraph}</p>)}
+  {
+    copy.results && copy.results.length > 0 && (
+      <section class="section section--tight results">
+        <div class="container">
+          <Stats stats={copy.results} />
+        </div>
       </section>
+    )
+  }
 
-      <section class="story__block">
-        <h2 class="story__title">{copy.challenge.title}</h2>
-        <p class="story__p">{copy.challenge.body}</p>
-        {
-          copy.challenge.bullets && (
-            <ul class="story__list">
-              {copy.challenge.bullets.map((bullet) => (
-                <li>{bullet}</li>
+  {
+    copy.challenge && (
+      <section class="section story story--muted">
+        <div class="container container--reading">
+          <p class="eyebrow">{lang === 'pt' ? 'O desafio' : 'The challenge'}</p>
+          <h2 class="story__title">{copy.challenge.title}</h2>
+          {copy.challenge.paragraphs.map((paragraph) => <p class="story__p">{paragraph}</p>)}
+        </div>
+      </section>
+    )
+  }
+
+  {
+    copy.solution && (
+      <section class="section story">
+        <div class="container">
+          <div class="container--reading story__head">
+            <p class="eyebrow">{lang === 'pt' ? 'A solução' : 'The solution'}</p>
+            <h2 class="story__title">{copy.solution.title}</h2>
+            {copy.solution.paragraphs.map((paragraph) => <p class="story__p">{paragraph}</p>)}
+          </div>
+
+          {copy.solution.cards && copy.solution.cards.length > 0 && (
+            <div class="grid grid--3 story__cards">
+              {copy.solution.cards.map((card) => (
+                <Card title={card.title}>
+                  <p>{card.body}</p>
+                </Card>
               ))}
-            </ul>
-          )
-        }
+            </div>
+          )}
+        </div>
       </section>
+    )
+  }
 
-      <section class="story__block">
-        <h2 class="story__title">{copy.solution.title}</h2>
-        <p class="story__p">{copy.solution.body}</p>
-        {
-          copy.solution.bullets && (
-            <ul class="story__list">
-              {copy.solution.bullets.map((bullet) => (
-                <li>{bullet}</li>
-              ))}
-            </ul>
-          )
-        }
+  {
+    copy.outcome && (
+      <section class="section story story--muted">
+        <div class="container container--reading">
+          <p class="eyebrow">{lang === 'pt' ? 'Resultados' : 'Results'}</p>
+          <h2 class="story__title">{copy.outcome.title}</h2>
+          {copy.outcome.paragraphs.map((paragraph) => <p class="story__p">{paragraph}</p>)}
+        </div>
       </section>
+    )
+  }
 
-      {
-        copy.quote && (
+  {
+    copy.quote && (
+      <section class="section section--tight">
+        <div class="container container--reading">
           <figure class="quote">
             <blockquote class="quote__text">{copy.quote.text}</blockquote>
             <figcaption class="quote__by">
@@ -127,10 +166,26 @@ const schema = {
               <span class="quote__role">{copy.quote.role}</span>
             </figcaption>
           </figure>
-        )
-      }
-    </div>
-  </article>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    !hasStory && (
+      <section class="section missing">
+        <div class="container container--reading">
+          <h2 class="missing__title">{missing.title}</h2>
+          <p class="missing__body">{missing.body}</p>
+          <ul class="missing__list">
+            {missing.fields.map((field) => (
+              <li>{field}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
 
   {
     modules.length > 0 && (
@@ -152,9 +207,9 @@ const schema = {
   <CtaBand
     lang={lang}
     topic={`case-${study.slug}`}
-    title={copy.closing.title}
-    body={copy.closing.body}
-    submitLabel={copy.closing.submit}
+    title={closing.title}
+    body={closing.body}
+    submitLabel={closing.submit}
   />
 </BaseLayout>
 
@@ -162,7 +217,20 @@ const schema = {
   .casehero {
     background: var(--surface-muted);
     border-block-end: 1px solid var(--border);
-    padding-block: clamp(2.5rem, 1.8rem + 3vw, 4.5rem);
+    padding-block: var(--section-y);
+  }
+
+  .casehero__inner {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+
+  @media (min-width: 56rem) {
+    .casehero__inner {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-3xl);
+    }
   }
 
   .casehero__sector {
@@ -172,24 +240,57 @@ const schema = {
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--text-accent);
-    margin-block-end: var(--space-sm);
   }
 
   .casehero__client {
+    margin-block-start: var(--space-xs);
     font-size: var(--step-5);
-    font-weight: var(--weight-extrabold);
-    max-width: 16ch;
   }
 
   .casehero__headline {
-    font-size: var(--step-1);
-    line-height: var(--leading-snug);
-    max-width: 56ch;
+    margin-block-start: var(--space-sm);
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-weight: var(--weight-semibold);
+    color: var(--text-strong);
+  }
+
+  .casehero__lead {
     margin-block-start: var(--space-md);
+    max-width: 52ch;
+  }
+
+  .casehero__media {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--radius-lg);
+    background-image: linear-gradient(
+      135deg,
+      var(--brand-navy) 0%,
+      var(--surface-inverse-soft) 100%
+    );
+    overflow: hidden;
+  }
+
+  .casehero__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .casehero__placeholder {
+    padding-inline: var(--space-lg);
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
   }
 
   .draftnote {
-    margin-block: var(--space-lg) 0;
+    margin-block-start: var(--space-lg);
     padding: var(--space-md) var(--space-lg);
     border-inline-start: 3px solid var(--brand-orange);
     background: var(--surface-muted);
@@ -201,49 +302,28 @@ const schema = {
     border-block-end: 1px solid var(--border);
   }
 
-  .story__block + .story__block {
-    margin-block-start: var(--space-3xl);
+  .story--muted {
+    background: var(--surface-muted);
+    border-block: 1px solid var(--border);
   }
 
   .story__title {
-    font-size: var(--step-2);
-    margin-block-end: var(--space-md);
+    margin-block: var(--space-xs) var(--space-lg);
+    font-size: var(--step-3);
   }
 
   .story__p + .story__p {
     margin-block-start: var(--space-md);
   }
 
-  .story__list {
-    list-style: none;
-    margin: var(--space-lg) 0 0;
-    padding: 0;
-    display: grid;
-    gap: var(--space-sm);
-  }
-
-  .story__list li {
-    position: relative;
-    padding-inline-start: 1.4rem;
-  }
-
-  .story__list li::before {
-    content: '';
-    position: absolute;
-    inset-inline-start: 0;
-    top: 0.62em;
-    width: 0.45rem;
-    height: 0.45rem;
-    border-radius: 50%;
-    background: var(--brand-orange);
+  .story__cards {
+    margin-block-start: var(--space-2xl);
   }
 
   .quote {
-    margin: var(--space-3xl) 0 0;
-    padding: var(--space-xl);
-    background: var(--brand-navy);
-    border-radius: var(--radius-lg);
-    color: #fff;
+    margin: 0;
+    border-inline-start: 3px solid var(--brand-orange);
+    padding-inline-start: var(--space-lg);
   }
 
   .quote__text {
@@ -251,25 +331,44 @@ const schema = {
     font-family: var(--font-display);
     font-size: var(--step-2);
     line-height: var(--leading-snug);
-    font-weight: var(--weight-semibold);
+    color: var(--text-heading);
   }
 
   .quote__by {
-    margin-block-start: var(--space-lg);
+    margin-block-start: var(--space-md);
     display: flex;
     flex-direction: column;
-    gap: 0.1rem;
     font-size: var(--step--1);
   }
 
   .quote__author {
     font-family: var(--font-display);
     font-weight: var(--weight-semibold);
-    color: #fff;
+    color: var(--text-strong);
   }
 
   .quote__role {
-    color: rgba(255, 255, 255, 0.66);
+    color: var(--text-muted);
+  }
+
+  .missing {
+    border-block-start: 1px solid var(--border);
+  }
+
+  .missing__title {
+    font-size: var(--step-2);
+  }
+
+  .missing__body {
+    margin-block: var(--space-sm) var(--space-md);
+  }
+
+  .missing__list {
+    margin: 0;
+    padding-inline-start: 1.2rem;
+    display: grid;
+    gap: var(--space-xs);
+    font-size: var(--step--1);
   }
 
   .modules {

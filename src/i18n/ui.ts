@@ -81,17 +81,25 @@ export const ui = {
     // --- Newsletter ---------------------------------------------------
     'news.title': 'Newsletter',
     'news.body':
-      'Uma vez por mês: o que muda no comércio digital e o que aprendemos em projetos reais.',
+      'Novidades do mercado, novos serviços da plataforma e o que a Redicom Commerce Cloud passa a fazer. Sem calendário fixo: escrevemos quando há alguma coisa para contar.',
     'news.cta': 'Subscrever',
     'news.placeholder': 'O seu email',
     'news.label': 'Email para a newsletter',
     'news.success': 'Subscrição registada. Obrigado.',
     'news.error': 'Não foi possível registar a subscrição. Tente novamente.',
-    'news.popupTitle': 'Uma vez por mês, sem ruído',
+    'news.popupTitle': 'Fique a par do que muda',
     'news.popupBody':
-      'O que muda no comércio digital, o que funciona nos projetos que fazemos e o que não funciona. Pode cancelar em qualquer altura.',
+      'Novidades do comércio digital, novos serviços da Redicom Commerce Cloud e as vantagens que a plataforma vai ganhando. Só enviamos quando há alguma coisa que valha a pena ler. Pode cancelar em qualquer altura.',
     'news.dismiss': 'Agora não',
     'news.close': 'Fechar',
+
+    // --- Consentimento -------------------------------------------------
+    'consent.label': 'Aviso de privacidade',
+    'consent.body':
+      'Este site guarda no seu equipamento apenas o que precisa para funcionar. Com a sua autorização, guarda também a campanha que o trouxe até aqui, para sabermos o que funciona. Sem publicidade e sem partilha com terceiros.',
+    'consent.more': 'Saber mais',
+    'consent.accept': 'Aceitar',
+    'consent.deny': 'Recusar',
 
     // --- Voltar ao topo -----------------------------------------------
     'common.toTop': 'Voltar ao topo',
@@ -181,17 +189,25 @@ export const ui = {
     // --- Newsletter ---------------------------------------------------
     'news.title': 'Newsletter',
     'news.body':
-      'Once a month: what is changing in digital commerce and what we learn on real projects.',
+      'Market news, new services on the platform and what the Redicom Commerce Cloud can do next. No fixed schedule: we write when there is something to say.',
     'news.cta': 'Subscribe',
     'news.placeholder': 'Your email',
     'news.label': 'Email for the newsletter',
     'news.success': 'You are subscribed. Thank you.',
     'news.error': 'We could not register the subscription. Please try again.',
-    'news.popupTitle': 'Once a month, no noise',
+    'news.popupTitle': 'Keep up with what changes',
     'news.popupBody':
-      'What is changing in digital commerce, what works on the projects we run and what does not. You can unsubscribe at any time.',
+      'Digital commerce news, new Redicom Commerce Cloud services and the advantages the platform keeps adding. We only send when there is something worth reading. You can unsubscribe at any time.',
     'news.dismiss': 'Not now',
     'news.close': 'Close',
+
+    // --- Consent -------------------------------------------------------
+    'consent.label': 'Privacy notice',
+    'consent.body':
+      'This site only stores on your device what it needs to work. With your permission, it also stores the campaign that brought you here, so we know what works. No advertising and nothing shared with third parties.',
+    'consent.more': 'Learn more',
+    'consent.accept': 'Accept',
+    'consent.deny': 'Decline',
 
     // --- Back to top ---------------------------------------------------
     'common.toTop': 'Back to top',

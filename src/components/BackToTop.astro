@@ -57,6 +57,19 @@ const t = useTranslations(lang);
 </style>
 
 <script>
+  /**
+   * Um unico motor de scroll para todo o site: o botao de voltar ao topo e
+   * as ancoras internas (as tres seccoes no rodape, a barra de saltos do
+   * Sobre Nos, os botoes que levam ao formulario). Antes o movimento das
+   * ancoras vinha do scroll-behavior: smooth no html, que tinha o efeito
+   * lateral de animar tambem a mudanca de pagina.
+   */
+  const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: reduced() ? 'auto' : 'smooth' });
+  }
+
   const button = document.querySelector<HTMLButtonElement>('[data-to-top]');
 
   if (button) {
@@ -66,10 +79,32 @@ const t = useTranslations(lang);
 
     show();
     window.addEventListener('scroll', show, { passive: true });
-
-    button.addEventListener('click', () => {
-      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
-    });
+    button.addEventListener('click', scrollToTop);
   }
+
+  // Ancoras internas. O scroll-margin-top de cada alvo ja desconta o
+  // cabecalho fixo, e o scrollIntoView respeita-o.
+  document.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement | null;
+    const link = target?.closest?.('a[href]') as HTMLAnchorElement | null;
+    if (!link || link.target === '_blank' || link.hasAttribute('download')) return;
+
+    const url = new URL(link.href, window.location.href);
+    const samePage =
+      url.origin === window.location.origin && url.pathname === window.location.pathname;
+    if (!samePage || !url.hash) return;
+
+    if (url.hash === '#' || url.hash === '#top') {
+      event.preventDefault();
+      scrollToTop();
+      return;
+    }
+
+    const destination = document.getElementById(decodeURIComponent(url.hash.slice(1)));
+    if (!destination) return;
+
+    event.preventDefault();
+    destination.scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'start' });
+    history.pushState(null, '', url.hash);
+  });
 </script>

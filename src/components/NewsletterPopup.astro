@@ -6,9 +6,10 @@ import type { Lang } from '@i18n/routes';
 /**
  * Janela de subscricao, so na pagina inicial.
  *
- * Quando aparece: passados 20 segundos, e so se a pessoa tiver percorrido
- * pelo menos um quarto da pagina. As duas condicoes juntas evitam a
- * interrupcao logo a entrada, que e o que faz fechar sem ler.
+ * Quando aparece: quando a pessoa chega ao segundo bloco da pagina (a faixa
+ * dos numeros, "desde 2002"), assinalado com data-news-trigger. Nao ha
+ * contador de tempo: o gatilho e a leitura, nao o relogio, e assim nunca
+ * aparece a alguem que ainda esta a ler o topo.
  *
  * Quando nao aparece: se ja subscreveu ou ja dispensou neste browser, ou se
  * a pessoa preferir menos movimento (prefers-reduced-motion nao cobre isto,
@@ -140,28 +141,29 @@ const t = useTranslations(lang);
   import { hasNewsletterMark, setNewsletterMark } from '@/lib/leads';
 
   const popup = document.querySelector<HTMLElement>('[data-newsletter-popup]');
+  const trigger = document.querySelector('[data-news-trigger]');
 
-  if (popup && !hasNewsletterMark()) {
-    const DELAY = 20000;
-    const DEPTH = 0.25;
+  if (popup && trigger && !hasNewsletterMark()) {
     let shown = false;
-    let waited = false;
-    let scrolled = false;
 
-    function maybeShow() {
-      if (shown || !waited || !scrolled) return;
-      shown = true;
-      popup!.hidden = false;
-      popup!.querySelector<HTMLInputElement>('input[name="email"]')?.focus();
-      window.removeEventListener('scroll', onScroll);
+    // Uma coisa de cada vez: enquanto a barra de consentimento estiver a
+    // espera de resposta, a janela nao aparece por cima dela.
+    function barPending() {
+      return document.documentElement.hasAttribute('data-consent-open');
     }
 
-    function onScroll() {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      if (max <= 0 || window.scrollY / max >= DEPTH) {
-        scrolled = true;
-        maybeShow();
+    let waitingForConsent = false;
+
+    function open() {
+      if (shown) return;
+      if (barPending()) {
+        waitingForConsent = true;
+        return;
       }
+      shown = true;
+      observer.disconnect();
+      popup!.hidden = false;
+      popup!.querySelector<HTMLInputElement>('input[name="email"]')?.focus();
     }
 
     function close() {
@@ -170,24 +172,35 @@ const t = useTranslations(lang);
       setNewsletterMark();
     }
 
-    window.setTimeout(() => {
-      waited = true;
-      maybeShow();
-    }, DELAY);
+    // Metade do bloco a vista e ja houve scroll: sem a segunda condicao, um
+    // ecra alto abria a janela sem a pessoa ter feito nada.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting && window.scrollY > 0) open();
+        }
+      },
+      { threshold: 0.5 },
+    );
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    observer.observe(trigger);
 
     popup.querySelectorAll('[data-pop-close]').forEach((node) => {
       node.addEventListener('click', close);
+    });
+
+    document.addEventListener('redicom:consent', () => {
+      if (waitingForConsent) open();
     });
 
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape' && !popup.hidden) close();
     });
 
-    // Se subscrever pelo rodape enquanto a janela esta escondida, nao aparece.
+    // Se subscrever pelo rodape antes de chegar aqui, a janela nao aparece.
     document.addEventListener('redicom:subscribed', () => {
       shown = true;
+      observer.disconnect();
       popup.hidden = true;
     });
   }

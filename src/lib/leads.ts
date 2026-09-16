@@ -120,6 +120,47 @@ export function validateLead(name: string, email: string): ValidationCode | null
   return null;
 }
 
+/**
+ * Consentimento para armazenamento nao essencial.
+ *
+ * A Lei 41/2004, artigo 5.o, so admite guardar informacao no equipamento do
+ * utilizador sem consentimento quando isso e estritamente necessario para
+ * prestar o servico pedido. O unico caso nao essencial deste site sao os
+ * parametros de campanha (utm_*), guardados para atribuicao de marketing:
+ * ficam bloqueados ate haver um "sim" explicito.
+ *
+ * A marca da newsletter nao entra aqui: guarda a resposta que a propria
+ * pessoa deu a janela, e sem ela a janela voltava a aparecer sempre.
+ */
+export const CONSENT_KEY = 'redicom:consent';
+
+export type ConsentValue = 'granted' | 'denied';
+
+export function readConsent(): ConsentValue | null {
+  try {
+    const value = localStorage.getItem(CONSENT_KEY);
+    return value === 'granted' || value === 'denied' ? value : null;
+  } catch {
+    return null;
+  }
+}
+
+export function setConsent(value: ConsentValue): void {
+  try {
+    localStorage.setItem(CONSENT_KEY, value);
+  } catch {
+    /* bloqueado: a barra volta a aparecer, e nada nao essencial e guardado */
+  }
+
+  if (value === 'denied') {
+    try {
+      sessionStorage.removeItem(UTM_STORAGE_KEY);
+    } catch {
+      /* nada a fazer */
+    }
+  }
+}
+
 /** Parametros de campanha, guardados na primeira visita da sessao. */
 const UTM_KEYS = [
   'utm_source',
@@ -135,6 +176,7 @@ const UTM_STORAGE_KEY = 'redicom:utm';
 
 export function captureUtm(): Record<string, string> {
   if (typeof window === 'undefined') return {};
+  if (readConsent() !== 'granted') return {};
 
   const stored = readStoredUtm();
   const params = new URLSearchParams(window.location.search);

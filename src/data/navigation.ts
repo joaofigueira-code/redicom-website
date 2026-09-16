@@ -58,10 +58,11 @@ export type NavItem = {
 };
 
 /**
- * Integracoes e Documentacao atravessam as tres seccoes e nao pertencem a
- * nenhuma. Estavam em letra pequena no fundo de um unico painel; agora sao
- * cartoes visiveis nos tres, porque sao as duas perguntas que toda a gente
- * faz antes de decidir: liga-se ao que ja tenho, e onde vejo como funciona.
+ * Integracoes e Documentacao vivem no painel da Plataforma e so ali. Sao as
+ * duas perguntas que se fazem antes de decidir (liga-se ao que ja tenho, e
+ * onde vejo como funciona), mas as duas respostas sao sobre a plataforma.
+ * Repeti-las nos Servicos e no Fashion Retail enchia os tres paineis com o
+ * mesmo par de cartoes e tirava-lhes o destaque que era para terem.
  */
 const SUPPORT_LINKS: NavLink[] = [
   {
@@ -241,7 +242,6 @@ export const mainNav: NavItem[] = [
         ],
       },
     ],
-    extras: SUPPORT_LINKS,
     featured: {
       route: 'services',
       title: { pt: 'Serviços Cloud de Marketing', en: 'Cloud Marketing Services' },
@@ -335,7 +335,6 @@ export const mainNav: NavItem[] = [
         ],
       },
     ],
-    extras: SUPPORT_LINKS,
     featured: {
       route: 'fashion',
       title: { pt: 'Fashion Retail', en: 'Fashion Retail' },

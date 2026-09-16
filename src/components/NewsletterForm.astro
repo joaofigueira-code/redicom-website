@@ -47,18 +47,26 @@ const t = useTranslations(lang);
 </form>
 
 <style>
+  /* Nao ocupa a coluna toda: o campo tem a largura de um campo, como os
+     do resto do site, e nao a largura do bloco onde esta. */
+  .news {
+    max-width: 23rem;
+  }
+
   .news__row {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
   }
 
+  /* Mesma forma dos campos dos formularios de contacto: canto --radius-md,
+     nao pastilha. */
   .news__input {
-    flex: 1 1 12rem;
+    flex: 1 1 10rem;
     min-width: 0;
-    padding: 0.55rem 0.9rem;
+    padding: 0.55rem 0.8rem;
     border: 1px solid var(--border-strong);
-    border-radius: var(--radius-pill);
+    border-radius: var(--radius-md);
     background: var(--surface);
     color: var(--text-body);
     font: inherit;
@@ -108,6 +116,10 @@ const t = useTranslations(lang);
 
   :global(.on-dark) .news__input::placeholder {
     color: rgba(255, 255, 255, 0.62);
+  }
+
+  .news--stacked {
+    max-width: none;
   }
 
   .news--stacked .news__row {

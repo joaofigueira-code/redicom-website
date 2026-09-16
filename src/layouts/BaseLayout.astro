@@ -8,6 +8,7 @@ import Seo from '@components/Seo.astro';
 import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
 import BackToTop from '@components/BackToTop.astro';
+import ConsentBar from '@components/ConsentBar.astro';
 
 import { LANGUAGE_TAGS, type Lang } from '@i18n/routes';
 import { useTranslations } from '@i18n/utils';
@@ -43,7 +44,8 @@ const t = useTranslations(lang);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
 
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml" />
+    <link rel="mask-icon" href="/favicon.svg?v=2" color="#EF9600" />
     <meta name="theme-color" content="#011a2d" />
 
     <Seo
@@ -69,5 +71,6 @@ const t = useTranslations(lang);
 
     <Footer lang={lang} />
     <BackToTop lang={lang} />
+    <ConsentBar lang={lang} />
   </body>
 </html>

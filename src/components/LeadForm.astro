@@ -24,6 +24,15 @@ interface Props {
   variant?: 'inline' | 'panel';
   /** Texto do botao. */
   submitLabel?: string;
+  /**
+   * Aceita emails de dominios pessoais (gmail, sapo, outlook).
+   *
+   * Por omissao o formulario recusa-os, porque uma lead comercial sem
+   * dominio da empresa nao e qualificavel. Nas candidaturas e o contrario:
+   * quem se candidata usa o email pessoal, e recusa-lo era perder a
+   * candidatura por uma regra que ali nao faz sentido nenhum.
+   */
+  allowPersonalEmail?: boolean;
   id?: string;
 }
 
@@ -34,6 +43,7 @@ const {
   body,
   variant = 'panel',
   submitLabel,
+  allowPersonalEmail = false,
   id = 'lead-form',
 } = Astro.props;
 
@@ -43,7 +53,12 @@ const consent = t('form.consent', { privacy: privacyHref });
 const genericError = t('form.errorGeneric', { email: site.email.general });
 ---
 
-<section class={`leadform leadform--${variant}`} data-topic={topic} data-lang={lang}>
+<section
+  class={`leadform leadform--${variant}`}
+  data-topic={topic}
+  data-lang={lang}
+  data-allow-personal={allowPersonalEmail ? 'true' : undefined}
+>
   <div class="leadform__inner">
     {
       (heading || body) && (
@@ -142,7 +157,9 @@ const genericError = t('form.errorGeneric', { email: site.email.general });
   import { ui } from '@i18n/ui';
   import type { Lang } from '@i18n/routes';
 
-  type Root = HTMLElement & { dataset: { topic: string; lang: Lang } };
+  type Root = HTMLElement & {
+    dataset: { topic: string; lang: Lang; allowPersonal?: string };
+  };
 
   function setUp(root: Root) {
     const form = root.querySelector<HTMLFormElement>('.leadform__form');
@@ -200,7 +217,10 @@ const genericError = t('form.errorGeneric', { email: site.email.general });
         return;
       }
 
-      const problem = validateLead(nameInput.value, emailInput.value);
+      const raw = validateLead(nameInput.value, emailInput.value);
+      const problem =
+        raw === 'emailPersonal' && root.dataset.allowPersonal === 'true' ? null : raw;
+
       if (problem === 'name') {
         nameError.hidden = false;
         nameInput.setAttribute('aria-invalid', 'true');
@@ -440,7 +460,6 @@ const genericError = t('form.errorGeneric', { email: site.email.general });
 
   .leadform__reassure {
     font-size: var(--step--1);
-    font-weight: var(--weight-semibold);
     color: var(--text-body);
   }
 

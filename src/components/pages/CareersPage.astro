@@ -79,33 +79,34 @@ const schema = {
     </div>
   </section>
 
+  <!-- Os dois caminhos lado a lado, no mesmo container: enviar a
+       candidatura agora, ou deixar o contacto e ser contactado. Estavam em
+       seccoes seguidas e o segundo parecia um formulario comercial perdido
+       no fim da pagina. -->
   <section class="section apply" id="candidatura">
-    <div class="container container--reading">
+    <div class="container apply__grid">
       <div class="apply__box">
         <h2 class="apply__title">{copy.apply.title}</h2>
         <p class="apply__body">{copy.apply.body}</p>
         <ol class="apply__steps">
           {copy.apply.steps.map((step) => <li>{step}</li>)}
         </ol>
-        <Button href={mailto} variant="primary" size="lg">{copy.apply.cta}</Button>
+        <Button href={mailto} variant="primary">{copy.apply.cta}</Button>
         <p class="apply__note">{copy.apply.note}</p>
       </div>
-    </div>
-  </section>
 
-  <!-- Alternativa para quem prefere ser contactado: o CV segue depois, por
-       email. O topico 'careers' separa estas leads das comerciais. -->
-  <section class="section section--tight callback">
-    <div class="container container--reading">
-      <LeadForm
-        lang={lang}
-        topic="careers"
-        variant="inline"
-        heading={copy.callback.heading}
-        body={copy.callback.body}
-        submitLabel={copy.callback.submit}
-        id="lead-careers"
-      />
+      <div class="apply__callback">
+        <LeadForm
+          lang={lang}
+          topic="careers"
+          variant="inline"
+          heading={copy.callback.heading}
+          body={copy.callback.body}
+          submitLabel={copy.callback.submit}
+          allowPersonalEmail
+          id="lead-careers"
+        />
+      </div>
     </div>
   </section>
 </BaseLayout>
@@ -129,6 +130,19 @@ const schema = {
     border-block-start: 1px solid var(--border);
   }
 
+  .apply__grid {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  @media (min-width: 56rem) {
+    .apply__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-3xl);
+    }
+  }
+
   .apply__box {
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
@@ -141,6 +155,12 @@ const schema = {
   }
 
   .apply__title {
+    font-size: var(--step-2);
+  }
+
+  /* O formulario ao lado tem de ter a mesma voz do bloco da esquerda: o
+     titulo dele vinha na escala das paginas inteiras. */
+  .apply__callback :global(.leadform__heading) {
     font-size: var(--step-2);
   }
 
@@ -157,8 +177,5 @@ const schema = {
     max-width: 60ch;
   }
 
-  .callback {
-    background: var(--surface-muted);
-    border-block-start: 1px solid var(--border);
-  }
+
 </style>

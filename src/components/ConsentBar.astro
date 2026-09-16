@@ -1,0 +1,173 @@
+---
+import { path, type Lang } from '@i18n/routes';
+import { useTranslations } from '@i18n/utils';
+
+/**
+ * Barra de consentimento.
+ *
+ * O minimo que a lei exige e nada mais. A Lei 41/2004, artigo 5.o, so obriga
+ * a pedir autorizacao para armazenamento que nao seja estritamente necessario
+ * ao servico pedido. Neste site ha um unico caso: os parametros de campanha
+ * (utm_*), guardados para saber que anuncio trouxe a visita. Tudo o resto
+ * (idioma, resposta dada a janela da newsletter) e necessario ao proprio
+ * funcionamento e nao entra aqui.
+ *
+ * Por isso a barra tem duas escolhas com o mesmo peso e nao tres niveis de
+ * preferencias: nao ha nada para configurar a meio. Recusar e tao facil como
+ * aceitar, que e o que a CNPD exige, e enquanto ninguem responder nada nao
+ * essencial e guardado.
+ *
+ * Nao bloqueia a pagina: nao ha nada a correr por tras a espera da resposta.
+ */
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div class="consent" data-consent role="region" aria-label={t('consent.label')} hidden>
+  <div class="container consent__inner">
+    <p class="consent__text">
+      {t('consent.body')}
+      <a class="consent__link" href={path('privacy', lang)}>{t('consent.more')}</a>
+    </p>
+
+    <div class="consent__actions">
+      <button class="consent__btn consent__btn--ghost" type="button" data-consent-deny>
+        {t('consent.deny')}
+      </button>
+      <button class="consent__btn consent__btn--yes" type="button" data-consent-accept>
+        {t('consent.accept')}
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .consent {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 150;
+    background: var(--brand-navy);
+    border-block-start: 3px solid var(--brand-orange);
+    padding-block: var(--space-md);
+    padding-block-end: calc(var(--space-md) + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0 -10px 30px rgba(1, 26, 45, 0.25);
+    transform: translateY(100%);
+    transition: transform 320ms var(--ease);
+  }
+
+  .consent[data-open] {
+    transform: translateY(0);
+  }
+
+  .consent[hidden] {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .consent {
+      transition: none;
+    }
+  }
+
+  .consent__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm) var(--space-lg);
+  }
+
+  .consent__text {
+    flex: 1 1 24rem;
+    margin: 0;
+    font-size: var(--step--1);
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  .consent__link {
+    color: var(--brand-orange-bright);
+    text-underline-offset: 0.2em;
+  }
+
+  .consent__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  /* A mesma escala do botao de proposta da barra de navegacao. */
+  .consent__btn {
+    padding: 0.6rem 1.25rem;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: var(--weight-semibold);
+    cursor: pointer;
+    transition:
+      background-color var(--duration) var(--ease),
+      border-color var(--duration) var(--ease);
+  }
+
+  .consent__btn--yes {
+    background: var(--action);
+    border: 2px solid var(--action);
+    color: var(--action-text);
+  }
+
+  .consent__btn--yes:hover {
+    background: var(--action-hover);
+    border-color: var(--action-hover);
+  }
+
+  /* Recusar tem de ser tao facil de encontrar como aceitar: mesmo tamanho,
+     mesma posicao, so muda o preenchimento. */
+  .consent__btn--ghost {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.45);
+    color: #fff;
+  }
+
+  .consent__btn--ghost:hover {
+    border-color: #fff;
+  }
+
+  .consent__btn:focus-visible {
+    outline: 3px solid var(--brand-orange-bright);
+    outline-offset: 2px;
+  }
+</style>
+
+<script>
+  import { readConsent, setConsent } from '@/lib/leads';
+
+  const bar = document.querySelector<HTMLElement>('[data-consent]');
+
+  if (bar && readConsent() === null) {
+    bar.hidden = false;
+    // Um frame depois de deixar de estar hidden, para a transicao correr.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => bar.setAttribute('data-open', ''));
+    });
+    document.documentElement.setAttribute('data-consent-open', '');
+
+    function answer(value: 'granted' | 'denied') {
+      setConsent(value);
+      bar!.removeAttribute('data-open');
+      document.documentElement.removeAttribute('data-consent-open');
+      window.setTimeout(() => {
+        bar!.hidden = true;
+      }, 320);
+      document.dispatchEvent(new CustomEvent('redicom:consent', { detail: value }));
+    }
+
+    bar.querySelector('[data-consent-accept]')?.addEventListener('click', () => answer('granted'));
+    bar.querySelector('[data-consent-deny]')?.addEventListener('click', () => answer('denied'));
+  }
+</script>

@@ -14,16 +14,14 @@
   margin: 0;
 }
 
+/* Sem scroll-behavior: smooth aqui. Quando esta no html, o browser tambem
+   anima a reposicao do scroll ao mudar de pagina, e ve-se a pagina nova a
+   subir sozinha depois de carregar. As ancoras internas sao animadas por
+   JavaScript (ver BackToTop.astro), com o mesmo movimento do botao de voltar
+   ao topo. */
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-height) + 1rem);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
 }
 
 body {
@@ -281,6 +279,12 @@ ol {
   border: 0;
   background: var(--brand-orange);
   border-radius: var(--radius-pill);
+}
+
+/* Enquanto a barra de consentimento esta a espera de resposta, o botao de
+   voltar ao topo sobe, para nao ficar por baixo dela. */
+html[data-consent-open] .totop {
+  bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
 }
 
 /* Tabelas e blocos largos nunca empurram a pagina na horizontal. */
