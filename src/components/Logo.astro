@@ -24,11 +24,22 @@ const label = lang === 'pt' ? 'Redicom — página inicial' : 'Redicom — home'
 ---
 
 <a class="logo" href={home} aria-label={label}>
-  <img src={src} width={width} height={height} alt="Redicom" />
+  <img
+    src={src}
+    width={width}
+    height={height}
+    alt="Redicom"
+    style={`height:${height}px`}
+  />
 </a>
 
 <style>
   .logo {
+    /* Nunca encolhe. Era isto que o fazia desaparecer: numa barra que nao
+       cabia na largura do ecra, o logotipo era o item flexivel mais a
+       esquerda e o navegador esmagava-o ate 0x0 px — o ficheiro carregava,
+       simplesmente nao tinha onde ser desenhado. */
+    flex: 0 0 auto;
     display: inline-flex;
     align-items: center;
     /* Area de proteccao minima do manual de marca (1/2 X a toda a volta). */
@@ -44,6 +55,6 @@ const label = lang === 'pt' ? 'Redicom — página inicial' : 'Redicom — home'
 
   .logo img {
     display: block;
-    height: auto;
+    width: auto;
   }
 </style>

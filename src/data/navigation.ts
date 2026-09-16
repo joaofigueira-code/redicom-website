@@ -153,8 +153,8 @@ export const mainNav: NavItem[] = [
         en: 'Redicom Commerce Cloud',
       },
       body: {
-        pt: 'B2C, B2B, OMS, POS e marketing na mesma base — e mais catorze temas que não cabem neste menu.',
-        en: 'B2C, B2B, OMS, POS and marketing on one foundation — plus fourteen more topics that do not fit in this menu.',
+        pt: 'B2C, B2B, OMS, POS e marketing na mesma base. A página-mãe lista todos os temas, incluindo os que não cabem neste menu.',
+        en: 'B2C, B2B, OMS, POS and marketing on one foundation. The overview page lists every topic, including the ones that do not fit in this menu.',
       },
       cta: { pt: 'Ver a Plataforma', en: 'See the Platform' },
     },

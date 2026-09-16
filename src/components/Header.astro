@@ -319,6 +319,7 @@ function isCurrentSection(routeId: string): boolean {
 
   .header__nav {
     display: none;
+    min-width: 0;
   }
 
   .header__list {
@@ -329,6 +330,7 @@ function isCurrentSection(routeId: string): boolean {
     margin: 0;
     padding: 0;
   }
+
 
   .header__link {
     display: inline-flex;
@@ -528,7 +530,9 @@ function isCurrentSection(routeId: string): boolean {
   }
 
   /* --- Fim da barra -------------------------------------------------- */
+  /* O fim da barra tambem nao encolhe: o que cede espaco e o menu. */
   .header__end {
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     gap: var(--space-sm);
