@@ -91,7 +91,7 @@ const schema = {
   </section>
 
   <section class="section story" id="quem-somos">
-    <div class="container container--narrow">
+    <div class="container container--reading">
       <h2 class="story__title">{copy.story.title}</h2>
       {copy.story.paragraphs.map((paragraph) => <p class="story__paragraph">{paragraph}</p>)}
     </div>
@@ -238,8 +238,8 @@ const schema = {
     </div>
   </section>
 
-  <section class="section section--tight careers">
-    <div class="container container--narrow careers__inner">
+  <section class="section section--tight careers on-dark">
+    <div class="container careers__inner">
       <div>
         <h2 class="careers__title">{copy.careers.title}</h2>
         <p>{copy.careers.body}</p>
@@ -406,16 +406,30 @@ const schema = {
     font-size: var(--step--1);
   }
 
+  /* Navy, para alternar com a banda de conversao que vem a seguir e que
+     passou a clara. */
   .careers {
-    border-block-start: 1px solid var(--border);
+    background: var(--brand-navy);
   }
 
+  /* Alinhado a esquerda, na mesma margem do resto da pagina. Antes vivia
+     num container estreito e centrado, e so este bloco e que fugia. */
   .careers__inner {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-lg);
     align-items: center;
     justify-content: space-between;
+  }
+
+  .careers :global(.btn--secondary) {
+    border-color: rgba(255, 255, 255, 0.35);
+    color: #fff;
+  }
+
+  .careers :global(.btn--secondary:hover) {
+    border-color: var(--brand-orange);
+    color: #fff;
   }
 
   .careers__title {

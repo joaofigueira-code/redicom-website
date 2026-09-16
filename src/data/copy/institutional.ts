@@ -58,9 +58,9 @@ export type ThanksCopy = {
 export const aboutCopy: Record<Lang, AboutCopy> = {
   pt: {
     meta: {
-      title: 'Sobre Nós — quem somos, para quem trabalhamos e porquê connosco',
+      title: 'Sobre Nós: quem somos, para quem trabalhamos e porquê connosco',
       description:
-        'A Redicom desenvolve soluções de comércio digital desde 2002. Quem somos, para que tipo de operação fomos feitos — e para qual não — e o que nos distingue das plataformas generalistas.',
+        'A Redicom desenvolve soluções de comércio digital desde 2002. Quem somos, para que tipo de operação fomos feitos (e para qual não) e o que nos distingue das plataformas generalistas.',
     },
     breadcrumb: 'Sobre Nós',
 
@@ -93,7 +93,7 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
       items: [
         {
           title: 'Especialização a sério',
-          body: 'Não servimos qualquer negócio da mesma maneira. Conhecemos as operações onde a complexidade é real — retalho de moda, distribuição, multicanal — e construímos para essa complexidade.',
+          body: 'Não servimos qualquer negócio da mesma maneira. Conhecemos as operações onde a complexidade é real (retalho de moda, distribuição, multicanal) e construímos para essa complexidade.',
         },
         {
           title: 'Equipa próxima',
@@ -115,7 +115,7 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
     careers: {
       title: 'Junte-se à nossa equipa',
       body: 'Estamos constantemente à procura de pessoas com talento e vontade de construir. Se quer fazer parte da equipa, conte-nos mais sobre a sua experiência.',
-      cta: 'Ver Trabalhe Connosco',
+      cta: 'Enviar candidatura',
     },
 
     closing: {
@@ -132,9 +132,9 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
 
   en: {
     meta: {
-      title: 'About Us — who we are, who we build for and why us',
+      title: 'About Us: who we are, who we build for and why us',
       description:
-        'Redicom has been building digital commerce solutions since 2002. Who we are, the kind of operation we were built for — and the kind we were not — and what sets us apart from generalist platforms.',
+        'Redicom has been building digital commerce solutions since 2002. Who we are, the kind of operation we were built for (and the kind we were not) and what sets us apart from generalist platforms.',
     },
     breadcrumb: 'About Us',
 
@@ -167,7 +167,7 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
       items: [
         {
           title: 'Real specialisation',
-          body: 'We do not serve every business the same way. We know the operations where complexity is real — fashion retail, distribution, multichannel — and we build for that complexity.',
+          body: 'We do not serve every business the same way. We know the operations where complexity is real (fashion retail, distribution, multichannel) and we build for that complexity.',
         },
         {
           title: 'A team close by',
@@ -189,7 +189,7 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
     careers: {
       title: 'Join our team',
       body: 'We are always looking for talented people who want to build. If you would like to join the team, tell us about your experience.',
-      cta: 'See Careers',
+      cta: 'Send an application',
     },
 
     closing: {
@@ -208,7 +208,7 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
 export const contactCopy: Record<Lang, ContactCopy> = {
   pt: {
     meta: {
-      title: 'Contactos — falar com a Redicom',
+      title: 'Contactos: falar com a Redicom',
       description:
         'Escritórios em Santo Tirso e Lisboa, apoio ao cliente de segunda a sexta das 9h às 18h. Deixe o contacto e respondemos em menos de um dia útil.',
     },
@@ -228,7 +228,7 @@ export const contactCopy: Record<Lang, ContactCopy> = {
 
     support: {
       title: 'Apoio ao cliente',
-      body: 'Se já é cliente, fale diretamente com a equipa de apoio — sem passar por formulário.',
+      body: 'Se já é cliente, fale diretamente com a equipa de apoio, sem passar por formulário.',
       hoursLabel: 'Horário',
       hours: 'De segunda a sexta-feira, das 9h00 às 18h00. Encerrado aos sábados, domingos e feriados.',
     },
@@ -245,7 +245,7 @@ export const contactCopy: Record<Lang, ContactCopy> = {
 
   en: {
     meta: {
-      title: 'Contact — talk to Redicom',
+      title: 'Contact: talk to Redicom',
       description:
         'Offices in Santo Tirso and Lisbon, customer support Monday to Friday from 9am to 6pm. Leave your details and we reply within one working day.',
     },
@@ -265,7 +265,7 @@ export const contactCopy: Record<Lang, ContactCopy> = {
 
     support: {
       title: 'Customer support',
-      body: 'If you are already a client, talk to the support team directly — with no form in between.',
+      body: 'If you are already a client, talk to the support team directly, with no form in between.',
       hoursLabel: 'Opening hours',
       hours: 'Monday to Friday, 9am to 6pm. Closed on Saturdays, Sundays and public holidays.',
     },
@@ -284,7 +284,7 @@ export const contactCopy: Record<Lang, ContactCopy> = {
 export const careersCopy: Record<Lang, CareersCopy> = {
   pt: {
     meta: {
-      title: 'Trabalhe Connosco — carreiras na Redicom',
+      title: 'Trabalhe Connosco: carreiras na Redicom',
       description:
         'Estamos em crescimento e à procura de pessoas com talento para desenvolver comércio digital. Envie uma candidatura espontânea para a equipa da Redicom.',
     },
@@ -331,7 +331,7 @@ export const careersCopy: Record<Lang, CareersCopy> = {
       steps: [
         'Envie o seu currículo em PDF',
         'Diga em que área se encaixa melhor e a partir de quando está disponível',
-        'Se tiver trabalho público — repositórios, projetos, portefólio — inclua os links',
+        'Se tiver trabalho público (repositórios, projetos, portefólio) inclua os links',
       ],
       note: 'As candidaturas são tratadas pela equipa da Redicom e os seus dados são usados apenas para o processo de recrutamento.',
       cta: 'Enviar candidatura por email',
@@ -393,7 +393,7 @@ export const careersCopy: Record<Lang, CareersCopy> = {
       steps: [
         'Send your CV as a PDF',
         'Tell us which area fits you best and when you are available',
-        'If you have public work — repositories, projects, a portfolio — include the links',
+        'If you have public work (repositories, projects, a portfolio), include the links',
       ],
       note: 'Applications are handled by the Redicom team and your details are used only for the recruitment process.',
       cta: 'Apply by email',

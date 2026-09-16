@@ -42,7 +42,7 @@ export const ui = {
 
     // --- Formulario --------------------------------------------------
     'form.name': 'Nome',
-    'form.email': 'Email corporativo',
+    'form.email': 'Email',
     'form.message': 'Mensagem',
     'form.messageOptional': 'Mensagem (opcional)',
     'form.company': 'Empresa',
@@ -75,6 +75,26 @@ export const ui = {
     'footer.social': 'Siga-nos',
     'footer.rights': 'Todos os direitos reservados.',
     'footer.viewMap': 'Ver no mapa',
+    'footer.complaints': 'Livro de Reclamações',
+    'footer.complaintsNote': 'Livro de Reclamações eletrónico',
+
+    // --- Newsletter ---------------------------------------------------
+    'news.title': 'Newsletter',
+    'news.body':
+      'Uma vez por mês: o que muda no comércio digital e o que aprendemos em projetos reais.',
+    'news.cta': 'Subscrever',
+    'news.placeholder': 'O seu email',
+    'news.label': 'Email para a newsletter',
+    'news.success': 'Subscrição registada. Obrigado.',
+    'news.error': 'Não foi possível registar a subscrição. Tente novamente.',
+    'news.popupTitle': 'Uma vez por mês, sem ruído',
+    'news.popupBody':
+      'O que muda no comércio digital, o que funciona nos projetos que fazemos e o que não funciona. Pode cancelar em qualquer altura.',
+    'news.dismiss': 'Agora não',
+    'news.close': 'Fechar',
+
+    // --- Voltar ao topo -----------------------------------------------
+    'common.toTop': 'Voltar ao topo',
 
     // --- Diversos ----------------------------------------------------
     'common.language': 'Idioma',
@@ -123,7 +143,7 @@ export const ui = {
 
     // --- Form --------------------------------------------------------
     'form.name': 'Name',
-    'form.email': 'Work email',
+    'form.email': 'Email',
     'form.message': 'Message',
     'form.messageOptional': 'Message (optional)',
     'form.company': 'Company',
@@ -155,6 +175,26 @@ export const ui = {
     'footer.social': 'Follow us',
     'footer.rights': 'All rights reserved.',
     'footer.viewMap': 'View on map',
+    'footer.complaints': 'Complaints Book',
+    'footer.complaintsNote': 'Portuguese electronic complaints book',
+
+    // --- Newsletter ---------------------------------------------------
+    'news.title': 'Newsletter',
+    'news.body':
+      'Once a month: what is changing in digital commerce and what we learn on real projects.',
+    'news.cta': 'Subscribe',
+    'news.placeholder': 'Your email',
+    'news.label': 'Email for the newsletter',
+    'news.success': 'You are subscribed. Thank you.',
+    'news.error': 'We could not register the subscription. Please try again.',
+    'news.popupTitle': 'Once a month, no noise',
+    'news.popupBody':
+      'What is changing in digital commerce, what works on the projects we run and what does not. You can unsubscribe at any time.',
+    'news.dismiss': 'Not now',
+    'news.close': 'Close',
+
+    // --- Back to top ---------------------------------------------------
+    'common.toTop': 'Back to top',
 
     // --- Misc --------------------------------------------------------
     'common.language': 'Language',

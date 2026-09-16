@@ -1,6 +1,7 @@
 ---
 import Logo from '@components/Logo.astro';
 import SocialLinks from '@components/SocialLinks.astro';
+import NewsletterForm from '@components/NewsletterForm.astro';
 import { footerSections, footerCompany, resolveLink } from '@/data/navigation';
 import { site, currentYear } from '@/data/site';
 import { path, type Lang } from '@i18n/routes';
@@ -10,9 +11,13 @@ import { useTranslations } from '@i18n/utils';
  * Rodape.
  *
  * Deixou de ser um segundo mapa do site. As tres seccoes sao so tres
- * destinos — a lista de subpaginas ja esta no menu e outra vez dentro de
- * cada pagina-mae. Os escritorios sairam daqui: estao na pagina de
+ * destinos, porque a lista de subpaginas ja esta no menu e outra vez dentro
+ * de cada pagina-mae. Os escritorios sairam daqui: estao na pagina de
  * Contactos e no Sobre Nos, que e onde alguem os procura.
+ *
+ * A ordem do lado direito e Redicom primeiro e as tres seccoes depois: quem
+ * chega ao rodape ja passou pelas seccoes na barra de navegacao, e o que
+ * costuma procurar aqui e a empresa.
  *
  * O apoio ao cliente fica: e a unica informacao do rodape que resolve um
  * problema em vez de levar a outra pagina.
@@ -24,6 +29,13 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+
+/**
+ * Livro de Reclamacoes eletronico. O DL 156/2005, na redaccao dada pelo
+ * DL 74/2017, obriga os prestadores de servicos com sitio na internet a
+ * disponibilizarem aqui a ligacao para a plataforma oficial.
+ */
+const COMPLAINTS_URL = 'https://www.livroreclamacoes.pt/inicio';
 ---
 
 <footer class="footer on-dark">
@@ -54,19 +66,6 @@ const t = useTranslations(lang);
       </div>
 
       <div class="footer__right">
-        <nav class="footer__sections" aria-label={t('nav.main')}>
-          {
-            footerSections.map((group) => (
-              <a class="footer__section" href={path(group.route!, lang)}>
-                <span>{group.title[lang]}</span>
-                <span class="footer__section-arrow" aria-hidden="true">
-                  →
-                </span>
-              </a>
-            ))
-          }
-        </nav>
-
         <nav class="footer__company" aria-label={footerCompany.title[lang]}>
           <h2 class="footer__group-title">{footerCompany.title[lang]}</h2>
           <ul class="footer__list">
@@ -82,13 +81,57 @@ const t = useTranslations(lang);
             }
           </ul>
         </nav>
+
+        <nav class="footer__sections" aria-label={t('nav.main')}>
+          {
+            footerSections.map((group) => (
+              <a class="footer__section" href={path(group.route!, lang)}>
+                <span>{group.title[lang]}</span>
+                <span class="footer__section-arrow" aria-hidden="true">
+                  →
+                </span>
+              </a>
+            ))
+          }
+        </nav>
+
+        <div class="footer__news">
+          <h2 class="footer__group-title">{t('news.title')}</h2>
+          <p class="footer__news-body">{t('news.body')}</p>
+          <NewsletterForm lang={lang} id="newsletter-footer" />
+        </div>
       </div>
     </div>
 
     <div class="footer__bottom">
       <p class="footer__copy">
-        &copy; {site.foundingYear} – {currentYear} {site.name}. {t('footer.rights')}
+        &copy; {site.foundingYear}-{currentYear} {site.legalName}. {t('footer.rights')}
       </p>
+
+      <a
+        class="footer__complaints"
+        href={COMPLAINTS_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        title={t('footer.complaintsNote')}
+      >
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H19v16H5.5A1.5 1.5 0 0 0 4 20.5z" />
+          <path d="M4 20.5A1.5 1.5 0 0 1 5.5 19H19v2H5.5A1.5 1.5 0 0 1 4 20.5z" />
+          <path d="M8 8h7M8 11.5h7" />
+        </svg>
+        {t('footer.complaints')}
+      </a>
 
       <a class="footer__privacy" href={path('privacy', lang)}>
         {lang === 'pt' ? 'Política de Privacidade' : 'Privacy Policy'}
@@ -98,9 +141,10 @@ const t = useTranslations(lang);
 </footer>
 
 <style>
+  /* Sem margem em cima: a banda de conversao que vem antes passou a clara, e
+     uma folga entre as duas deixava uma risca da cor do fundo da pagina. */
   .footer {
     padding-block: var(--space-2xl) var(--space-xl);
-    margin-block-start: var(--space-3xl);
   }
 
   .footer :global(a) {
@@ -243,6 +287,13 @@ const t = useTranslations(lang);
     font-size: var(--step--1);
   }
 
+  .footer__news-body {
+    max-width: 46ch;
+    margin-block-end: var(--space-sm);
+    font-size: var(--step--1);
+    color: var(--text-muted);
+  }
+
   .footer__bottom {
     margin-block-start: var(--space-2xl);
     padding-block-start: var(--space-lg);
@@ -253,6 +304,12 @@ const t = useTranslations(lang);
     gap: var(--space-sm) var(--space-xl);
     font-size: var(--step--1);
     color: var(--text-muted);
+  }
+
+  .footer__complaints {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
   }
 
   .footer__privacy {

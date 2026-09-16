@@ -100,9 +100,9 @@ export const privacySections: LegalSection[] = [
       'The following types of cookies are used in our corporate website:',
     ],
     list: [
-      'Essential website cookies — these cookies are strictly necessary to provide the services available through our website and to use some of its features;',
-      'Performance and Functionality Cookies — these cookies enhance performance on our website;',
-      'Analytics and Customization Cookies — these cookies collect information that is used either in aggregate form to help us understand how our website is being used or how effective marketing campaigns are, or even to help us customize our website.',
+      'Essential website cookies: these cookies are strictly necessary to provide the services available through our website and to use some of its features;',
+      'Performance and Functionality Cookies: these cookies enhance performance on our website;',
+      'Analytics and Customization Cookies: these cookies collect information that is used either in aggregate form to help us understand how our website is being used or how effective marketing campaigns are, or even to help us customize our website.',
     ],
   },
   {

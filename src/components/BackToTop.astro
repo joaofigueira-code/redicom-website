@@ -1,0 +1,75 @@
+---
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/routes';
+
+/**
+ * Voltar ao topo. So aparece depois de a pagina ter descido o suficiente
+ * para que o botao tenha razao de ser, e usa o mesmo desenho dos icones das
+ * redes sociais: circulo com contorno, sem preenchimento.
+ */
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<button class="totop" type="button" data-to-top aria-label={t('common.toTop')} title={t('common.toTop')} hidden>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 19V5" />
+    <path d="M5 12l7-7 7 7" />
+  </svg>
+</button>
+
+<style>
+  .totop {
+    position: fixed;
+    right: var(--gutter-sm);
+    bottom: calc(var(--gutter-sm) + env(safe-area-inset-bottom, 0px));
+    z-index: 90;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    color: var(--text-heading);
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    transition:
+      border-color var(--duration) var(--ease),
+      color var(--duration) var(--ease),
+      opacity var(--duration) var(--ease);
+  }
+
+  .totop:hover {
+    border-color: var(--brand-orange);
+    color: var(--text-accent);
+  }
+
+  .totop[hidden] {
+    display: none;
+  }
+</style>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('[data-to-top]');
+
+  if (button) {
+    const show = () => {
+      button.hidden = window.scrollY < window.innerHeight;
+    };
+
+    show();
+    window.addEventListener('scroll', show, { passive: true });
+
+    button.addEventListener('click', () => {
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+    });
+  }
+</script>

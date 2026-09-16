@@ -1,0 +1,194 @@
+---
+import NewsletterForm from '@components/NewsletterForm.astro';
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/routes';
+
+/**
+ * Janela de subscricao, so na pagina inicial.
+ *
+ * Quando aparece: passados 20 segundos, e so se a pessoa tiver percorrido
+ * pelo menos um quarto da pagina. As duas condicoes juntas evitam a
+ * interrupcao logo a entrada, que e o que faz fechar sem ler.
+ *
+ * Quando nao aparece: se ja subscreveu ou ja dispensou neste browser, ou se
+ * a pessoa preferir menos movimento (prefers-reduced-motion nao cobre isto,
+ * mas a marca no localStorage cobre).
+ *
+ * Nao e possivel reconhecer a maquina: nenhum browser da acesso ao endereco
+ * MAC. A marca fica no localStorage do proprio browser.
+ */
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div class="pop" data-newsletter-popup hidden>
+  <div class="pop__backdrop" data-pop-close></div>
+
+  <div class="pop__panel" role="dialog" aria-modal="true" aria-labelledby="pop-title">
+    <button class="pop__close" type="button" data-pop-close aria-label={t('news.close')}>
+      <span aria-hidden="true">×</span>
+    </button>
+
+    <p class="pop__eyebrow">{t('news.title')}</p>
+    <h2 class="pop__title" id="pop-title">{t('news.popupTitle')}</h2>
+    <p class="pop__body">{t('news.popupBody')}</p>
+
+    <NewsletterForm lang={lang} variant="stacked" id="newsletter-popup" />
+
+    <button class="pop__dismiss" type="button" data-pop-close>{t('news.dismiss')}</button>
+  </div>
+</div>
+
+<style>
+  .pop {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: grid;
+    place-items: end center;
+    padding: var(--space-md);
+  }
+
+  @media (min-width: 40rem) {
+    .pop {
+      place-items: center;
+    }
+  }
+
+  .pop__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(1, 26, 45, 0.45);
+  }
+
+  .pop__panel {
+    position: relative;
+    width: min(28rem, 100%);
+    padding: var(--space-xl);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .pop__close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    display: grid;
+    place-items: center;
+    background: none;
+    border: 0;
+    border-radius: var(--radius-pill);
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--text-muted);
+    cursor: pointer;
+  }
+
+  .pop__close:hover {
+    background: var(--surface-muted);
+    color: var(--text-heading);
+  }
+
+  .pop__eyebrow {
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-accent);
+  }
+
+  .pop__title {
+    margin-block: var(--space-xs) var(--space-sm);
+    font-size: var(--step-2);
+  }
+
+  .pop__body {
+    margin-block-end: var(--space-lg);
+    font-size: var(--step--1);
+    color: var(--text-body);
+  }
+
+  .pop__dismiss {
+    margin-block-start: var(--space-md);
+    background: none;
+    border: 0;
+    padding: 0;
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    color: var(--text-muted);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    cursor: pointer;
+  }
+
+  .pop__dismiss:hover {
+    color: var(--text-heading);
+  }
+</style>
+
+<script>
+  import { hasNewsletterMark, setNewsletterMark } from '@/lib/leads';
+
+  const popup = document.querySelector<HTMLElement>('[data-newsletter-popup]');
+
+  if (popup && !hasNewsletterMark()) {
+    const DELAY = 20000;
+    const DEPTH = 0.25;
+    let shown = false;
+    let waited = false;
+    let scrolled = false;
+
+    function maybeShow() {
+      if (shown || !waited || !scrolled) return;
+      shown = true;
+      popup!.hidden = false;
+      popup!.querySelector<HTMLInputElement>('input[name="email"]')?.focus();
+      window.removeEventListener('scroll', onScroll);
+    }
+
+    function onScroll() {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      if (max <= 0 || window.scrollY / max >= DEPTH) {
+        scrolled = true;
+        maybeShow();
+      }
+    }
+
+    function close() {
+      popup!.hidden = true;
+      // Dispensar conta como resposta: nao voltamos a insistir neste browser.
+      setNewsletterMark();
+    }
+
+    window.setTimeout(() => {
+      waited = true;
+      maybeShow();
+    }, DELAY);
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    popup.querySelectorAll('[data-pop-close]').forEach((node) => {
+      node.addEventListener('click', close);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !popup.hidden) close();
+    });
+
+    // Se subscrever pelo rodape enquanto a janela esta escondida, nao aparece.
+    document.addEventListener('redicom:subscribed', () => {
+      shown = true;
+      popup.hidden = true;
+    });
+  }
+</script>

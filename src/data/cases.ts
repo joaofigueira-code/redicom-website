@@ -63,7 +63,7 @@ export const caseStudies: CaseStudy[] = [
 
     pt: {
       meta: {
-        title: 'Caso de sucesso — marca de moda',
+        title: 'Caso de sucesso: marca de moda',
         description:
           'Exemplo de caso de sucesso de uma marca de moda na Redicom Commerce Cloud. Conteúdo por confirmar.',
       },
@@ -77,7 +77,7 @@ export const caseStudies: CaseStudy[] = [
         title: 'O cliente',
         paragraphs: [
           'Descreva aqui quem é o cliente: setor, dimensão, mercados onde opera, número de lojas e canais de venda. Duas ou três frases chegam.',
-          'Indique há quanto tempo trabalha com a Redicom e o que existia antes — plataforma anterior, processos manuais, sistemas paralelos.',
+          'Indique há quanto tempo trabalha com a Redicom e o que existia antes: plataforma anterior, processos manuais, sistemas paralelos.',
         ],
       },
 
@@ -93,7 +93,7 @@ export const caseStudies: CaseStudy[] = [
 
       solution: {
         title: 'O que fizemos',
-        body: 'Descreva o que foi implementado e por que ordem. Se houve migração de dados, integração com ERP ou arranque faseado, diga-o — é isso que dá credibilidade ao caso.',
+        body: 'Descreva o que foi implementado e por que ordem. Se houve migração de dados, integração com ERP ou arranque faseado, diga-o: é isso que dá credibilidade ao caso.',
         bullets: [
           'Módulo ou funcionalidade implementada',
           'Integração feita e com que sistema',
@@ -122,7 +122,7 @@ export const caseStudies: CaseStudy[] = [
 
     en: {
       meta: {
-        title: 'Success story — fashion brand',
+        title: 'Success story: fashion brand',
         description:
           'Example success story of a fashion brand on the Redicom Commerce Cloud. Content to be confirmed.',
       },
@@ -136,7 +136,7 @@ export const caseStudies: CaseStudy[] = [
         title: 'The client',
         paragraphs: [
           'Describe the client here: sector, size, markets, number of stores and sales channels. Two or three sentences is enough.',
-          'Say how long they have worked with Redicom and what was in place before — previous platform, manual processes, parallel systems.',
+          'Say how long they have worked with Redicom and what was in place before: previous platform, manual processes, parallel systems.',
         ],
       },
 
@@ -152,7 +152,7 @@ export const caseStudies: CaseStudy[] = [
 
       solution: {
         title: 'What we did',
-        body: 'Describe what was implemented and in what order. If there was data migration, ERP integration or a phased go-live, say so — that is what makes the story credible.',
+        body: 'Describe what was implemented and in what order. If there was data migration, ERP integration or a phased go-live, say so: that is what makes the story credible.',
         bullets: [
           'Module or feature implemented',
           'Integration built, and with which system',
@@ -187,7 +187,7 @@ export const caseStudies: CaseStudy[] = [
 
     pt: {
       meta: {
-        title: 'Caso de sucesso — distribuidor B2B',
+        title: 'Caso de sucesso: distribuidor B2B',
         description:
           'Exemplo de caso de sucesso de um distribuidor na Redicom Commerce Cloud. Conteúdo por confirmar.',
       },
@@ -240,7 +240,7 @@ export const caseStudies: CaseStudy[] = [
 
     en: {
       meta: {
-        title: 'Success story — B2B distributor',
+        title: 'Success story: B2B distributor',
         description:
           'Example success story of a distributor on the Redicom Commerce Cloud. Content to be confirmed.',
       },
@@ -295,7 +295,7 @@ export const caseStudies: CaseStudy[] = [
 
     pt: {
       meta: {
-        title: 'Caso de sucesso — retalhista multicanal',
+        title: 'Caso de sucesso: retalhista multicanal',
         description:
           'Exemplo de caso de sucesso de um retalhista na Redicom Commerce Cloud. Conteúdo por confirmar.',
       },
@@ -348,7 +348,7 @@ export const caseStudies: CaseStudy[] = [
 
     en: {
       meta: {
-        title: 'Success story — multichannel retailer',
+        title: 'Success story: multichannel retailer',
         description:
           'Example success story of a retailer on the Redicom Commerce Cloud. Content to be confirmed.',
       },
@@ -413,7 +413,7 @@ export const casesIndexCopy: Record<
 > = {
   pt: {
     meta: {
-      title: 'Casos de Sucesso — projetos na Redicom Commerce Cloud',
+      title: 'Casos de Sucesso: projetos na Redicom Commerce Cloud',
       description:
         'Projetos de comércio digital implementados na Redicom Commerce Cloud: retalho multicanal, distribuição B2B e marcas de moda.',
     },
@@ -430,7 +430,7 @@ export const casesIndexCopy: Record<
     readLabel: 'Ler o caso',
     closing: {
       title: 'O próximo caso pode ser o seu',
-      body: 'Deixe o seu contacto e falamos sobre a sua operação — sem guião e sem apresentação genérica.',
+      body: 'Deixe o seu contacto e falamos sobre a sua operação, sem guião e sem apresentação genérica.',
       points: [
         'Analisamos o seu contexto antes de propor qualquer solução',
         'Falamos com quem conhece a plataforma, não com um call center',
@@ -442,7 +442,7 @@ export const casesIndexCopy: Record<
 
   en: {
     meta: {
-      title: 'Success Stories — projects on the Redicom Commerce Cloud',
+      title: 'Success Stories: projects on the Redicom Commerce Cloud',
       description:
         'Digital commerce projects delivered on the Redicom Commerce Cloud: multichannel retail, B2B distribution and fashion brands.',
     },
@@ -459,7 +459,7 @@ export const casesIndexCopy: Record<
     readLabel: 'Read the story',
     closing: {
       title: 'The next story could be yours',
-      body: 'Leave your details and we will talk about your operation — no script and no generic pitch.',
+      body: 'Leave your details and we will talk about your operation: no script and no generic pitch.',
       points: [
         'We look at your context before proposing anything',
         'You talk to people who know the platform, not a call centre',

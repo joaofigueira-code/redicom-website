@@ -58,7 +58,7 @@ const schema = {
   />
 
   <section class="section intro">
-    <div class="container container--narrow">
+    <div class="container container--reading">
       <h2 class="intro__title">{copy.intro.title}</h2>
       {copy.intro.paragraphs.map((paragraph) => <p class="intro__paragraph">{paragraph}</p>)}
     </div>
@@ -80,7 +80,7 @@ const schema = {
   </section>
 
   <section class="section apply" id="candidatura">
-    <div class="container container--narrow">
+    <div class="container container--reading">
       <div class="apply__box">
         <h2 class="apply__title">{copy.apply.title}</h2>
         <p class="apply__body">{copy.apply.body}</p>
@@ -96,7 +96,7 @@ const schema = {
   <!-- Alternativa para quem prefere ser contactado: o CV segue depois, por
        email. O topico 'careers' separa estas leads das comerciais. -->
   <section class="section section--tight callback">
-    <div class="container container--narrow">
+    <div class="container container--reading">
       <LeadForm
         lang={lang}
         topic="careers"

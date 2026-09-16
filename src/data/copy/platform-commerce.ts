@@ -13,7 +13,7 @@ export const platformCommerceCopy: SolutionSet = {
   platformMarketplaces: {
     pt: {
       meta: {
-        title: 'Marketplaces — vender em novos canais sem duplicar a operação',
+        title: 'Marketplaces: vender em novos canais sem duplicar a operação',
         description:
           'Ligue a loja online aos principais marketplaces com stock e preço em tempo real, encomendas centralizadas e devoluções sob controlo.',
       },
@@ -21,7 +21,7 @@ export const platformCommerceCopy: SolutionSet = {
       hero: {
         eyebrow: 'Marketplaces',
         title: 'Venda em marketplaces sem duplicar a operação',
-        lead: 'Ligue a sua loja online aos principais marketplaces e expanda o negócio para novos canais e mercados — com o mesmo catálogo, o mesmo stock e o mesmo processo de encomenda.',
+        lead: 'Ligue a sua loja online aos principais marketplaces e expanda o negócio para novos canais e mercados: com o mesmo catálogo, o mesmo stock e o mesmo processo de encomenda.',
         primary: 'Falar com especialista',
       },
       features: [
@@ -46,7 +46,7 @@ export const platformCommerceCopy: SolutionSet = {
         {
           eyebrow: 'Integração',
           title: 'Regras próprias para cada parceiro',
-          body: 'Integrar com um marketplace não pode significar aceitar as regras dele em toda a operação. A plataforma permite definir, por parceiro, que catálogo é publicado, que métodos de envio se aplicam e que regras comerciais valem — e controlar tudo isso a partir do mesmo backoffice.',
+          body: 'Integrar com um marketplace não pode significar aceitar as regras dele em toda a operação. A plataforma permite definir, por parceiro, que catálogo é publicado, que métodos de envio se aplicam e que regras comerciais valem, e controlar tudo isso a partir do mesmo backoffice.',
           bullets: [
             'Fluxo de informação constante com a plataforma',
             'Catálogo de produtos definido por marketplace',
@@ -81,7 +81,7 @@ export const platformCommerceCopy: SolutionSet = {
 
     en: {
       meta: {
-        title: 'Marketplaces — sell on new channels without duplicating the operation',
+        title: 'Marketplaces: sell on new channels without duplicating the operation',
         description:
           'Connect your online store to leading marketplaces with real-time stock and pricing, centralised orders and returns under control.',
       },
@@ -89,7 +89,7 @@ export const platformCommerceCopy: SolutionSet = {
       hero: {
         eyebrow: 'Marketplaces',
         title: 'Sell on marketplaces without duplicating the operation',
-        lead: 'Connect your online store to the leading marketplaces and expand into new channels and markets — on the same catalogue, the same stock and the same order process.',
+        lead: 'Connect your online store to the leading marketplaces and expand into new channels and markets: on the same catalogue, the same stock and the same order process.',
         primary: 'Talk to a specialist',
       },
       features: [
@@ -114,7 +114,7 @@ export const platformCommerceCopy: SolutionSet = {
         {
           eyebrow: 'Integration',
           title: 'Your own rules for each partner',
-          body: 'Integrating with a marketplace cannot mean accepting its rules across your whole operation. The platform lets you define, per partner, which catalogue is published, which shipping methods apply and which commercial rules hold — and control all of it from the same back office.',
+          body: 'Integrating with a marketplace cannot mean accepting its rules across your whole operation. The platform lets you define, per partner, which catalogue is published, which shipping methods apply and which commercial rules hold, and control all of it from the same back office.',
           bullets: [
             'A constant flow of information with the platform',
             'Product catalogue defined per marketplace',
@@ -151,7 +151,7 @@ export const platformCommerceCopy: SolutionSet = {
   platformGlobal: {
     pt: {
       meta: {
-        title: 'Comércio Global — vender em vários mercados a partir de um só sítio',
+        title: 'Comércio Global: vender em vários mercados a partir de um só sítio',
         description:
           'Multi-idioma, multi-moeda e regras por mercado: catálogos, stocks, preços, impostos e transportadoras locais geridos numa única plataforma.',
       },
@@ -165,7 +165,7 @@ export const platformCommerceCopy: SolutionSet = {
       features: [
         {
           title: 'Multi-idioma',
-          body: 'Todo o conteúdo — texto, imagens e vídeos — diferenciado por mercado, com URLs semânticos que acompanham os recursos de SEO.',
+          body: 'Todo o conteúdo (texto, imagens e vídeos) diferenciado por mercado, com URLs semânticos que acompanham os recursos de SEO.',
         },
         {
           title: 'Multi-moeda',
@@ -195,7 +195,7 @@ export const platformCommerceCopy: SolutionSet = {
         {
           eyebrow: 'Conteúdo',
           title: 'O conteúdo certo para cada mercado',
-          body: 'Traduzir não é o mesmo que adaptar. Além de traduzir todo o conteúdo para qualquer idioma, a plataforma permite diferenciar textos, imagens e vídeos por mercado — e os URLs semânticos acompanham essa diferenciação, o que faz diferença na pesquisa local.',
+          body: 'Traduzir não é o mesmo que adaptar. Além de traduzir todo o conteúdo para qualquer idioma, a plataforma permite diferenciar textos, imagens e vídeos por mercado, e os URLs semânticos acompanham essa diferenciação, o que faz diferença na pesquisa local.',
           bullets: [
             'Conteúdo diferenciado por mercado',
             'URLs semânticos por idioma',
@@ -205,7 +205,7 @@ export const platformCommerceCopy: SolutionSet = {
       ],
       closing: {
         title: 'Vai abrir um novo mercado?',
-        body: 'Deixe o contacto e vemos consigo o que é preciso — fiscalidade, logística, pagamentos e conteúdo.',
+        body: 'Deixe o contacto e vemos consigo o que é preciso: fiscalidade, logística, pagamentos e conteúdo.',
         points: [
           'Analisamos os mercados-alvo antes de falar de tecnologia',
           'Sem plataforma nova por cada país',
@@ -218,7 +218,7 @@ export const platformCommerceCopy: SolutionSet = {
 
     en: {
       meta: {
-        title: 'Global Commerce — selling in several markets from one place',
+        title: 'Global Commerce: selling in several markets from one place',
         description:
           'Multi-language, multi-currency and per-market rules: catalogues, stock, prices, taxes and local carriers managed on one platform.',
       },
@@ -232,7 +232,7 @@ export const platformCommerceCopy: SolutionSet = {
       features: [
         {
           title: 'Multi-language',
-          body: 'All content — text, images and video — differentiated per market, with semantic URLs that carry the SEO work with them.',
+          body: 'All content (text, images and video) differentiated per market, with semantic URLs that carry the SEO work with them.',
         },
         {
           title: 'Multi-currency',
@@ -262,7 +262,7 @@ export const platformCommerceCopy: SolutionSet = {
         {
           eyebrow: 'Content',
           title: 'The right content for each market',
-          body: 'Translating is not the same as adapting. Beyond translating all content into any language, the platform differentiates text, images and video per market — and the semantic URLs follow that differentiation, which matters for local search.',
+          body: 'Translating is not the same as adapting. Beyond translating all content into any language, the platform differentiates text, images and video per market, and the semantic URLs follow that differentiation, which matters for local search.',
           bullets: [
             'Content differentiated per market',
             'Semantic URLs per language',
@@ -272,7 +272,7 @@ export const platformCommerceCopy: SolutionSet = {
       ],
       closing: {
         title: 'Opening a new market?',
-        body: 'Leave your details and we will work through what it takes — tax, logistics, payments and content.',
+        body: 'Leave your details and we will work through what it takes: tax, logistics, payments and content.',
         points: [
           'We look at the target markets before talking about technology',
           'No new platform per country',
@@ -287,7 +287,7 @@ export const platformCommerceCopy: SolutionSet = {
   platformPersonalization: {
     pt: {
       meta: {
-        title: 'Marketing Personalizado — campanhas, recomendações e fidelização',
+        title: 'Marketing Personalizado: campanhas, recomendações e fidelização',
         description:
           'Campanhas omnicanal, recomendações de produto em tempo real, programa de fidelização por pontos e ordenação automática de produtos.',
       },
@@ -295,13 +295,13 @@ export const platformCommerceCopy: SolutionSet = {
       hero: {
         eyebrow: 'Marketing Personalizado',
         title: 'Experiências de compra personalizadas em cada interação',
-        lead: 'Personalização a sério não é mostrar o nome do cliente no email. É saber o que ele comprou, o que procurou e o que tem em stock — e agir sobre isso no momento certo.',
+        lead: 'Personalização a sério não é mostrar o nome do cliente no email. É saber o que ele comprou, o que procurou e o que tem em stock, e agir sobre isso no momento certo.',
         primary: 'Falar com especialista',
       },
       features: [
         {
           title: 'Campanhas e promoções omnicanal',
-          body: 'Vouchers, e-gifts e vales, descontos de aniversário ou de primeira compra, recuperação de carrinhos, encomendas e clientes — ativados num clique.',
+          body: 'Vouchers, e-gifts e vales, descontos de aniversário ou de primeira compra, recuperação de carrinhos, encomendas e clientes: ativados num clique.',
         },
         {
           title: 'Recomendações personalizadas',
@@ -331,7 +331,7 @@ export const platformCommerceCopy: SolutionSet = {
         {
           eyebrow: 'Recomendações',
           title: 'Reconhecer o cliente e agir em tempo real',
-          body: 'O mecanismo de recomendação reconhece cada cliente, evidencia as suas preferências com base nos perfis traçados e gera recomendações em tempo real — tanto no site como nas comunicações que saem para ele.',
+          body: 'O mecanismo de recomendação reconhece cada cliente, evidencia as suas preferências com base nos perfis traçados e gera recomendações em tempo real: tanto no site como nas comunicações que saem para ele.',
           bullets: ['Recomendações por email', 'Recomendações em tempo real no site'],
           link: { route: 'serviceCampaigns', label: 'Ver as Campanhas Automatizadas' },
         },
@@ -351,7 +351,7 @@ export const platformCommerceCopy: SolutionSet = {
 
     en: {
       meta: {
-        title: 'Personalised Marketing — campaigns, recommendations and loyalty',
+        title: 'Personalised Marketing: campaigns, recommendations and loyalty',
         description:
           'Omnichannel campaigns, real-time product recommendations, a points-based loyalty programme and automatic product sorting.',
       },
@@ -359,13 +359,13 @@ export const platformCommerceCopy: SolutionSet = {
       hero: {
         eyebrow: 'Personalised Marketing',
         title: 'Personalised buying experiences at every interaction',
-        lead: 'Real personalisation is not showing the customer’s name in an email. It is knowing what they bought, what they searched for and what is in stock — and acting on it at the right moment.',
+        lead: 'Real personalisation is not showing the customer’s name in an email. It is knowing what they bought, what they searched for and what is in stock, and acting on it at the right moment.',
         primary: 'Talk to a specialist',
       },
       features: [
         {
           title: 'Omnichannel campaigns and promotions',
-          body: 'Vouchers, e-gifts and credit notes, birthday or first-purchase discounts, basket, order and customer recovery — activated in one click.',
+          body: 'Vouchers, e-gifts and credit notes, birthday or first-purchase discounts, basket, order and customer recovery: activated in one click.',
         },
         {
           title: 'Personalised recommendations',
@@ -395,7 +395,7 @@ export const platformCommerceCopy: SolutionSet = {
         {
           eyebrow: 'Recommendations',
           title: 'Recognise the customer and act in real time',
-          body: 'The recommendation engine recognises each customer, surfaces their preferences based on the profiles built for them, and generates recommendations in real time — both on the site and in the communications that go out.',
+          body: 'The recommendation engine recognises each customer, surfaces their preferences based on the profiles built for them, and generates recommendations in real time: both on the site and in the communications that go out.',
           bullets: ['Recommendations by email', 'Real-time recommendations on the site'],
           link: { route: 'serviceCampaigns', label: 'See Automated Campaigns' },
         },
@@ -417,7 +417,7 @@ export const platformCommerceCopy: SolutionSet = {
   platformB2BTools: {
     pt: {
       meta: {
-        title: 'Ferramentas de Negócio B2B — pré-venda, grelha, packs e rappel',
+        title: 'Ferramentas de Negócio B2B: pré-venda, grelha, packs e rappel',
         description:
           'Encomendas em grelha e pack, pré-venda, rappel, importação e exportação em CSV e acesso próprio para vendedores e agentes.',
       },
@@ -450,7 +450,7 @@ export const platformCommerceCopy: SolutionSet = {
         {
           eyebrow: 'Encomendas',
           title: 'Desenhado para o modo como o B2B encomenda',
-          body: 'O portal traz o conjunto de ferramentas que um cliente profissional espera — incluindo importação e exportação em CSV ou Excel, porque uma boa parte das encomendas B2B continua a nascer numa folha de cálculo e não vale a pena fingir o contrário.',
+          body: 'O portal traz o conjunto de ferramentas que um cliente profissional espera: incluindo importação e exportação em CSV ou Excel, porque uma boa parte das encomendas B2B continua a nascer numa folha de cálculo e não vale a pena fingir o contrário.',
           bullets: [
             'Colocação de encomendas',
             'Orçamentos e propostas',
@@ -496,7 +496,7 @@ export const platformCommerceCopy: SolutionSet = {
 
     en: {
       meta: {
-        title: 'B2B Business Tools — pre-season, matrix ordering, packs and rebates',
+        title: 'B2B Business Tools: pre-season, matrix ordering, packs and rebates',
         description:
           'Matrix and pack ordering, pre-season selling, volume rebates, CSV import and export, and dedicated access for sales reps and agents.',
       },
@@ -529,7 +529,7 @@ export const platformCommerceCopy: SolutionSet = {
         {
           eyebrow: 'Ordering',
           title: 'Designed for how B2B actually orders',
-          body: 'The portal brings the tools a professional customer expects — including CSV and Excel import and export, because a good share of B2B orders still starts life in a spreadsheet and there is no point pretending otherwise.',
+          body: 'The portal brings the tools a professional customer expects: including CSV and Excel import and export, because a good share of B2B orders still starts life in a spreadsheet and there is no point pretending otherwise.',
           bullets: [
             'Order placement',
             'Quotes and proposals',
@@ -573,7 +573,7 @@ export const platformCommerceCopy: SolutionSet = {
   platformB2BMarketing: {
     pt: {
       meta: {
-        title: 'Marketing B2B — campanhas, descontos por volume e carrinhos múltiplos',
+        title: 'Marketing B2B: campanhas, descontos por volume e carrinhos múltiplos',
         description:
           'Campanhas e descontos personalizados por cliente profissional, preços por cliente, múltiplos carrinhos persistentes e perfis criados por IA.',
       },
@@ -623,7 +623,7 @@ export const platformCommerceCopy: SolutionSet = {
         {
           eyebrow: 'Carrinhos',
           title: 'Várias campanhas, vários carrinhos, uma sessão',
-          body: 'Pode criar campanhas com requisitos de compra diferentes — valores mínimos, quantidades mínimas, regras de pagamento, datas de entrega. Os carrinhos dividem-se automaticamente segundo essas regras, permitindo ao cliente colocar encomendas separadas sem confusão.',
+          body: 'Pode criar campanhas com requisitos de compra diferentes: valores mínimos, quantidades mínimas, regras de pagamento, datas de entrega. Os carrinhos dividem-se automaticamente segundo essas regras, permitindo ao cliente colocar encomendas separadas sem confusão.',
           bullets: [
             'Campanhas de pré-estação',
             'Campanhas com valor ou quantidade mínima',
@@ -646,7 +646,7 @@ export const platformCommerceCopy: SolutionSet = {
 
     en: {
       meta: {
-        title: 'B2B Marketing — campaigns, volume discounts and multiple baskets',
+        title: 'B2B Marketing: campaigns, volume discounts and multiple baskets',
         description:
           'Campaigns and discounts tailored to professional customers, customer-specific pricing, multiple persistent baskets and AI-built profiles.',
       },
@@ -696,7 +696,7 @@ export const platformCommerceCopy: SolutionSet = {
         {
           eyebrow: 'Baskets',
           title: 'Several campaigns, several baskets, one session',
-          body: 'You can build campaigns with different purchase requirements — minimum values, minimum quantities, payment rules, delivery dates. Baskets split automatically along those rules, letting the customer place separate orders without confusion.',
+          body: 'You can build campaigns with different purchase requirements: minimum values, minimum quantities, payment rules, delivery dates. Baskets split automatically along those rules, letting the customer place separate orders without confusion.',
           bullets: [
             'Pre-season campaigns',
             'Campaigns with a minimum value or quantity',

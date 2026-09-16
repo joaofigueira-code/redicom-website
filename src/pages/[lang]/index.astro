@@ -8,6 +8,7 @@ import Comparison from '@components/Comparison.astro';
 import LeadForm from '@components/LeadForm.astro';
 import CtaBand from '@components/CtaBand.astro';
 import Button from '@components/Button.astro';
+import NewsletterPopup from '@components/NewsletterPopup.astro';
 
 import { homeCopy } from '@/data/copy/home';
 import { hubCopy } from '@/data/copy/hubs';
@@ -107,7 +108,7 @@ const softwareSchema = {
   </section>
 
   <!-- Servicos Cloud: seccao propria do site, por isso tem de existir na
-       pagina inicial. Os cinco servicos vem do ficheiro dos Servicos — aqui
+       pagina inicial. Os cinco servicos vem do ficheiro dos Servicos: aqui
        so se decide o enquadramento. -->
   <section class="section section--tight services">
     <div class="container">
@@ -139,7 +140,7 @@ const softwareSchema = {
   <!-- 3. Primeiro ponto de conversao: a seguir a explicacao da plataforma,
        quando a pessoa ja sabe o suficiente para querer falar connosco. -->
   <section class="section section--tight">
-    <div class="container container--narrow">
+    <div class="container container--reading">
       <LeadForm
         lang={lang}
         topic="home-plataforma"
@@ -206,6 +207,10 @@ const softwareSchema = {
     points={copy.closing.points}
     submitLabel={copy.closing.submit}
   />
+
+  <!-- Janela da newsletter: so aqui, e so depois de a pessoa ter descido a
+       pagina. Ver o comentario do componente. -->
+  <NewsletterPopup lang={lang} />
 </BaseLayout>
 
 <style>

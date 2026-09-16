@@ -45,7 +45,7 @@ const moduleGrid = copy.modules.items.length % 4 === 0 ? 'grid--4' : 'grid--3';
 const schema = {
   '@context': 'https://schema.org',
   '@type': isService ? 'Service' : 'SoftwareApplication',
-  name: routeId === 'fashion' ? `${site.product} — Fashion Retail` : isService ? copy.meta.title : site.product,
+  name: routeId === 'fashion' ? `${site.product}: Fashion Retail` : isService ? copy.meta.title : site.product,
   ...(isService
     ? { serviceType: 'Digital marketing automation' }
     : { applicationCategory: 'BusinessApplication', operatingSystem: 'Web' }),
@@ -132,7 +132,7 @@ const schema = {
   }
 
   <section class="section section--tight midform">
-    <div class="container container--narrow">
+    <div class="container container--reading">
       <LeadForm
         lang={lang}
         topic={routeId}

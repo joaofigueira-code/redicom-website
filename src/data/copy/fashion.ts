@@ -218,7 +218,7 @@ export const fashionCopy: SolutionSet = {
       hero: {
         eyebrow: 'Wholesale B2B',
         title: 'Um portal wholesale construído de raiz para moda',
-        lead: 'O canal wholesale representa uma fatia significativa da receita de muitas marcas de moda — e as suas necessidades são radicalmente diferentes do B2C. Substituímos processos manuais por um ecossistema digital que fala a linguagem do negócio.',
+        lead: 'O canal wholesale representa uma fatia significativa da receita de muitas marcas de moda, e as suas necessidades são radicalmente diferentes do B2C. Substituímos processos manuais por um ecossistema digital que fala a linguagem do negócio.',
         primary: 'Pedir demonstração',
       },
       features: [
@@ -255,7 +255,7 @@ export const fashionCopy: SolutionSet = {
         {
           eyebrow: 'Ciclo comercial',
           title: 'Janelas de encomenda e sazonalidade',
-          body: 'Controle os períodos de encomenda por coleção, com pré-encomendas sazonais e datas de entrega definidas. O ciclo completo — da apresentação da coleção à expedição — fica dentro da mesma plataforma.',
+          body: 'Controle os períodos de encomenda por coleção, com pré-encomendas sazonais e datas de entrega definidas. O ciclo completo (da apresentação da coleção à expedição) fica dentro da mesma plataforma.',
         },
         {
           eyebrow: 'Integrações',
@@ -285,7 +285,7 @@ export const fashionCopy: SolutionSet = {
       hero: {
         eyebrow: 'B2B Wholesale',
         title: 'A wholesale portal built from the ground up for fashion',
-        lead: 'The wholesale channel carries a significant share of revenue for many fashion brands — and its needs are radically different from B2C. We replace manual process with a digital ecosystem that speaks the language of the business.',
+        lead: 'The wholesale channel carries a significant share of revenue for many fashion brands, and its needs are radically different from B2C. We replace manual process with a digital ecosystem that speaks the language of the business.',
         primary: 'Request a demo',
       },
       features: [
@@ -322,7 +322,7 @@ export const fashionCopy: SolutionSet = {
         {
           eyebrow: 'Commercial cycle',
           title: 'Order windows and seasonality',
-          body: 'Control order periods per collection, with seasonal pre-orders and defined delivery dates. The full cycle — from collection preview to dispatch — stays inside one platform.',
+          body: 'Control order periods per collection, with seasonal pre-orders and defined delivery dates. The full cycle (from collection preview to dispatch) stays inside one platform.',
         },
         {
           eyebrow: 'Integrations',
@@ -380,7 +380,7 @@ export const fashionCopy: SolutionSet = {
         {
           eyebrow: 'Gestão de encomendas',
           title: 'Rotas inteligentes para máxima eficiência',
-          body: 'O sistema aloca automaticamente a expedição ao ponto com stock disponível mais próximo do cliente — armazém central, loja física ou parceiro logístico. Isso traduz-se em tempos de entrega mais curtos, custos de expedição otimizados e melhor utilização do stock distribuído pela rede.',
+          body: 'O sistema aloca automaticamente a expedição ao ponto com stock disponível mais próximo do cliente: armazém central, loja física ou parceiro logístico. Isso traduz-se em tempos de entrega mais curtos, custos de expedição otimizados e melhor utilização do stock distribuído pela rede.',
           bullets: [
             'Rotas inteligentes multi-ponto',
             'Alocação por proximidade e disponibilidade',
@@ -392,7 +392,7 @@ export const fashionCopy: SolutionSet = {
         {
           eyebrow: 'Fluxo',
           title: 'Da encomenda à entrega, orquestrado de ponta a ponta',
-          body: 'A encomenda entra por qualquer canal — online, loja física ou B2B. O OMS analisa stock, proximidade e custos para definir o melhor ponto de expedição, o ponto selecionado prepara a encomenda, e o cliente recebe atualizações em tempo real até à entrega.',
+          body: 'A encomenda entra por qualquer canal: online, loja física ou B2B. O OMS analisa stock, proximidade e custos para definir o melhor ponto de expedição, o ponto selecionado prepara a encomenda, e o cliente recebe atualizações em tempo real até à entrega.',
         },
         {
           eyebrow: 'Arquitetura',
@@ -448,7 +448,7 @@ export const fashionCopy: SolutionSet = {
         {
           eyebrow: 'Order management',
           title: 'Intelligent routing for maximum efficiency',
-          body: 'The system automatically allocates fulfilment to the point with available stock closest to the customer — central warehouse, physical store or logistics partner. That means shorter delivery times, optimised shipping costs and better use of stock spread across the network.',
+          body: 'The system automatically allocates fulfilment to the point with available stock closest to the customer: central warehouse, physical store or logistics partner. That means shorter delivery times, optimised shipping costs and better use of stock spread across the network.',
           bullets: [
             'Intelligent multi-point routing',
             'Allocation by proximity and availability',
@@ -460,7 +460,7 @@ export const fashionCopy: SolutionSet = {
         {
           eyebrow: 'Flow',
           title: 'From order to delivery, orchestrated end to end',
-          body: 'The order arrives through any channel — online, store or B2B. The OMS weighs stock, proximity and cost to pick the best fulfilment point, that point prepares the order, and the customer gets real-time updates through to delivery.',
+          body: 'The order arrives through any channel: online, store or B2B. The OMS weighs stock, proximity and cost to pick the best fulfilment point, that point prepares the order, and the customer gets real-time updates through to delivery.',
         },
         {
           eyebrow: 'Architecture',
@@ -519,7 +519,7 @@ export const fashionCopy: SolutionSet = {
         {
           eyebrow: 'Experiência unificada',
           title: 'Um POS que conhece o cliente em todos os canais',
-          body: 'Os lojistas acedem ao histórico omnicanal — compras online, devoluções, preferências de tamanho, wishlist e pontos. Isso permite um atendimento informado que eleva a experiência na loja física e aumenta o valor médio da venda.',
+          body: 'Os lojistas acedem ao histórico omnicanal: compras online, devoluções, preferências de tamanho, wishlist e pontos. Isso permite um atendimento informado que eleva a experiência na loja física e aumenta o valor médio da venda.',
           bullets: [
             'Visão integrada do cliente entre canais',
             'Devoluções cruzadas entre loja e online',
@@ -585,7 +585,7 @@ export const fashionCopy: SolutionSet = {
         {
           eyebrow: 'Unified experience',
           title: 'A POS that knows the customer across every channel',
-          body: 'Store staff see the omnichannel history — online purchases, returns, size preferences, wishlist and points. That makes for informed service that lifts the in-store experience and the average sale.',
+          body: 'Store staff see the omnichannel history: online purchases, returns, size preferences, wishlist and points. That makes for informed service that lifts the in-store experience and the average sale.',
           bullets: [
             'Integrated customer view across channels',
             'Cross-channel returns between store and online',
@@ -621,7 +621,7 @@ export const fashionCopy: SolutionSet = {
   fashionAIStudio: {
     pt: {
       meta: {
-        title: 'AI Studio — fotografia de produto com IA para moda',
+        title: 'AI Studio: fotografia de produto com IA para moda',
         description:
           'O AI Studio gera imagens de catálogo com IA e adapta-as a loja, redes sociais e marketplaces, com consistência visual em escala para marcas de moda.',
       },
@@ -687,7 +687,7 @@ export const fashionCopy: SolutionSet = {
     },
     en: {
       meta: {
-        title: 'AI Studio — AI product photography for fashion',
+        title: 'AI Studio: AI product photography for fashion',
         description:
           'AI Studio generates catalogue imagery with AI and adapts it for the store, social and marketplaces, with visual consistency at scale for fashion brands.',
       },
@@ -758,7 +758,7 @@ export const fashionCopy: SolutionSet = {
       meta: {
         title: 'Assistente IA para comércio online, 24/7',
         description:
-          'O Assistente IA responde 24/7 com dados reais da loja — stock, estado de encomendas e recomendações — e encaminha para a equipa quando é preciso.',
+          'O Assistente IA responde 24/7 com dados reais da loja (stock, estado de encomendas e recomendações) e encaminha para a equipa quando é preciso.',
       },
       breadcrumb: 'Assistente IA',
       hero: {
@@ -789,7 +789,7 @@ export const fashionCopy: SolutionSet = {
         {
           eyebrow: 'IA contextual',
           title: 'Inteligência que compreende o seu negócio',
-          body: 'O assistente aparece diretamente na loja online e usa dados reais da operação para dar respostas precisas. Elimina incertezas e facilita a decisão do cliente em qualquer etapa da jornada de compra — porque sabe o que está em stock e onde está a encomenda.',
+          body: 'O assistente aparece diretamente na loja online e usa dados reais da operação para dar respostas precisas. Elimina incertezas e facilita a decisão do cliente em qualquer etapa da jornada de compra, porque sabe o que está em stock e onde está a encomenda.',
           bullets: [
             'Assistência automatizada permanente',
             'Informação de stock e encomendas em tempo real',
@@ -819,7 +819,7 @@ export const fashionCopy: SolutionSet = {
       meta: {
         title: 'AI Assistant for online commerce, 24/7',
         description:
-          'The AI Assistant answers 24/7 with real store data — stock, order status and recommendations — and hands over to the team when it needs to.',
+          'The AI Assistant answers 24/7 with real store data (stock, order status and recommendations) and hands over to the team when it needs to.',
       },
       breadcrumb: 'AI Assistant',
       hero: {
@@ -850,7 +850,7 @@ export const fashionCopy: SolutionSet = {
         {
           eyebrow: 'Contextual AI',
           title: 'Intelligence that understands your business',
-          body: 'The assistant appears directly in the online store and uses real operational data to give precise answers. It removes uncertainty and helps the customer decide at any stage of the journey — because it knows what is in stock and where the order is.',
+          body: 'The assistant appears directly in the online store and uses real operational data to give precise answers. It removes uncertainty and helps the customer decide at any stage of the journey, because it knows what is in stock and where the order is.',
           bullets: [
             'Permanent automated assistance',
             'Real-time stock and order information',
@@ -1018,7 +1018,7 @@ export const fashionCopy: SolutionSet = {
   fashionAnalytics: {
     pt: {
       meta: {
-        title: 'Analytics para Fashion Retail — sell-through e rotação de stock',
+        title: 'Analytics para Fashion Retail: sell-through e rotação de stock',
         description:
           'Sell-through, rotação de stock e performance por coleção, canal e mercado: o Redicom Analytics dá às marcas de moda KPIs sobre dados unificados.',
       },
@@ -1036,7 +1036,7 @@ export const fashionCopy: SolutionSet = {
         },
         {
           title: 'Análise de devoluções',
-          body: 'Devoluções por motivo, tamanho, produto e canal — o custo que mais pesa na margem do setor.',
+          body: 'Devoluções por motivo, tamanho, produto e canal: o custo que mais pesa na margem do setor.',
         },
         {
           title: 'Performance por canal e mercado',
@@ -1051,7 +1051,7 @@ export const fashionCopy: SolutionSet = {
         {
           eyebrow: 'Inteligência acionável',
           title: 'Os dados só têm valor quando geram ação',
-          body: 'Não oferecemos apenas gráficos e números: oferecemos leitura contextualizada para o negócio de moda. Como todos os dados — vendas, stock, clientes, marketing, operação — vivem na mesma plataforma, a análise é integrada e a visão é completa.',
+          body: 'Não oferecemos apenas gráficos e números: oferecemos leitura contextualizada para o negócio de moda. Como todos os dados (vendas, stock, clientes, marketing, operação) vivem na mesma plataforma, a análise é integrada e a visão é completa.',
           bullets: [
             'Leitura prática da performance por canal e mercado',
             'Análise de sell-through e rotação de stock',
@@ -1074,7 +1074,7 @@ export const fashionCopy: SolutionSet = {
         {
           eyebrow: 'A vantagem',
           title: 'Dados unificados, sem silos',
-          body: 'As plataformas genéricas impõem modelos de acesso a dados restritivos que dificultam analytics avançados e a aplicação de IA. Aqui, vendas, stock, clientes, marketing e logística vivem no mesmo sítio — sem silos, sem integrações frágeis, sem dados desatualizados.',
+          body: 'As plataformas genéricas impõem modelos de acesso a dados restritivos que dificultam analytics avançados e a aplicação de IA. Aqui, vendas, stock, clientes, marketing e logística vivem no mesmo sítio, sem silos, sem integrações frágeis, sem dados desatualizados.',
         },
       ],
       closing: {
@@ -1091,7 +1091,7 @@ export const fashionCopy: SolutionSet = {
     },
     en: {
       meta: {
-        title: 'Analytics for fashion retail — sell-through and stock rotation',
+        title: 'Analytics for fashion retail: sell-through and stock rotation',
         description:
           'Sell-through, stock rotation and performance by collection, channel and market: Redicom Analytics gives fashion brands KPIs on unified data.',
       },
@@ -1109,7 +1109,7 @@ export const fashionCopy: SolutionSet = {
         },
         {
           title: 'Returns analysis',
-          body: 'Returns by reason, size, product and channel — the cost that weighs most on margin in this sector.',
+          body: 'Returns by reason, size, product and channel: the cost that weighs most on margin in this sector.',
         },
         {
           title: 'Performance by channel and market',
@@ -1124,7 +1124,7 @@ export const fashionCopy: SolutionSet = {
         {
           eyebrow: 'Actionable intelligence',
           title: 'Data only matters when it produces action',
-          body: 'We do not just offer charts and numbers: we offer a reading with fashion business context. Because all the data — sales, stock, customers, marketing, operations — lives on the same platform, the analysis is integrated and the view is complete.',
+          body: 'We do not just offer charts and numbers: we offer a reading with fashion business context. Because all the data (sales, stock, customers, marketing, operations) lives on the same platform, the analysis is integrated and the view is complete.',
           bullets: [
             'A practical read of performance by channel and market',
             'Sell-through and stock rotation analysis',
@@ -1147,7 +1147,7 @@ export const fashionCopy: SolutionSet = {
         {
           eyebrow: 'The advantage',
           title: 'Unified data, no silos',
-          body: 'Generic platforms impose restrictive data-access models that get in the way of advanced analytics and applied AI. Here, sales, stock, customers, marketing and logistics live in one place — no silos, no fragile integrations, no stale data.',
+          body: 'Generic platforms impose restrictive data-access models that get in the way of advanced analytics and applied AI. Here, sales, stock, customers, marketing and logistics live in one place: no silos, no fragile integrations, no stale data.',
         },
       ],
       closing: {

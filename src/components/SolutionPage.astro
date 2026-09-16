@@ -42,7 +42,7 @@ const crumbs = [
 const productSchema = {
   '@context': 'https://schema.org',
   '@type': 'Product',
-  name: `${site.product} — ${copy.breadcrumb}`,
+  name: `${site.product}, ${copy.breadcrumb}`,
   description: copy.meta.description,
   brand: { '@id': `${site.url}/#organization` },
   url: `${site.url}${path(routeId, lang)}`,
@@ -94,7 +94,7 @@ const sectionsAfter = copy.sections.slice(splitAt);
   {
     copy.midForm && (
       <section class="section section--tight midform">
-        <div class="container container--narrow">
+        <div class="container container--reading">
           <LeadForm
             lang={lang}
             topic={routeId}

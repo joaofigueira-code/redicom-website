@@ -16,7 +16,7 @@ export const platformSupportCopy: SolutionSet = {
   platformCustomerCare: {
     pt: {
       meta: {
-        title: 'Ferramentas de Customer Care — visão 360º do cliente e da encomenda',
+        title: 'Ferramentas de Customer Care: visão 360º do cliente e da encomenda',
         description:
           'Histórico completo do cliente, encomenda feita pelo apoio, vales de compensação, registo de incidências e devoluções com estorno automático.',
       },
@@ -73,7 +73,7 @@ export const platformSupportCopy: SolutionSet = {
         {
           eyebrow: 'Devoluções',
           title: 'Devoluções e trocas sem fricção',
-          body: 'O fluxo completo é automatizado: registo da devolução ou troca, receção e validação dos artigos, estorno automático e criação da nota de crédito. E funciona entre canais — uma encomenda online pode ser devolvida em loja física.',
+          body: 'O fluxo completo é automatizado: registo da devolução ou troca, receção e validação dos artigos, estorno automático e criação da nota de crédito. E funciona entre canais: uma encomenda online pode ser devolvida em loja física.',
           bullets: [
             'Tracking da devolução ou troca',
             'Criação de notas de crédito',
@@ -97,7 +97,7 @@ export const platformSupportCopy: SolutionSet = {
 
     en: {
       meta: {
-        title: 'Customer Care Tools — a 360º view of the customer and the order',
+        title: 'Customer Care Tools: a 360º view of the customer and the order',
         description:
           'Full customer history, orders placed on the customer’s behalf, compensation vouchers, incident logging and returns with automatic refunds.',
       },
@@ -154,7 +154,7 @@ export const platformSupportCopy: SolutionSet = {
         {
           eyebrow: 'Returns',
           title: 'Returns and exchanges without friction',
-          body: 'The whole flow is automated: logging the return or exchange, receiving and validating the items, refunding automatically and issuing the credit note. And it works across channels — an online order can be returned in a physical store.',
+          body: 'The whole flow is automated: logging the return or exchange, receiving and validating the items, refunding automatically and issuing the credit note. And it works across channels: an online order can be returned in a physical store.',
           bullets: [
             'Return and exchange tracking',
             'Credit note creation',
@@ -180,7 +180,7 @@ export const platformSupportCopy: SolutionSet = {
   platformInvoicing: {
     pt: {
       meta: {
-        title: 'Faturação Integrada — certificada pela AT e dentro da plataforma',
+        title: 'Faturação Integrada: certificada pela AT e dentro da plataforma',
         description:
           'Faturação certificada pela Autoridade Tributária, importação de faturas de sistema externo, personalização de documentos e impressão automática.',
       },
@@ -243,7 +243,7 @@ export const platformSupportCopy: SolutionSet = {
 
     en: {
       meta: {
-        title: 'Integrated Invoicing — certified and inside the platform',
+        title: 'Integrated Invoicing: certified and inside the platform',
         description:
           'Invoicing certified by the Portuguese tax authority, import of invoices from external systems, document customisation and automatic printing.',
       },
@@ -308,7 +308,7 @@ export const platformSupportCopy: SolutionSet = {
   platformSearch: {
     pt: {
       meta: {
-        title: 'Pesquisa Inteligente — nativa, em tempo real e sem feeds',
+        title: 'Pesquisa Inteligente: nativa, em tempo real e sem feeds',
         description:
           'Pesquisa integrada na plataforma, com stock e preços em tempo real, preços e promoções por segmento, e sem feeds externos nem custos adicionais.',
       },
@@ -351,7 +351,7 @@ export const platformSupportCopy: SolutionSet = {
         {
           eyebrow: 'Operação',
           title: 'Menos uma peça para manter',
-          body: 'Toda a lógica da pesquisa é gerida dentro do ecossistema da plataforma. Não há feed para gerir, nem indexação para monitorizar, nem mais uma subscrição para renovar — e isso nota-se sobretudo em operações com alterações frequentes.',
+          body: 'Toda a lógica da pesquisa é gerida dentro do ecossistema da plataforma. Não há feed para gerir, nem indexação para monitorizar, nem mais uma subscrição para renovar, e isso nota-se sobretudo em operações com alterações frequentes.',
           bullets: [
             'Sem ficheiros ou feeds a sincronizar',
             'Sem indexação para monitorizar',
@@ -427,7 +427,7 @@ export const platformSupportCopy: SolutionSet = {
 
     en: {
       meta: {
-        title: 'Smart Search — native, real-time and feed-free',
+        title: 'Smart Search: native, real-time and feed-free',
         description:
           'Search built into the platform, with real-time stock and pricing, segment-specific prices and promotions, no external feeds and no extra cost.',
       },
@@ -470,7 +470,7 @@ export const platformSupportCopy: SolutionSet = {
         {
           eyebrow: 'Operations',
           title: 'One less piece to maintain',
-          body: 'All the search logic is managed inside the platform. There is no feed to manage, no indexing to monitor and no extra subscription to renew — and that shows most in operations that change several times a day.',
+          body: 'All the search logic is managed inside the platform. There is no feed to manage, no indexing to monitor and no extra subscription to renew, and that shows most in operations that change several times a day.',
           bullets: [
             'No files or feeds to synchronise',
             'No indexing to monitor',

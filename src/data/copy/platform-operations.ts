@@ -10,7 +10,7 @@ export const platformOperationsCopy: SolutionSet = {
   platformPOS: {
     pt: {
       meta: {
-        title: 'POS Omnicanal — ligue as lojas físicas à loja online',
+        title: 'POS Omnicanal: ligue as lojas físicas à loja online',
         description:
           'Sistema POS totalmente omnicanal, certificado pela AT, que liga lojas físicas à loja online sem integrações e pronto a utilizar com a Redicom Commerce Cloud.',
       },
@@ -54,7 +54,7 @@ export const platformOperationsCopy: SolutionSet = {
         {
           eyebrow: 'Fluxos',
           title: 'O cliente escolhe como e onde compra',
-          body: 'Ligar a loja online às lojas físicas abre modalidades de compra que de outra forma se perdem — e cada uma delas recupera vendas que ficariam por fazer.',
+          body: 'Ligar a loja online às lojas físicas abre modalidades de compra que de outra forma se perdem, e cada uma delas recupera vendas que ficariam por fazer.',
           bullets: [
             'Compra na loja online com stock das lojas físicas',
             'Compra na loja física com stock online ou de outras lojas',
@@ -77,7 +77,7 @@ export const platformOperationsCopy: SolutionSet = {
     },
     en: {
       meta: {
-        title: 'Omnichannel POS — connect physical stores to the online store',
+        title: 'Omnichannel POS: connect physical stores to the online store',
         description:
           'A fully omnichannel POS, certified by the Portuguese tax authority, connecting physical stores to the online store with no integrations, ready to use with the Redicom Commerce Cloud.',
       },
@@ -121,7 +121,7 @@ export const platformOperationsCopy: SolutionSet = {
         {
           eyebrow: 'Flows',
           title: 'The customer chooses how and where they buy',
-          body: 'Connecting the online store to physical stores opens up purchase options that would otherwise be lost — and each one recovers sales that would not have happened.',
+          body: 'Connecting the online store to physical stores opens up purchase options that would otherwise be lost, and each one recovers sales that would not have happened.',
           bullets: [
             'Buy online using stock held in physical stores',
             'Buy in store using online stock or another store’s',
@@ -147,7 +147,7 @@ export const platformOperationsCopy: SolutionSet = {
   platformOmnichannel: {
     pt: {
       meta: {
-        title: 'Tecnologia omnicanal — todos os canais numa única operação',
+        title: 'Tecnologia omnicanal: todos os canais numa única operação',
         description:
           'Stock partilhado entre lojas, campanhas omnicanal, aplicação de apoio às lojas físicas e diferentes fluxos de compra entre a loja online e a loja física.',
       },
@@ -155,7 +155,7 @@ export const platformOperationsCopy: SolutionSet = {
       hero: {
         eyebrow: 'Tecnologia Omnicanal',
         title: 'Uma experiência de compra perfeita em todos os canais',
-        lead: 'Responda às preferências dos seus clientes ligando a loja online às lojas físicas. O stock, as campanhas e o cliente são os mesmos — é a operação que se junta, não os sistemas.',
+        lead: 'Responda às preferências dos seus clientes ligando a loja online às lojas físicas. O stock, as campanhas e o cliente são os mesmos: é a operação que se junta, não os sistemas.',
         primary: 'Pedir proposta',
       },
       features: [
@@ -180,7 +180,7 @@ export const platformOperationsCopy: SolutionSet = {
         {
           eyebrow: 'Fluxos de compra',
           title: 'Deixe o cliente escolher o percurso',
-          body: 'Os fluxos omnicanal garantem modalidades de compra diferentes e permitem que seja o cliente a decidir como e onde quer comprar — sem que isso obrigue a equipa a gerir dois negócios paralelos.',
+          body: 'Os fluxos omnicanal garantem modalidades de compra diferentes e permitem que seja o cliente a decidir como e onde quer comprar, sem que isso obrigue a equipa a gerir dois negócios paralelos.',
           bullets: [
             'Compra na loja online com stock das lojas físicas',
             'Compra na loja física com stock online ou de outras lojas',
@@ -212,7 +212,7 @@ export const platformOperationsCopy: SolutionSet = {
     },
     en: {
       meta: {
-        title: 'Omnichannel technology — every channel in one operation',
+        title: 'Omnichannel technology: every channel in one operation',
         description:
           'Stock shared across stores, omnichannel campaigns, a support app for physical stores, and different purchase flows between the online store and the shop floor.',
       },
@@ -220,7 +220,7 @@ export const platformOperationsCopy: SolutionSet = {
       hero: {
         eyebrow: 'Omnichannel Technology',
         title: 'A seamless shopping experience across every channel',
-        lead: 'Meet your customers’ preferences by connecting the online store to physical stores. Stock, campaigns and customer are the same — it is the operation that comes together, not the systems.',
+        lead: 'Meet your customers’ preferences by connecting the online store to physical stores. Stock, campaigns and customer are the same: it is the operation that comes together, not the systems.',
         primary: 'Request a proposal',
       },
       features: [
@@ -245,7 +245,7 @@ export const platformOperationsCopy: SolutionSet = {
         {
           eyebrow: 'Purchase flows',
           title: 'Let the customer choose the route',
-          body: 'Omnichannel flows open up different ways to buy and let the customer decide how and where — without forcing the team to run two parallel businesses.',
+          body: 'Omnichannel flows open up different ways to buy and let the customer decide how and where, without forcing the team to run two parallel businesses.',
           bullets: [
             'Buy online using stock held in physical stores',
             'Buy in store using online stock or another store’s',
@@ -280,7 +280,7 @@ export const platformOperationsCopy: SolutionSet = {
   platformAnalytics: {
     pt: {
       meta: {
-        title: 'Redicom Analytics — análise integrada na operação',
+        title: 'Redicom Analytics: análise integrada na operação',
         description:
           'Vendas, margem, stock, campanhas e comportamento analisados sobre a mesma base de dados da operação, sem exportações, ferramentas externas ou custos adicionais.',
       },
@@ -324,7 +324,7 @@ export const platformOperationsCopy: SolutionSet = {
         {
           eyebrow: 'Comparação',
           title: 'Complementar à medição digital, não substituto',
-          body: 'Uma ferramenta de medição digital é muito forte a explicar tráfego e aquisição. O Redicom Analytics é forte onde essas ferramentas são indiretas: stock e preço reais, promoções e contexto comercial, preços por segmento e decisão operacional — sem sampling, sem thresholds e sem exportar para outro sítio para ir ao fundo de uma pergunta.',
+          body: 'Uma ferramenta de medição digital é muito forte a explicar tráfego e aquisição. O Redicom Analytics é forte onde essas ferramentas são indiretas: stock e preço reais, promoções e contexto comercial, preços por segmento e decisão operacional, sem sampling, sem thresholds e sem exportar para outro sítio para ir ao fundo de uma pergunta.',
         },
       ],
       comparison: {
@@ -384,7 +384,7 @@ export const platformOperationsCopy: SolutionSet = {
     },
     en: {
       meta: {
-        title: 'Redicom Analytics — analysis built into the operation',
+        title: 'Redicom Analytics: analysis built into the operation',
         description:
           'Sales, margin, stock, campaigns and behaviour analysed on the operation’s own database, with no exports, no external tools and no additional cost.',
       },
@@ -428,7 +428,7 @@ export const platformOperationsCopy: SolutionSet = {
         {
           eyebrow: 'Comparison',
           title: 'Complementary to digital measurement, not a replacement',
-          body: 'A digital measurement tool is very strong at explaining traffic and acquisition. Redicom Analytics is strong where those tools are indirect: real stock and price, promotions and commercial context, segment pricing and operational decisions — with no sampling, no thresholds and no export to somewhere else to get to the bottom of a question.',
+          body: 'A digital measurement tool is very strong at explaining traffic and acquisition. Redicom Analytics is strong where those tools are indirect: real stock and price, promotions and commercial context, segment pricing and operational decisions, with no sampling, no thresholds and no export to somewhere else to get to the bottom of a question.',
         },
       ],
       comparison: {
@@ -491,7 +491,7 @@ export const platformOperationsCopy: SolutionSet = {
   platformMobileApp: {
     pt: {
       meta: {
-        title: 'Mobile App — a sua loja na app, sobre a mesma plataforma',
+        title: 'Mobile App: a sua loja na app, sobre a mesma plataforma',
         description:
           'Aplicação móvel pronta a utilizar, assente no mesmo catálogo, stock e cliente da Redicom Commerce Cloud, com campanhas e fluxos omnicanal partilhados.',
       },
@@ -542,7 +542,7 @@ export const platformOperationsCopy: SolutionSet = {
     },
     en: {
       meta: {
-        title: 'Mobile App — your store in an app, on the same platform',
+        title: 'Mobile App: your store in an app, on the same platform',
         description:
           'A ready-to-use mobile app running on the same catalogue, stock and customer as the Redicom Commerce Cloud, with shared campaigns and omnichannel flows.',
       },

@@ -52,7 +52,7 @@ export type HomeCopy = {
 export const homeCopy: Record<Lang, HomeCopy> = {
   pt: {
     meta: {
-      title: 'Redicom Commerce Cloud — plataforma de comércio digital',
+      title: 'Redicom Commerce Cloud: plataforma de comércio digital',
       description:
         'A Redicom desenvolve a Redicom Commerce Cloud desde 2002: B2C, B2B, OMS, POS omnicanal e marketing numa só plataforma. Mais de 500 projetos implementados.',
     },
@@ -95,7 +95,7 @@ export const homeCopy: Record<Lang, HomeCopy> = {
     platform: {
       eyebrow: 'A plataforma',
       title: 'Uma base única para todo o comércio digital',
-      lead: 'B2C, B2B, gestão de encomendas, loja física e marketing partilham o mesmo catálogo, o mesmo stock e o mesmo cliente. Não são módulos integrados — são a mesma plataforma.',
+      lead: 'B2C, B2B, gestão de encomendas, loja física e marketing partilham o mesmo catálogo, o mesmo stock e o mesmo cliente. Não são módulos integrados: são a mesma plataforma.',
       modules: [
         {
           route: 'platformB2C',
@@ -207,7 +207,7 @@ export const homeCopy: Record<Lang, HomeCopy> = {
     agentic: {
       eyebrow: 'Agentic Commerce',
       title: 'Preparado para os agentes de IA que já compram',
-      body: 'A descoberta de produto mudou. Agentes de IA recomendam, comparam e compram em nome dos consumidores — e só conseguem fazê-lo quando o catálogo, o stock e o preço estão corretos e estruturados.',
+      body: 'A descoberta de produto mudou. Agentes de IA recomendam, comparam e compram em nome dos consumidores, e só conseguem fazê-lo quando o catálogo, o stock e o preço estão corretos e estruturados.',
       points: [
         'Catálogo estruturado com atributos, variantes e contexto comercial',
         'Stock e preço em tempo real por mercado e por canal',
@@ -230,7 +230,7 @@ export const homeCopy: Record<Lang, HomeCopy> = {
 
   en: {
     meta: {
-      title: 'Redicom Commerce Cloud — the digital commerce platform',
+      title: 'Redicom Commerce Cloud: the digital commerce platform',
       description:
         'Redicom has been building the Redicom Commerce Cloud since 2002: B2C, B2B, OMS, omnichannel POS and marketing on one platform. Over 500 projects delivered.',
     },
@@ -273,7 +273,7 @@ export const homeCopy: Record<Lang, HomeCopy> = {
     platform: {
       eyebrow: 'The platform',
       title: 'One foundation for the whole of digital commerce',
-      lead: 'B2C, B2B, order management, the physical store and marketing share the same catalogue, the same stock and the same customer. They are not integrated modules — they are the same platform.',
+      lead: 'B2C, B2B, order management, the physical store and marketing share the same catalogue, the same stock and the same customer. They are not integrated modules: they are the same platform.',
       modules: [
         {
           route: 'platformB2C',
@@ -385,7 +385,7 @@ export const homeCopy: Record<Lang, HomeCopy> = {
     agentic: {
       eyebrow: 'Agentic Commerce',
       title: 'Ready for the AI agents that already buy',
-      body: 'Product discovery has changed. AI agents recommend, compare and buy on behalf of consumers — and they can only do it when catalogue, stock and price are correct and structured.',
+      body: 'Product discovery has changed. AI agents recommend, compare and buy on behalf of consumers, and they can only do it when catalogue, stock and price are correct and structured.',
       points: [
         'A structured catalogue with attributes, variants and commercial context',
         'Real-time stock and price, per market and per channel',

@@ -19,7 +19,7 @@ export const standalonePagesCopy: SolutionSet = {
   why: {
     pt: {
       meta: {
-        title: 'Porquê Redicom — a alternativa às plataformas genéricas',
+        title: 'Porquê Redicom: a alternativa às plataformas genéricas',
         description:
           'Faturação certificada pela AT, 0% de taxa sobre as vendas, dados alojados na União Europeia e POS omnicanal incluído. O que distingue a Redicom Commerce Cloud.',
       },
@@ -66,7 +66,7 @@ export const standalonePagesCopy: SolutionSet = {
         {
           eyebrow: 'Custo',
           title: 'O que poupa por não pagar taxa sobre as vendas',
-          body: 'Nas plataformas que cobram percentagem sobre a faturação, o custo cresce ao mesmo ritmo do negócio. Com uma taxa típica entre 0,6% e 2%, a conta acumula depressa. Os valores abaixo são o que uma operação deixa de pagar em taxas ao longo de um ano — dinheiro que fica disponível para reinvestir.',
+          body: 'Nas plataformas que cobram percentagem sobre a faturação, o custo cresce ao mesmo ritmo do negócio. Com uma taxa típica entre 0,6% e 2%, a conta acumula depressa. Os valores abaixo são o que uma operação deixa de pagar em taxas ao longo de um ano: dinheiro que fica disponível para reinvestir.',
           bullets: [
             'Faturação de 50 mil euros por mês: cerca de 6.000 euros por ano em taxas',
             'Faturação de 150 mil euros por mês: cerca de 18.000 euros por ano',
@@ -173,7 +173,7 @@ export const standalonePagesCopy: SolutionSet = {
 
     en: {
       meta: {
-        title: 'Why Redicom — the alternative to generic platforms',
+        title: 'Why Redicom: the alternative to generic platforms',
         description:
           'Invoicing certified by the Portuguese tax authority, 0% transaction fees, data hosted in the European Union and omnichannel POS included. What sets the Redicom Commerce Cloud apart.',
       },
@@ -209,7 +209,7 @@ export const standalonePagesCopy: SolutionSet = {
         {
           eyebrow: 'Compliance',
           title: 'Tax compliance stops being a technical project',
-          body: 'Operating in Portugal means meeting the tax authority’s requirements — there is no optional route. Redicom builds in certified invoicing from the start, which removes the risk of penalties, cuts accounting complexity and keeps the information in one system. The omnichannel POS, certified too, connects physical stores to the online operation with no external adaptations or parallel systems.',
+          body: 'Operating in Portugal means meeting the tax authority’s requirements: there is no optional route. Redicom builds in certified invoicing from the start, which removes the risk of penalties, cuts accounting complexity and keeps the information in one system. The omnichannel POS, certified too, connects physical stores to the online operation with no external adaptations or parallel systems.',
           bullets: [
             'Invoicing certified by the Portuguese tax authority under no. 2857',
             'POS certified for invoicing in store',
@@ -220,7 +220,7 @@ export const standalonePagesCopy: SolutionSet = {
         {
           eyebrow: 'Cost',
           title: 'What you save by not paying a transaction fee',
-          body: 'On platforms that charge a percentage of revenue, cost grows at exactly the pace of the business. At a typical rate of 0.6% to 2%, it adds up quickly. The figures below are what an operation stops paying in fees over a year — money that stays available to reinvest.',
+          body: 'On platforms that charge a percentage of revenue, cost grows at exactly the pace of the business. At a typical rate of 0.6% to 2%, it adds up quickly. The figures below are what an operation stops paying in fees over a year: money that stays available to reinvest.',
           bullets: [
             'Revenue of 50k euros a month: around 6,000 euros a year in fees',
             'Revenue of 150k euros a month: around 18,000 euros a year',
@@ -329,7 +329,7 @@ export const standalonePagesCopy: SolutionSet = {
   agentic: {
     pt: {
       meta: {
-        title: 'Agentic Commerce — o seu catálogo preparado para agentes de IA',
+        title: 'Agentic Commerce: o seu catálogo preparado para agentes de IA',
         description:
           'Os agentes de IA já recomendam, comparam e compram em nome dos consumidores. A Redicom liga o Agentic Commerce ao catálogo, ao stock, ao checkout e ao OMS da sua operação.',
       },
@@ -338,7 +338,7 @@ export const standalonePagesCopy: SolutionSet = {
       hero: {
         eyebrow: 'Agentic Commerce',
         title: 'A jornada de compra já não começa na pesquisa',
-        lead: 'Agentes de IA autónomos descobrem, comparam e recomendam produtos em nome dos consumidores. Mais do que estar visível, é preciso estar preparado para vender — e isso depende do que está por baixo do catálogo.',
+        lead: 'Agentes de IA autónomos descobrem, comparam e recomendam produtos em nome dos consumidores. Mais do que estar visível, é preciso estar preparado para vender, e isso depende do que está por baixo do catálogo.',
         primary: 'Pedir demonstração',
       },
 
@@ -378,7 +378,7 @@ export const standalonePagesCopy: SolutionSet = {
         {
           eyebrow: 'Catálogo inteligente',
           title: 'O que um agente precisa de saber sobre cada produto',
-          body: 'Para que os agentes de IA recomendem, comparem e vendam os seus produtos, a informação tem de estar perfeitamente estruturada. Preparamos o catálogo com o detalhe que a decisão automática exige — e é o mesmo detalhe que melhora a pesquisa interna, as recomendações da loja e o trabalho das equipas comerciais.',
+          body: 'Para que os agentes de IA recomendem, comparem e vendam os seus produtos, a informação tem de estar perfeitamente estruturada. Preparamos o catálogo com o detalhe que a decisão automática exige, e é o mesmo detalhe que melhora a pesquisa interna, as recomendações da loja e o trabalho das equipas comerciais.',
           bullets: [
             'Atributos de produto estruturados e enriquecidos',
             'Variantes, tamanhos e grelhas completas',
@@ -456,7 +456,7 @@ export const standalonePagesCopy: SolutionSet = {
 
     en: {
       meta: {
-        title: 'Agentic Commerce — your catalogue ready for AI agents',
+        title: 'Agentic Commerce: your catalogue ready for AI agents',
         description:
           'AI agents already recommend, compare and buy on behalf of consumers. Redicom connects agentic commerce to your catalogue, stock, checkout and OMS.',
       },
@@ -465,7 +465,7 @@ export const standalonePagesCopy: SolutionSet = {
       hero: {
         eyebrow: 'Agentic Commerce',
         title: 'The buying journey no longer starts with a search',
-        lead: 'Autonomous AI agents discover, compare and recommend products on behalf of consumers. Being visible is no longer enough — you have to be ready to sell, and that depends on what sits beneath the catalogue.',
+        lead: 'Autonomous AI agents discover, compare and recommend products on behalf of consumers. Being visible is no longer enough: you have to be ready to sell, and that depends on what sits beneath the catalogue.',
         primary: 'Request a demo',
       },
 
@@ -505,7 +505,7 @@ export const standalonePagesCopy: SolutionSet = {
         {
           eyebrow: 'Intelligent catalogue',
           title: 'What an agent needs to know about each product',
-          body: 'For AI agents to recommend, compare and sell your products, the information has to be properly structured. We prepare the catalogue with the detail automated decisions require — and it is the same detail that improves on-site search, store recommendations and the work of your commercial teams.',
+          body: 'For AI agents to recommend, compare and sell your products, the information has to be properly structured. We prepare the catalogue with the detail automated decisions require, and it is the same detail that improves on-site search, store recommendations and the work of your commercial teams.',
           bullets: [
             'Structured, enriched product attributes',
             'Complete variants, sizes and grids',
@@ -585,7 +585,7 @@ export const standalonePagesCopy: SolutionSet = {
   integrations: {
     pt: {
       meta: {
-        title: 'Integrações — ERP, pagamentos, transportadoras e marketplaces',
+        title: 'Integrações: ERP, pagamentos, transportadoras e marketplaces',
         description:
           'A Redicom Commerce Cloud integra com ERP, sistemas de pagamento, transportadoras, marketplaces e catálogos técnicos, sem limites artificiais de chamadas à API.',
       },
@@ -643,7 +643,7 @@ export const standalonePagesCopy: SolutionSet = {
         {
           eyebrow: 'Pagamentos e faturação',
           title: 'Receber, faturar e estornar na mesma plataforma',
-          body: 'Os métodos de pagamento são à sua escolha e a faturação é emitida na própria plataforma, certificada pela Autoridade Tributária. Quando há uma devolução, o estorno é automático — e é essa automatização que se nota no fim do mês.',
+          body: 'Os métodos de pagamento são à sua escolha e a faturação é emitida na própria plataforma, certificada pela Autoridade Tributária. Quando há uma devolução, o estorno é automático, e é essa automatização que se nota no fim do mês.',
           bullets: [
             'Estornos automáticos',
             'Criação de faturas na plataforma',
@@ -667,7 +667,7 @@ export const standalonePagesCopy: SolutionSet = {
 
       midForm: {
         heading: 'Que sistemas precisa de integrar?',
-        body: 'Diga-nos o que tem hoje — ERP, transportadoras, marketplaces — e dizemos-lhe o que está feito de raiz e o que exige trabalho.',
+        body: 'Diga-nos o que tem hoje (ERP, transportadoras, marketplaces) e dizemos-lhe o que está feito de raiz e o que exige trabalho.',
         submit: 'Falar com especialista',
       },
 
@@ -687,7 +687,7 @@ export const standalonePagesCopy: SolutionSet = {
 
     en: {
       meta: {
-        title: 'Integrations — ERP, payments, carriers and marketplaces',
+        title: 'Integrations: ERP, payments, carriers and marketplaces',
         description:
           'The Redicom Commerce Cloud integrates with ERP, payment systems, carriers, marketplaces and technical catalogues, with no artificial API call limits.',
       },
@@ -745,7 +745,7 @@ export const standalonePagesCopy: SolutionSet = {
         {
           eyebrow: 'Payments and invoicing',
           title: 'Take payment, invoice and refund on one platform',
-          body: 'Payment methods are yours to choose and invoicing is issued inside the platform, certified by the Portuguese tax authority. When there is a return, the refund is automatic — and that automation is what you notice at month end.',
+          body: 'Payment methods are yours to choose and invoicing is issued inside the platform, certified by the Portuguese tax authority. When there is a return, the refund is automatic, and that automation is what you notice at month end.',
           bullets: [
             'Automatic refunds',
             'Invoice creation inside the platform',
@@ -769,7 +769,7 @@ export const standalonePagesCopy: SolutionSet = {
 
       midForm: {
         heading: 'Which systems do you need to connect?',
-        body: 'Tell us what you run today — ERP, carriers, marketplaces — and we will tell you what is standard and what needs building.',
+        body: 'Tell us what you run today (ERP, carriers, marketplaces) and we will tell you what is standard and what needs building.',
         submit: 'Talk to a specialist',
       },
 
@@ -791,7 +791,7 @@ export const standalonePagesCopy: SolutionSet = {
   audience: {
     pt: {
       meta: {
-        title: 'Para quem é a Redicom — e para quem não é',
+        title: 'Para quem é a Redicom, e para quem não é',
         description:
           'A Redicom Commerce Cloud foi feita para operações com complexidade real: retalho multicanal, marcas de moda, distribuição B2B e expansão internacional.',
       },
@@ -800,7 +800,7 @@ export const standalonePagesCopy: SolutionSet = {
       hero: {
         eyebrow: 'Para quem é a Redicom',
         title: 'Não servimos qualquer negócio da mesma maneira',
-        lead: 'As plataformas generalistas são construídas para servir toda a gente. Nós escolhemos servir bem um conjunto de operações — aquelas onde a complexidade é real e onde essa complexidade custa dinheiro todos os dias.',
+        lead: 'As plataformas generalistas são construídas para servir toda a gente. Nós escolhemos servir bem um conjunto de operações: aquelas onde a complexidade é real e onde essa complexidade custa dinheiro todos os dias.',
         primary: 'Ver se encaixa no seu caso',
       },
 
@@ -839,7 +839,7 @@ export const standalonePagesCopy: SolutionSet = {
         {
           eyebrow: 'Dimensão',
           title: 'A partir de que ponto é que compensa',
-          body: 'Não há um número mágico de encomendas. O que costuma marcar a diferença é o momento em que o custo de manter a operação de pé — integrações, processos manuais, taxas sobre as vendas — começa a competir com o custo de a fazer crescer. Normalmente isso acontece antes de a equipa dar por isso.',
+          body: 'Não há um número mágico de encomendas. O que costuma marcar a diferença é o momento em que o custo de manter a operação de pé (integrações, processos manuais, taxas sobre as vendas) começa a competir com o custo de a fazer crescer. Normalmente isso acontece antes de a equipa dar por isso.',
           bullets: [
             'Operações com mais do que um canal de venda',
             'Catálogos com variantes, regras de preço ou condições por cliente',
@@ -851,7 +851,7 @@ export const standalonePagesCopy: SolutionSet = {
         {
           eyebrow: 'Honestidade',
           title: 'Quando não somos a melhor escolha',
-          body: 'Dizemo-lo na primeira conversa, e preferimos dizê-lo antes de haver proposta. Se o seu caso é um destes, há soluções no mercado que o servem melhor e mais depressa — e não ganhamos nada em fingir o contrário.',
+          body: 'Dizemo-lo na primeira conversa, e preferimos dizê-lo antes de haver proposta. Se o seu caso é um destes, há soluções no mercado que o servem melhor e mais depressa, e não ganhamos nada em fingir o contrário.',
           bullets: [
             'Está a começar, com catálogo pequeno e um só canal de venda',
             'Precisa de estar no ar esta semana, com o mínimo de configuração',
@@ -883,7 +883,7 @@ export const standalonePagesCopy: SolutionSet = {
 
     en: {
       meta: {
-        title: 'Who Redicom is for — and who it is not for',
+        title: 'Who Redicom is for, and who it is not for',
         description:
           'The Redicom Commerce Cloud was built for operations with real complexity: multichannel retail, fashion brands, B2B distribution and international expansion.',
       },
@@ -892,7 +892,7 @@ export const standalonePagesCopy: SolutionSet = {
       hero: {
         eyebrow: 'Who Redicom is for',
         title: 'We do not serve every business the same way',
-        lead: 'Generalist platforms are built to serve everyone. We chose to serve a particular set of operations well — the ones where complexity is real, and where that complexity costs money every day.',
+        lead: 'Generalist platforms are built to serve everyone. We chose to serve a particular set of operations well: the ones where complexity is real, and where that complexity costs money every day.',
         primary: 'See if it fits your case',
       },
 
@@ -931,7 +931,7 @@ export const standalonePagesCopy: SolutionSet = {
         {
           eyebrow: 'Size',
           title: 'At what point it starts to pay off',
-          body: 'There is no magic order count. What usually marks the turning point is when the cost of keeping the operation standing — integrations, manual processes, transaction fees — starts competing with the cost of growing it. That normally happens before the team notices.',
+          body: 'There is no magic order count. What usually marks the turning point is when the cost of keeping the operation standing (integrations, manual processes, transaction fees) starts competing with the cost of growing it. That normally happens before the team notices.',
           bullets: [
             'Operations with more than one sales channel',
             'Catalogues with variants, pricing rules or customer-specific terms',
@@ -943,7 +943,7 @@ export const standalonePagesCopy: SolutionSet = {
         {
           eyebrow: 'Honesty',
           title: 'When we are not the right choice',
-          body: 'We say so in the first conversation, and we would rather say it before there is a proposal. If your case is one of these, there are solutions on the market that will serve you better and faster — and we gain nothing by pretending otherwise.',
+          body: 'We say so in the first conversation, and we would rather say it before there is a proposal. If your case is one of these, there are solutions on the market that will serve you better and faster, and we gain nothing by pretending otherwise.',
           bullets: [
             'You are starting out, with a small catalogue and a single channel',
             'You need to be live this week, with minimal configuration',

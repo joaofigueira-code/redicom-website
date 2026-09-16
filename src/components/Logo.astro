@@ -20,7 +20,7 @@ const home = path('home', lang);
 // pagina inicial: e o gesto que toda a gente ja tem — clicar no logotipo para
 // voltar ao principio. Tirar-lhe a ligacao numa pagina so torna o
 // comportamento imprevisivel.
-const label = lang === 'pt' ? 'Redicom — página inicial' : 'Redicom — home';
+const label = lang === 'pt' ? 'Redicom (página inicial' : 'Redicom) home';
 ---
 
 <a class="logo" href={home} aria-label={label}>
@@ -37,7 +37,7 @@ const label = lang === 'pt' ? 'Redicom — página inicial' : 'Redicom — home'
   .logo {
     /* Nunca encolhe. Era isto que o fazia desaparecer: numa barra que nao
        cabia na largura do ecra, o logotipo era o item flexivel mais a
-       esquerda e o navegador esmagava-o ate 0x0 px — o ficheiro carregava,
+       esquerda e o navegador esmagava-o ate 0x0 px: o ficheiro carregava,
        simplesmente nao tinha onde ser desenhado. */
     flex: 0 0 auto;
     display: inline-flex;

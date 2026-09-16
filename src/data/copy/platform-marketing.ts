@@ -17,7 +17,7 @@ export const platformMarketingCopy: SolutionSet = {
   platformConversion: {
     pt: {
       meta: {
-        title: 'Ferramentas de Conversão — aumentar vendas sobre os dados da loja',
+        title: 'Ferramentas de Conversão: aumentar vendas sobre os dados da loja',
         description:
           'Personalização cliente a cliente, ferramentas de retenção, ordenação inteligente de produtos, fidelização e relatórios de campanha.',
       },
@@ -25,7 +25,7 @@ export const platformMarketingCopy: SolutionSet = {
       hero: {
         eyebrow: 'Marketing Cloud',
         title: 'Aumente vendas e conversões sem sair da plataforma',
-        lead: 'As ferramentas de conversão trabalham sobre os dados reais da loja — catálogo, stock, histórico de compra — em vez de sobre uma exportação feita ontem.',
+        lead: 'As ferramentas de conversão trabalham sobre os dados reais da loja (catálogo, stock, histórico de compra) em vez de sobre uma exportação feita ontem.',
         primary: 'Falar com especialista',
       },
       features: [
@@ -90,7 +90,7 @@ export const platformMarketingCopy: SolutionSet = {
 
     en: {
       meta: {
-        title: 'Conversion Tools — growing sales on your own store data',
+        title: 'Conversion Tools: growing sales on your own store data',
         description:
           'Customer-by-customer personalisation, retention tools, smart product sorting, loyalty and campaign reporting.',
       },
@@ -98,7 +98,7 @@ export const platformMarketingCopy: SolutionSet = {
       hero: {
         eyebrow: 'Marketing Cloud',
         title: 'Grow sales and conversion without leaving the platform',
-        lead: 'The conversion tools work on the store’s real data — catalogue, stock, purchase history — rather than on an export made yesterday.',
+        lead: 'The conversion tools work on the store’s real data (catalogue, stock, purchase history) rather than on an export made yesterday.',
         primary: 'Talk to a specialist',
       },
       features: [
@@ -165,7 +165,7 @@ export const platformMarketingCopy: SolutionSet = {
   serviceCampaigns: {
     pt: {
       meta: {
-        title: 'Campanhas Automatizadas — jornadas prontas, sem trabalho manual',
+        title: 'Campanhas Automatizadas: jornadas prontas, sem trabalho manual',
         description:
           'Jornadas otimizadas ao longo de anos, recomendações com machine learning, promoções baseadas em intenção e campanhas por email, SMS e on-site.',
       },
@@ -238,7 +238,7 @@ export const platformMarketingCopy: SolutionSet = {
 
     en: {
       meta: {
-        title: 'Automated Campaigns — ready-made journeys, no manual work',
+        title: 'Automated Campaigns: ready-made journeys, no manual work',
         description:
           'Journeys optimised over years, machine-learning recommendations, intent-based promotions and campaigns across email, SMS and on-site.',
       },
@@ -313,7 +313,7 @@ export const platformMarketingCopy: SolutionSet = {
   platformSegmentation: {
     pt: {
       meta: {
-        title: 'Segmentação — perfis de cliente criados a partir do comportamento',
+        title: 'Segmentação: perfis de cliente criados a partir do comportamento',
         description:
           'Segmentação automática assistida por IA, perfis com interesses e comportamento, ordenação inteligente de produtos e relatórios de campanha.',
       },
@@ -321,7 +321,7 @@ export const platformMarketingCopy: SolutionSet = {
       hero: {
         eyebrow: 'Marketing Cloud',
         title: 'Segmentação a partir do que os clientes fazem',
-        lead: 'Personalize campanhas e condições de venda com base em segmentos automáticos, construídos sobre o comportamento real — não sobre listas que alguém atualiza à mão de vez em quando.',
+        lead: 'Personalize campanhas e condições de venda com base em segmentos automáticos, construídos sobre o comportamento real: não sobre listas que alguém atualiza à mão de vez em quando.',
         primary: 'Falar com especialista',
       },
       features: [
@@ -369,7 +369,7 @@ export const platformMarketingCopy: SolutionSet = {
 
     en: {
       meta: {
-        title: 'Segmentation — customer profiles built from behaviour',
+        title: 'Segmentation: customer profiles built from behaviour',
         description:
           'AI-assisted automatic segmentation, profiles with interests and behaviour, smart product sorting and campaign reporting.',
       },
@@ -377,7 +377,7 @@ export const platformMarketingCopy: SolutionSet = {
       hero: {
         eyebrow: 'Marketing Cloud',
         title: 'Segmentation built from what customers actually do',
-        lead: 'Personalise campaigns and selling terms using automatic segments built on real behaviour — not on lists someone updates by hand every once in a while.',
+        lead: 'Personalise campaigns and selling terms using automatic segments built on real behaviour: not on lists someone updates by hand every once in a while.',
         primary: 'Talk to a specialist',
       },
       features: [
@@ -427,7 +427,7 @@ export const platformMarketingCopy: SolutionSet = {
   serviceSMS: {
     pt: {
       meta: {
-        title: 'SMS Marketing — login automático, envio segmentado e ROI medido',
+        title: 'SMS Marketing: login automático, envio segmentado e ROI medido',
         description:
           'Campanhas por SMS com link de login automático, importação de contactos, rastreamento de cliques e retorno do investimento medido encomenda a encomenda.',
       },
@@ -435,7 +435,7 @@ export const platformMarketingCopy: SolutionSet = {
       hero: {
         eyebrow: 'Marketing Cloud',
         title: 'SMS com taxas de abertura que os outros canais não têm',
-        lead: 'O SMS mantém taxas de entrega, abertura e atenção superiores às dos restantes meios eletrónicos. O que faltava era medir o que ele produz — e é isso que esta ferramenta resolve.',
+        lead: 'O SMS mantém taxas de entrega, abertura e atenção superiores às dos restantes meios eletrónicos. O que faltava era medir o que ele produz, e é isso que esta ferramenta resolve.',
         primary: 'Falar com especialista',
       },
       features: [
@@ -470,7 +470,7 @@ export const platformMarketingCopy: SolutionSet = {
         {
           eyebrow: 'Medição',
           title: 'Retorno medido com precisão, não estimado',
-          body: 'Para cada campanha é possível obter a lista completa das encomendas que resultaram dela — com número, detalhes do cliente e artigos comprados. Cada campanha leva também os seus parâmetros de rastreamento, tanto na plataforma como no Google Analytics.',
+          body: 'Para cada campanha é possível obter a lista completa das encomendas que resultaram dela: com número, detalhes do cliente e artigos comprados. Cada campanha leva também os seus parâmetros de rastreamento, tanto na plataforma como no Google Analytics.',
         },
       ],
       closing: {
@@ -488,7 +488,7 @@ export const platformMarketingCopy: SolutionSet = {
 
     en: {
       meta: {
-        title: 'SMS Marketing — automatic login, segmented sending and measured ROI',
+        title: 'SMS Marketing: automatic login, segmented sending and measured ROI',
         description:
           'SMS campaigns with automatic login links, contact import, click tracking and return on investment measured order by order.',
       },
@@ -496,7 +496,7 @@ export const platformMarketingCopy: SolutionSet = {
       hero: {
         eyebrow: 'Marketing Cloud',
         title: 'SMS open rates that other channels do not reach',
-        lead: 'SMS keeps delivery, open and attention rates above other electronic channels. What was missing was measuring what it produces — and that is what this tool fixes.',
+        lead: 'SMS keeps delivery, open and attention rates above other electronic channels. What was missing was measuring what it produces, and that is what this tool fixes.',
         primary: 'Talk to a specialist',
       },
       features: [
@@ -531,7 +531,7 @@ export const platformMarketingCopy: SolutionSet = {
         {
           eyebrow: 'Measurement',
           title: 'Return measured precisely, not estimated',
-          body: 'For each campaign you can pull the full list of orders it produced — with number, customer details and items purchased. Every campaign also carries its own tracking parameters, both on the platform and in Google Analytics.',
+          body: 'For each campaign you can pull the full list of orders it produced: with number, customer details and items purchased. Every campaign also carries its own tracking parameters, both on the platform and in Google Analytics.',
         },
       ],
       closing: {
@@ -551,7 +551,7 @@ export const platformMarketingCopy: SolutionSet = {
   serviceEmail: {
     pt: {
       meta: {
-        title: 'Email Marketing — blocos responsivos, login automático e análise de vendas',
+        title: 'Email Marketing: blocos responsivos, login automático e análise de vendas',
         description:
           'Emails dinâmicos com blocos responsivos e seletivos, envio através da Amazon SES, gestão granular de consentimentos e vendas medidas por campanha.',
       },
@@ -594,7 +594,7 @@ export const platformMarketingCopy: SolutionSet = {
         {
           eyebrow: 'Consentimentos',
           title: 'O cliente escolhe o que quer receber, ao detalhe',
-          body: 'Ao clicar no link do rodapé, o cliente entra na sua Área de Cliente. Ao contrário das plataformas em que só se pode aceitar ou recusar tudo, aqui as preferências de comunicação escolhem-se ao detalhe — o que é melhor para o cliente e melhor para as métricas.',
+          body: 'Ao clicar no link do rodapé, o cliente entra na sua Área de Cliente. Ao contrário das plataformas em que só se pode aceitar ou recusar tudo, aqui as preferências de comunicação escolhem-se ao detalhe: o que é melhor para o cliente e melhor para as métricas.',
         },
         {
           eyebrow: 'Campanhas mistas',
@@ -623,7 +623,7 @@ export const platformMarketingCopy: SolutionSet = {
 
     en: {
       meta: {
-        title: 'Email Marketing — responsive blocks, automatic login and sales analysis',
+        title: 'Email Marketing: responsive blocks, automatic login and sales analysis',
         description:
           'Dynamic emails with responsive, targetable blocks, delivery through Amazon SES, granular consent management and sales measured per campaign.',
       },
@@ -666,7 +666,7 @@ export const platformMarketingCopy: SolutionSet = {
         {
           eyebrow: 'Consent',
           title: 'The customer chooses what to receive, in detail',
-          body: 'Clicking the footer link takes the customer into their account. Unlike platforms where the only choice is all or nothing, communication preferences can be set granularly — better for the customer and better for the metrics.',
+          body: 'Clicking the footer link takes the customer into their account. Unlike platforms where the only choice is all or nothing, communication preferences can be set granularly: better for the customer and better for the metrics.',
         },
         {
           eyebrow: 'Mixed campaigns',

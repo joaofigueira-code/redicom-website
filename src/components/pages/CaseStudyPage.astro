@@ -38,7 +38,7 @@ const modules = study.modules.filter((route) => Boolean(labels[route]));
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'Article',
-  headline: `${copy.client} — ${copy.headline}`,
+  headline: `${copy.client}, ${copy.headline}`,
   description: copy.meta.description,
   url: `${site.url}${casePath(study.slug, lang)}`,
   publisher: { '@id': `${site.url}/#organization` },

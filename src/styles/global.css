@@ -201,6 +201,14 @@ ol {
   padding-inline: var(--gutter-sm);
 }
 
+/* Largura de leitura dentro de uma pagina larga. Ao contrario do
+   --narrow, nao se centra: arranca da mesma margem esquerda que os titulos
+   das seccoes acima e abaixo. Um bloco estreito centrado no meio de blocos
+   largos era o que desalinhava as paginas. */
+.container--reading > * {
+  max-width: var(--container-narrow);
+}
+
 .section {
   padding-block: var(--section-y);
 }

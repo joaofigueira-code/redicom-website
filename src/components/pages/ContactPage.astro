@@ -95,7 +95,6 @@ const schema = {
               </address>
               <p class="office__contact">
                 <a href={`tel:${office.phone}`}>{office.phoneDisplay}</a>
-                {office.fax && <span class="office__note">Fax: {office.fax}</span>}
                 <span class="office__note">{t('footer.landline')}</span>
               </p>
               <a class="office__map" href={office.mapUrl} target="_blank" rel="noopener">

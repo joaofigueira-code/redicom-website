@@ -120,10 +120,7 @@ const genericError = t('form.errorGeneric', { email: site.email.general });
           <span data-label-idle>{submitLabel ?? t('cta.specialist')}</span>
           <span data-label-busy hidden>{t('cta.sending')}</span>
         </button>
-        <p class="leadform__reassure">
-          <span class="leadform__tick" aria-hidden="true"></span>
-          {t('form.replyTime')}
-        </p>
+        <p class="leadform__reassure">{t('form.replyTime')}</p>
       </div>
 
       <p class="leadform__consent" set:html={consent}></p>
@@ -345,11 +342,7 @@ const genericError = t('form.errorGeneric', { email: site.email.general });
   .field__error {
     margin-block-start: 0.4rem;
     font-size: var(--step--1);
-    color: #c0392b;
-  }
-
-  .on-dark .field__error {
-    color: #ff9e91;
+    color: var(--text-error);
   }
 
   .leadform__message {
@@ -446,32 +439,9 @@ const genericError = t('form.errorGeneric', { email: site.email.general });
   }
 
   .leadform__reassure {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
     font-size: var(--step--1);
-    color: var(--text-muted);
-  }
-
-  .leadform__tick {
-    width: 1rem;
-    height: 1rem;
-    flex: none;
-    border-radius: 50%;
-    background: var(--brand-orange);
-    position: relative;
-  }
-
-  .leadform__tick::after {
-    content: '';
-    position: absolute;
-    left: 0.3rem;
-    top: 0.17rem;
-    width: 0.25rem;
-    height: 0.45rem;
-    border: solid #1a1000;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
+    font-weight: var(--weight-semibold);
+    color: var(--text-body);
   }
 
   .leadform__consent {

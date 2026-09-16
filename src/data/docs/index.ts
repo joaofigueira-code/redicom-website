@@ -100,7 +100,7 @@ export const docsUi: Record<
   }
 > = {
   pt: {
-    title: 'Documentação — Manual de Instruções da Redicom Commerce Cloud',
+    title: 'Documentação: Manual de Instruções da Redicom Commerce Cloud',
     description:
       'Manual de instruções do backoffice da Redicom Commerce Cloud: mercados, produtos, conteúdos, marketing, clientes, módulos, serviços e encomendas.',
     breadcrumb: 'Documentação',
@@ -121,7 +121,7 @@ export const docsUi: Record<
     helpCta: 'Falar connosco',
   },
   en: {
-    title: 'Documentation — Redicom Commerce Cloud instruction manual',
+    title: 'Documentation: Redicom Commerce Cloud instruction manual',
     description:
       'The Redicom Commerce Cloud back-office instruction manual: markets, products, content, marketing, customers, modules, services and orders.',
     breadcrumb: 'Documentation',
@@ -137,7 +137,7 @@ export const docsUi: Record<
     previous: 'Previous',
     next: 'Next',
     languageNotice:
-      'The instruction manual is written in Portuguese. An English edition has not been produced yet — the articles below are the Portuguese ones.',
+      'The instruction manual is written in Portuguese. An English edition has not been produced yet: the articles below are the Portuguese ones.',
     helpTitle: 'Did not find what you were looking for?',
     helpBody: 'If you are a client, customer support answers directly. If you are not yet, leave your details and we will get in touch.',
     helpCta: 'Talk to us',

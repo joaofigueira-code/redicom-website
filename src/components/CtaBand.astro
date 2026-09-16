@@ -24,7 +24,7 @@ interface Props {
 const { lang, topic, title, body, points = [], submitLabel, id } = Astro.props;
 ---
 
-<section class="ctaband on-dark" id={id ?? 'falar-connosco'}>
+<section class="ctaband" id={id ?? 'falar-connosco'}>
   <div class="container ctaband__inner">
     <div class="ctaband__pitch">
       <h2 class="ctaband__title">{title}</h2>
@@ -54,8 +54,13 @@ const { lang, topic, title, body, points = [], submitLabel, id } = Astro.props;
 </section>
 
 <style>
+  /* Claro, e nao navy. O rodape ja e navy: uma banda escura encostada a
+     outra lia-se como um so bloco gigante, e a folga entre as duas deixava
+     uma risca clara no meio. Assim os blocos alternam. */
   .ctaband {
     padding-block: var(--section-y);
+    background: var(--surface-muted);
+    border-block-start: 1px solid var(--border);
   }
 
   .ctaband__inner {
@@ -108,23 +113,9 @@ const { lang, topic, title, body, points = [], submitLabel, id } = Astro.props;
     background: var(--brand-orange);
   }
 
-  /* Dentro da banda escura o painel do formulario passa a vidro sobre navy. */
+  /* Sobre cinzento o painel do formulario tem de ser branco, para se
+     distinguir do fundo da banda. */
   .ctaband__form :global(.leadform--panel .leadform__inner) {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: var(--border-inverse);
-  }
-
-  .ctaband__form :global(.field__input) {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.24);
-    color: #fff;
-  }
-
-  .ctaband__form :global(.field__input::placeholder) {
-    color: rgba(255, 255, 255, 0.45);
-  }
-
-  .ctaband__form :global(.field__input:hover) {
-    border-color: rgba(255, 255, 255, 0.45);
+    background: var(--surface);
   }
 </style>

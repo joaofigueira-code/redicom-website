@@ -52,7 +52,7 @@ const coreHubs: Record<'platform' | 'fashion', Record<Lang, HubCopy>> = {
   platform: {
     pt: {
       meta: {
-        title: 'Redicom Commerce Cloud — a plataforma de comércio digital',
+        title: 'Redicom Commerce Cloud: a plataforma de comércio digital',
         description:
           'B2C, B2B, OMS, POS omnicanal, marketing e analytics sobre o mesmo catálogo, o mesmo stock e o mesmo cliente. Conheça a Redicom Commerce Cloud.',
       },
@@ -85,7 +85,7 @@ const coreHubs: Record<'platform' | 'fashion', Record<Lang, HubCopy>> = {
           },
           {
             title: 'Sem camada de integração',
-            body: 'Aquilo que noutras plataformas é um projeto de integração — e depois uma manutenção permanente — aqui já está ligado de origem.',
+            body: 'Aquilo que noutras plataformas é um projeto de integração (e depois uma manutenção permanente) aqui já está ligado de origem.',
           },
         ],
       },
@@ -214,7 +214,7 @@ const coreHubs: Record<'platform' | 'fashion', Record<Lang, HubCopy>> = {
 
     en: {
       meta: {
-        title: 'Redicom Commerce Cloud — the digital commerce platform',
+        title: 'Redicom Commerce Cloud: the digital commerce platform',
         description:
           'B2C, B2B, OMS, omnichannel POS, marketing and analytics on the same catalogue, the same stock and the same customer. Explore the Redicom Commerce Cloud.',
       },
@@ -247,7 +247,7 @@ const coreHubs: Record<'platform' | 'fashion', Record<Lang, HubCopy>> = {
           },
           {
             title: 'No integration layer',
-            body: 'What is an integration project elsewhere — and then permanent maintenance — is already connected here from the start.',
+            body: 'What is an integration project elsewhere (and then permanent maintenance) is already connected here from the start.',
           },
         ],
       },
@@ -378,7 +378,7 @@ const coreHubs: Record<'platform' | 'fashion', Record<Lang, HubCopy>> = {
   fashion: {
     pt: {
       meta: {
-        title: 'Fashion Retail — a plataforma de e-commerce para marcas de moda',
+        title: 'Fashion Retail: a plataforma de e-commerce para marcas de moda',
         description:
           'Matrizes de tamanho e cor sem limites, wholesale B2B nativo, POS omnicanal e IA aplicada à moda. A Redicom Commerce Cloud para marcas de Fashion & Lifestyle.',
       },
@@ -395,7 +395,7 @@ const coreHubs: Record<'platform' | 'fashion', Record<Lang, HubCopy>> = {
       pillars: {
         eyebrow: 'Uma plataforma, quatro pilares',
         title: 'Muito mais do que e-commerce para retalho de moda',
-        lead: 'Catálogo, conteúdo, campanhas, stock, lojas físicas, operação e performance numa visão integrada — porque numa marca de moda estas coisas nunca funcionaram separadas.',
+        lead: 'Catálogo, conteúdo, campanhas, stock, lojas físicas, operação e performance numa visão integrada, porque numa marca de moda estas coisas nunca funcionaram separadas.',
         items: [
           {
             title: 'Experiência de marca',
@@ -466,7 +466,7 @@ const coreHubs: Record<'platform' | 'fashion', Record<Lang, HubCopy>> = {
 
       comparison: {
         title: 'Especialização contra massificação',
-        lead: 'As plataformas generalistas são construídas para servir qualquer tipo de negócio. O retalho de moda tem uma complexidade própria — e é aí que a diferença aparece.',
+        lead: 'As plataformas generalistas são construídas para servir qualquer tipo de negócio. O retalho de moda tem uma complexidade própria, e é aí que a diferença aparece.',
         genericTitle: 'O desafio nas plataformas generalistas',
         redicomTitle: 'A solução especializada Redicom',
         rows: [
@@ -557,7 +557,7 @@ const coreHubs: Record<'platform' | 'fashion', Record<Lang, HubCopy>> = {
 
       midForm: {
         heading: 'A sua marca tem esta complexidade?',
-        body: 'Diga-nos em que ponto está a operação — coleções, canais, wholesale — e preparamos uma demonstração com o seu contexto.',
+        body: 'Diga-nos em que ponto está a operação (coleções, canais, wholesale) e preparamos uma demonstração com o seu contexto.',
         submit: 'Pedir demonstração',
       },
 
@@ -575,7 +575,7 @@ const coreHubs: Record<'platform' | 'fashion', Record<Lang, HubCopy>> = {
 
     en: {
       meta: {
-        title: 'Fashion Retail — the e-commerce platform for fashion brands',
+        title: 'Fashion Retail: the e-commerce platform for fashion brands',
         description:
           'Size and colour matrices without limits, native B2B wholesale, omnichannel POS and AI built for fashion. The Redicom Commerce Cloud for Fashion & Lifestyle brands.',
       },
@@ -592,7 +592,7 @@ const coreHubs: Record<'platform' | 'fashion', Record<Lang, HubCopy>> = {
       pillars: {
         eyebrow: 'One platform, four pillars',
         title: 'Far more than e-commerce for fashion retail',
-        lead: 'Catalogue, content, campaigns, stock, stores, operations and performance in one integrated view — because in a fashion brand these things were never separate to begin with.',
+        lead: 'Catalogue, content, campaigns, stock, stores, operations and performance in one integrated view, because in a fashion brand these things were never separate to begin with.',
         items: [
           {
             title: 'Brand experience',
@@ -663,7 +663,7 @@ const coreHubs: Record<'platform' | 'fashion', Record<Lang, HubCopy>> = {
 
       comparison: {
         title: 'Specialisation against mass-market',
-        lead: 'Generalist platforms are built to serve any kind of business. Fashion retail has a complexity of its own — and that is where the difference shows.',
+        lead: 'Generalist platforms are built to serve any kind of business. Fashion retail has a complexity of its own, and that is where the difference shows.',
         genericTitle: 'The challenge on generalist platforms',
         redicomTitle: 'The specialised Redicom solution',
         rows: [
@@ -754,7 +754,7 @@ const coreHubs: Record<'platform' | 'fashion', Record<Lang, HubCopy>> = {
 
       midForm: {
         heading: 'Does your brand carry this complexity?',
-        body: 'Tell us where the operation stands — collections, channels, wholesale — and we will prepare a demo around your context.',
+        body: 'Tell us where the operation stands (collections, channels, wholesale) and we will prepare a demo around your context.',
         submit: 'Request a demo',
       },
 

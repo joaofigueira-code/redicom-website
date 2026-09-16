@@ -26,7 +26,7 @@ export const servicesHubCopy: Record<Lang, HubCopy> = {
     hero: {
       eyebrow: 'Serviços Cloud',
       title: 'A tecnologia que faz crescer o negócio',
-      lead: 'Os serviços Cloud da Redicom centralizam a gestão de marketing da loja online numa única plataforma — a mesma onde já estão o catálogo, o stock e o cliente.',
+      lead: 'Os serviços Cloud da Redicom centralizam a gestão de marketing da loja online numa única plataforma: a mesma onde já estão o catálogo, o stock e o cliente.',
       primary: 'Falar com especialista',
       secondary: 'Ver a plataforma',
     },
@@ -102,18 +102,18 @@ export const servicesHubCopy: Record<Lang, HubCopy> = {
       {
         eyebrow: 'Comunicação',
         title: 'Personalizada e automatizada, sem intervenção constante',
-        body: 'A personalização deixou de ser opcional. Os serviços Cloud permitem segmentar em tempo real, personalizar conteúdos e enviar comunicações adaptadas ao perfil e ao comportamento de cada cliente — sem que alguém tenha de estar sempre a preparar o envio seguinte.',
+        body: 'A personalização deixou de ser opcional. Os serviços Cloud permitem segmentar em tempo real, personalizar conteúdos e enviar comunicações adaptadas ao perfil e ao comportamento de cada cliente, sem que alguém tenha de estar sempre a preparar o envio seguinte.',
       },
       {
         eyebrow: 'Operação',
         title: 'Marketing e loja no mesmo fluxo',
-        body: 'Não é preciso gerir várias ferramentas em simultâneo. Os serviços de marketing integram-se directamente com a loja online e com o backoffice, o que significa campanhas, envios e segmentações geridos de forma centralizada — um só fluxo, em vez de exportações entre sistemas.',
+        body: 'Não é preciso gerir várias ferramentas em simultâneo. Os serviços de marketing integram-se directamente com a loja online e com o backoffice, o que significa campanhas, envios e segmentações geridos de forma centralizada: um só fluxo, em vez de exportações entre sistemas.',
       },
     ],
 
     midForm: {
       heading: 'Quer perceber quais fazem sentido para si?',
-      body: 'Diga-nos onde está a operação hoje. Dizemos-lhe quais destes serviços mudam alguma coisa no seu caso — e quais não mudam.',
+      body: 'Diga-nos onde está a operação hoje. Dizemos-lhe quais destes serviços mudam alguma coisa no seu caso, e quais não mudam.',
       submit: 'Falar com especialista',
     },
 
@@ -140,7 +140,7 @@ export const servicesHubCopy: Record<Lang, HubCopy> = {
     hero: {
       eyebrow: 'Cloud Services',
       title: 'The technology that grows the business',
-      lead: "Redicom's Cloud services centralise your online store's marketing in a single platform — the same one that already holds the catalogue, the stock and the customer.",
+      lead: "Redicom's Cloud services centralise your online store's marketing in a single platform: the same one that already holds the catalogue, the stock and the customer.",
       primary: 'Talk to a specialist',
       secondary: 'See the platform',
     },
@@ -216,18 +216,18 @@ export const servicesHubCopy: Record<Lang, HubCopy> = {
       {
         eyebrow: 'Communication',
         title: 'Personalised and automated, without constant intervention',
-        body: 'Personalisation is no longer optional. The Cloud services segment in real time, personalise content and send communications matched to each customer’s profile and behaviour — without someone always preparing the next send.',
+        body: 'Personalisation is no longer optional. The Cloud services segment in real time, personalise content and send communications matched to each customer’s profile and behaviour, without someone always preparing the next send.',
       },
       {
         eyebrow: 'Operations',
         title: 'Marketing and store in the same flow',
-        body: 'There is no need to run several tools at once. The marketing services integrate directly with the online store and the back office, which means campaigns, sends and segments managed centrally — one flow, instead of exports between systems.',
+        body: 'There is no need to run several tools at once. The marketing services integrate directly with the online store and the back office, which means campaigns, sends and segments managed centrally: one flow, instead of exports between systems.',
       },
     ],
 
     midForm: {
       heading: 'Want to know which ones make sense for you?',
-      body: 'Tell us where the operation stands today. We will tell you which of these services change something in your case — and which do not.',
+      body: 'Tell us where the operation stands today. We will tell you which of these services change something in your case, and which do not.',
       submit: 'Talk to a specialist',
     },
 
@@ -252,7 +252,7 @@ export const servicesCopy: SolutionSet = {
   serviceDescriptions: {
     pt: {
       meta: {
-        title: 'Descrições AI — descrições de produto geradas automaticamente',
+        title: 'Descrições AI: descrições de produto geradas automaticamente',
         description:
           'O sistema lê os atributos e as imagens do produto e escreve a descrição, em todos os idiomas activos do projecto, orientada para pesquisa.',
       },
@@ -318,7 +318,7 @@ export const servicesCopy: SolutionSet = {
 
     en: {
       meta: {
-        title: 'AI Descriptions — product descriptions generated automatically',
+        title: 'AI Descriptions: product descriptions generated automatically',
         description:
           'The system reads the product’s attributes and images and writes the description, in every active language of the project, oriented towards search.',
       },
@@ -386,7 +386,7 @@ export const servicesCopy: SolutionSet = {
   serviceSEO: {
     pt: {
       meta: {
-        title: 'SEO Automático — metadados criados e reavaliados pelo sistema',
+        title: 'SEO Automático: metadados criados e reavaliados pelo sistema',
         description:
           'Optimização automática da classificação da loja online nos motores de pesquisa: metadados gerados produto a produto e reavaliados com periodicidade dinâmica.',
       },
@@ -452,7 +452,7 @@ export const servicesCopy: SolutionSet = {
 
     en: {
       meta: {
-        title: 'Automated SEO — metadata written and re-evaluated by the system',
+        title: 'Automated SEO: metadata written and re-evaluated by the system',
         description:
           'Automatic optimisation of your online store’s search ranking: metadata generated product by product and re-evaluated on a dynamic schedule.',
       },

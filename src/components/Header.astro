@@ -393,25 +393,17 @@ function isCurrentSection(routeId: string): boolean {
   }
 
   /* --- Botao dividido ------------------------------------------------ */
+  /* As duas metades acendem em separado e ha um risco entre elas. Sem isso
+     nao se percebe onde acaba o nome e comeca a seta, e o utilizador clica
+     as cegas. */
   .header__split {
     display: inline-flex;
     align-items: center;
-    border-radius: var(--radius-sm);
-    transition: background-color var(--duration) var(--ease);
-  }
-
-  .header__split:hover {
-    background: var(--surface-muted);
-  }
-
-  /* O fundo e do conjunto, nao de cada metade: de outro modo o rato
-     acende meio botao e o outro meio fica branco. */
-  .header__split .header__link:hover {
-    background: none;
   }
 
   .header__link--split {
-    padding-inline-end: 0.25rem;
+    padding-inline-end: 0.5rem;
+    border-radius: var(--radius-sm) 0 0 var(--radius-sm);
   }
 
   .header__split[data-current] .header__link {
@@ -422,17 +414,22 @@ function isCurrentSection(routeId: string): boolean {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 1.6rem;
+    width: 1.7rem;
     height: 2rem;
     padding: 0;
     background: none;
     border: 0;
-    border-radius: var(--radius-sm);
+    border-inline-start: 1px solid var(--border);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
     color: var(--text-muted);
     cursor: pointer;
+    transition:
+      background-color var(--duration) var(--ease),
+      color var(--duration) var(--ease);
   }
 
   .header__disclosure:hover {
+    background: var(--surface-muted);
     color: var(--text-heading);
   }
 
@@ -543,8 +540,10 @@ function isCurrentSection(routeId: string): boolean {
     font-weight: var(--weight-semibold);
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--brand-orange-ink);
-    background: rgba(239, 150, 0, 0.14);
+    /* Texto navy e nao laranja: laranja sobre o proprio tom laranja ficava
+       em 4.3:1, abaixo do minimo para letra deste tamanho. */
+    color: var(--brand-navy);
+    background: rgba(239, 150, 0, 0.18);
     padding: 0.1rem 0.4rem;
     border-radius: var(--radius-pill);
   }
@@ -888,7 +887,7 @@ function isCurrentSection(routeId: string): boolean {
   }
 
   /* Entre os 1152px e os 1312px a barra cabe, mas so. Aperta-se aqui o que
-     nao se nota — o espaco a volta das palavras — em vez de deixar os
+     nao se nota (o espaco a volta das palavras) em vez de deixar os
      elementos encostarem uns aos outros. */
   @media (min-width: 72rem) and (max-width: 81.99rem) {
     .header__link {
@@ -896,7 +895,7 @@ function isCurrentSection(routeId: string): boolean {
     }
 
     .header__link--split {
-      padding-inline-end: 0.2rem;
+      padding-inline-end: 0.4rem;
     }
 
     .header__disclosure {
@@ -921,7 +920,7 @@ function isCurrentSection(routeId: string): boolean {
     /* Reafirmado porque a regra acima tambem apanha a metade esquerda do
        botao dividido, e ela tem de continuar colada a seta. */
     .header__link--split {
-      padding-inline-end: 0.3rem;
+      padding-inline-end: 0.55rem;
     }
   }
 </style>

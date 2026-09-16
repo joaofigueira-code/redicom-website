@@ -18,7 +18,7 @@ export const platformCopy: SolutionSet = {
   platformB2C: {
     pt: {
       meta: {
-        title: 'Plataforma B2C — comércio online multimercado e omnicanal',
+        title: 'Plataforma B2C: comércio online multimercado e omnicanal',
         description:
           'A plataforma cloud utilizada pelos grandes retalhistas nacionais: arquitetura headless, editor drag & drop, marketplaces, comércio global e gestão de encomendas automatizada.',
       },
@@ -26,7 +26,7 @@ export const platformCopy: SolutionSet = {
       hero: {
         eyebrow: 'Plataforma B2C',
         title: 'Uma experiência de compra verdadeiramente omnicanal',
-        lead: 'Plataforma cloud multimercado e omnicanal, utilizada pela maioria dos grandes retalhistas nacionais. O catálogo, o stock e o cliente são os mesmos em todos os canais — não há integrações a manter entre eles.',
+        lead: 'Plataforma cloud multimercado e omnicanal, utilizada pela maioria dos grandes retalhistas nacionais. O catálogo, o stock e o cliente são os mesmos em todos os canais: não há integrações a manter entre eles.',
         primary: 'Pedir proposta',
       },
       features: [
@@ -61,7 +61,7 @@ export const platformCopy: SolutionSet = {
         {
           eyebrow: 'Autonomia',
           title: 'Criação de páginas sem esperar por desenvolvimento',
-          body: 'Defina de forma simples como o conteúdo e os catálogos de produto são apresentados. O editor drag & drop dá à equipa de marketing autonomia real sobre a montra — campanhas, landing pages e destaques de coleção deixam de depender de um ciclo de desenvolvimento.',
+          body: 'Defina de forma simples como o conteúdo e os catálogos de produto são apresentados. O editor drag & drop dá à equipa de marketing autonomia real sobre a montra: campanhas, landing pages e destaques de coleção deixam de depender de um ciclo de desenvolvimento.',
         },
         {
           eyebrow: 'Canais',
@@ -72,7 +72,7 @@ export const platformCopy: SolutionSet = {
         {
           eyebrow: 'Alcance',
           title: 'Marketplaces e comércio global',
-          body: 'Ligue a loja aos principais marketplaces e expanda para novos canais e mercados. Cada mercado tem as suas regras de negócio — lista de preços, stock disponível, métodos de pagamento, transportadoras, moeda e impostos — configuradas sem duplicar o catálogo.',
+          body: 'Ligue a loja aos principais marketplaces e expanda para novos canais e mercados. Cada mercado tem as suas regras de negócio (lista de preços, stock disponível, métodos de pagamento, transportadoras, moeda e impostos) configuradas sem duplicar o catálogo.',
           bullets: [
             'Regras de negócio por mercado, não por país',
             'Preços, moeda e impostos configurados centralmente',
@@ -87,7 +87,7 @@ export const platformCopy: SolutionSet = {
       ],
       midForm: {
         heading: 'Quer ver a plataforma aplicada ao seu catálogo?',
-        body: 'Mostramos a plataforma com o seu tipo de operação em mente — não uma demonstração genérica.',
+        body: 'Mostramos a plataforma com o seu tipo de operação em mente: não uma demonstração genérica.',
         submit: 'Pedir demonstração',
       },
       closing: {
@@ -104,7 +104,7 @@ export const platformCopy: SolutionSet = {
     },
     en: {
       meta: {
-        title: 'B2C Platform — multi-market, omnichannel online commerce',
+        title: 'B2C Platform: multi-market, omnichannel online commerce',
         description:
           'The cloud platform used by leading Portuguese retailers: headless architecture, drag & drop editor, marketplaces, global commerce and automated order management.',
       },
@@ -112,7 +112,7 @@ export const platformCopy: SolutionSet = {
       hero: {
         eyebrow: 'B2C Platform',
         title: 'A genuinely omnichannel shopping experience',
-        lead: 'A multi-market, omnichannel cloud platform used by most of the leading Portuguese retailers. Catalogue, stock and customer are the same across every channel — there are no integrations to maintain between them.',
+        lead: 'A multi-market, omnichannel cloud platform used by most of the leading Portuguese retailers. Catalogue, stock and customer are the same across every channel: there are no integrations to maintain between them.',
         primary: 'Request a proposal',
       },
       features: [
@@ -147,7 +147,7 @@ export const platformCopy: SolutionSet = {
         {
           eyebrow: 'Autonomy',
           title: 'Build pages without waiting for development',
-          body: 'Decide how content and product catalogues are presented. The drag & drop editor gives the marketing team real autonomy over the storefront — campaigns, landing pages and collection features stop depending on a development cycle.',
+          body: 'Decide how content and product catalogues are presented. The drag & drop editor gives the marketing team real autonomy over the storefront: campaigns, landing pages and collection features stop depending on a development cycle.',
         },
         {
           eyebrow: 'Channels',
@@ -158,7 +158,7 @@ export const platformCopy: SolutionSet = {
         {
           eyebrow: 'Reach',
           title: 'Marketplaces and global commerce',
-          body: 'Connect the store to the major marketplaces and expand into new channels and markets. Each market carries its own business rules — price list, available stock, payment methods, carriers, currency and taxes — configured without duplicating the catalogue.',
+          body: 'Connect the store to the major marketplaces and expand into new channels and markets. Each market carries its own business rules (price list, available stock, payment methods, carriers, currency and taxes) configured without duplicating the catalogue.',
           bullets: [
             'Business rules per market, not per country',
             'Prices, currency and taxes configured centrally',
@@ -173,7 +173,7 @@ export const platformCopy: SolutionSet = {
       ],
       midForm: {
         heading: 'Want to see the platform against your own catalogue?',
-        body: 'We walk through the platform with your type of operation in mind — not a generic demo.',
+        body: 'We walk through the platform with your type of operation in mind: not a generic demo.',
         submit: 'Request a demo',
       },
       closing: {
@@ -193,7 +193,7 @@ export const platformCopy: SolutionSet = {
   platformB2B: {
     pt: {
       meta: {
-        title: 'Plataforma B2B — portal de negócios para distribuidores e fabricantes',
+        title: 'Plataforma B2B: portal de negócios para distribuidores e fabricantes',
         description:
           'Portal B2B com catálogos e tabelas de preços por cliente, gestão de agentes, encomendas em grelha e pre-packs, e integração com o seu ERP.',
       },
@@ -201,7 +201,7 @@ export const platformCopy: SolutionSet = {
       hero: {
         eyebrow: 'Plataforma B2B',
         title: 'O seu negócio disponível 24 horas por dia',
-        lead: 'Um portal desenhado de raiz para vendas em grande volume, disponível para distribuidores e fabricantes de qualquer dimensão. Não é o B2C com desconto — é uma operação comercial com regras próprias.',
+        lead: 'Um portal desenhado de raiz para vendas em grande volume, disponível para distribuidores e fabricantes de qualquer dimensão. Não é o B2C com desconto: é uma operação comercial com regras próprias.',
         primary: 'Pedir proposta',
       },
       features: [
@@ -284,7 +284,7 @@ export const platformCopy: SolutionSet = {
     },
     en: {
       meta: {
-        title: 'B2B Platform — a business portal for distributors and manufacturers',
+        title: 'B2B Platform: a business portal for distributors and manufacturers',
         description:
           'A B2B portal with per-customer catalogues and price lists, agent management, grid ordering and pre-packs, and integration with your ERP.',
       },
@@ -292,7 +292,7 @@ export const platformCopy: SolutionSet = {
       hero: {
         eyebrow: 'B2B Platform',
         title: 'Your business open 24 hours a day',
-        lead: 'A portal designed from the ground up for high-volume selling, for distributors and manufacturers of any size. It is not B2C with a discount — it is a commercial operation with rules of its own.',
+        lead: 'A portal designed from the ground up for high-volume selling, for distributors and manufacturers of any size. It is not B2C with a discount: it is a commercial operation with rules of its own.',
         primary: 'Request a proposal',
       },
       features: [
@@ -378,7 +378,7 @@ export const platformCopy: SolutionSet = {
   platformOMS: {
     pt: {
       meta: {
-        title: 'Plataforma OMS — gestão de encomendas automatizada',
+        title: 'Plataforma OMS: gestão de encomendas automatizada',
         description:
           'Automatize todo o processo logístico: alocação de stock em tempo real, faturação integrada certificada pela AT, reembolsos e ferramentas de apoio ao cliente.',
       },
@@ -411,7 +411,7 @@ export const platformCopy: SolutionSet = {
         {
           eyebrow: 'Automação',
           title: 'Processo logístico automatizado de ponta a ponta',
-          body: 'O OMS associa todos os canais de venda numa única plataforma. Da entrada da encomenda à expedição, o processo corre sozinho — a equipa intervém nas exceções, não na rotina.',
+          body: 'O OMS associa todos os canais de venda numa única plataforma. Da entrada da encomenda à expedição, o processo corre sozinho: a equipa intervém nas exceções, não na rotina.',
           bullets: [
             'Regras de alocação de stock por depósito',
             'Encomendas de todos os canais no mesmo fluxo',
@@ -454,7 +454,7 @@ export const platformCopy: SolutionSet = {
     },
     en: {
       meta: {
-        title: 'OMS Platform — automated order management',
+        title: 'OMS Platform: automated order management',
         description:
           'Automate the whole logistics process: real-time stock allocation, integrated invoicing certified by the Portuguese tax authority, refunds and customer care tools.',
       },
@@ -487,7 +487,7 @@ export const platformCopy: SolutionSet = {
         {
           eyebrow: 'Automation',
           title: 'An end-to-end automated logistics process',
-          body: 'The OMS brings every sales channel into one platform. From order capture to dispatch the process runs itself — the team handles exceptions, not routine.',
+          body: 'The OMS brings every sales channel into one platform. From order capture to dispatch the process runs itself: the team handles exceptions, not routine.',
           bullets: [
             'Stock allocation rules per warehouse',
             'Orders from every channel in the same flow',
@@ -533,7 +533,7 @@ export const platformCopy: SolutionSet = {
   platformMarketingCloud: {
     pt: {
       meta: {
-        title: 'Marketing Cloud — campanhas automatizadas e segmentação com IA',
+        title: 'Marketing Cloud: campanhas automatizadas e segmentação com IA',
         description:
           'Segmentação automática, campanhas personalizadas cliente a cliente, email e SMS marketing e ferramentas de conversão integradas na plataforma de comércio.',
       },
@@ -541,7 +541,7 @@ export const platformCopy: SolutionSet = {
       hero: {
         eyebrow: 'Marketing Cloud',
         title: 'Personalização em cada interação',
-        lead: 'Ferramentas de marketing automatizadas que assentam nos mesmos dados da operação. Quem compra, o que comprou e o que tem em stock estão no mesmo sítio — a campanha não precisa de exportações para saber a quem falar.',
+        lead: 'Ferramentas de marketing automatizadas que assentam nos mesmos dados da operação. Quem compra, o que comprou e o que tem em stock estão no mesmo sítio: a campanha não precisa de exportações para saber a quem falar.',
         primary: 'Pedir proposta',
       },
       features: [
@@ -576,7 +576,7 @@ export const platformCopy: SolutionSet = {
         {
           eyebrow: 'Inteligência',
           title: 'Segmentação potenciada por machine learning',
-          body: 'Personalize campanhas e condições de venda com base em segmentos automáticos. Os perfis de cliente incluem interesses e comportamento, construídos com arquiteturas recentes de machine learning — e mantêm-se atualizados sem trabalho manual.',
+          body: 'Personalize campanhas e condições de venda com base em segmentos automáticos. Os perfis de cliente incluem interesses e comportamento, construídos com arquiteturas recentes de machine learning, e mantêm-se atualizados sem trabalho manual.',
         },
         {
           eyebrow: 'Canais',
@@ -646,7 +646,7 @@ export const platformCopy: SolutionSet = {
     },
     en: {
       meta: {
-        title: 'Marketing Cloud — automated campaigns and AI segmentation',
+        title: 'Marketing Cloud: automated campaigns and AI segmentation',
         description:
           'Automatic segmentation, campaigns personalised customer by customer, email and SMS marketing, and conversion tools built into the commerce platform.',
       },
@@ -654,7 +654,7 @@ export const platformCopy: SolutionSet = {
       hero: {
         eyebrow: 'Marketing Cloud',
         title: 'Personalisation in every interaction',
-        lead: 'Automated marketing tools sitting on the same data as the operation. Who buys, what they bought and what is in stock all live in one place — a campaign needs no export to know who to talk to.',
+        lead: 'Automated marketing tools sitting on the same data as the operation. Who buys, what they bought and what is in stock all live in one place: a campaign needs no export to know who to talk to.',
         primary: 'Request a proposal',
       },
       features: [
@@ -689,7 +689,7 @@ export const platformCopy: SolutionSet = {
         {
           eyebrow: 'Intelligence',
           title: 'Segmentation powered by machine learning',
-          body: 'Personalise campaigns and selling conditions on automatically generated segments. Customer profiles carry interests and behaviour, built with modern machine learning architectures — and stay current without manual work.',
+          body: 'Personalise campaigns and selling conditions on automatically generated segments. Customer profiles carry interests and behaviour, built with modern machine learning architectures, and stay current without manual work.',
         },
         {
           eyebrow: 'Channels',

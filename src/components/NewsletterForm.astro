@@ -1,0 +1,171 @@
+---
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/routes';
+
+/**
+ * Subscricao da newsletter: um campo e um botao.
+ *
+ * Usa a mesma camada de envio das leads (submitLead) com topic 'newsletter',
+ * por isso depende do mesmo PUBLIC_LEAD_ENDPOINT. Enquanto essa variavel nao
+ * estiver configurada no Vercel, isto falha tal como os outros formularios.
+ *
+ * Quem subscreve fica marcado no proprio browser, para a janela da pagina
+ * inicial nao voltar a aparecer. Nao ha forma de identificar a maquina: o
+ * browser nao da acesso ao endereco MAC nem a nada equivalente, por razoes
+ * de privacidade. A marca vive no localStorage e desaparece se a pessoa
+ * limpar os dados do site ou mudar de browser.
+ */
+
+interface Props {
+  lang: Lang;
+  /** 'inline' no rodape, 'stacked' na janela da pagina inicial. */
+  variant?: 'inline' | 'stacked';
+  id?: string;
+}
+
+const { lang, variant = 'inline', id = 'newsletter' } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<form class={`news news--${variant}`} data-newsletter data-lang={lang} id={id} novalidate>
+  <div class="news__row">
+    <label class="visually-hidden" for={`${id}-email`}>{t('news.label')}</label>
+    <input
+      class="news__input"
+      id={`${id}-email`}
+      name="email"
+      type="email"
+      inputmode="email"
+      autocomplete="email"
+      placeholder={t('news.placeholder')}
+      required
+    />
+    <button class="news__submit" type="submit">{t('news.cta')}</button>
+  </div>
+
+  <p class="news__status" role="status" hidden></p>
+</form>
+
+<style>
+  .news__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .news__input {
+    flex: 1 1 12rem;
+    min-width: 0;
+    padding: 0.55rem 0.9rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+    color: var(--text-body);
+    font: inherit;
+    font-size: var(--step--1);
+  }
+
+  /* A mesma escala do botao de proposta da barra de navegacao. */
+  .news__submit {
+    flex: 0 0 auto;
+    padding: 0.6rem 1.25rem;
+    background: var(--action);
+    color: var(--action-text);
+    border: 2px solid var(--action);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: var(--weight-semibold);
+    cursor: pointer;
+    transition: background-color var(--duration) var(--ease);
+  }
+
+  .news__submit:hover {
+    background: var(--action-hover);
+    border-color: var(--action-hover);
+  }
+
+  .news__submit[disabled] {
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .news__status {
+    margin-block-start: 0.5rem;
+    font-size: var(--step--1);
+  }
+
+  .news__status[data-state='error'] {
+    color: var(--text-error);
+  }
+
+  /* Sobre navy o campo e vidro; o contorno vem do token, que a classe
+     .on-dark ja remapeia para um cinza claro com contraste suficiente. */
+  :global(.on-dark) .news__input {
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+  }
+
+  :global(.on-dark) .news__input::placeholder {
+    color: rgba(255, 255, 255, 0.62);
+  }
+
+  .news--stacked .news__row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .news--stacked .news__submit {
+    width: 100%;
+  }
+</style>
+
+<script>
+  import { isEmail, submitLead, collectContext, setNewsletterMark } from '@/lib/leads';
+  import { ui } from '@i18n/ui';
+  import type { Lang } from '@i18n/routes';
+
+  document.querySelectorAll('[data-newsletter]').forEach((node) => {
+    const form = node as HTMLFormElement;
+    const lang = (form.dataset.lang ?? 'pt') as Lang;
+    const strings = ui[lang] ?? ui.pt;
+    const input = form.querySelector('input[name="email"]') as HTMLInputElement;
+    const submit = form.querySelector('.news__submit') as HTMLButtonElement;
+    const status = form.querySelector('.news__status') as HTMLElement;
+
+    function say(message: string, state: 'ok' | 'error') {
+      status.textContent = message;
+      status.dataset.state = state;
+      status.hidden = false;
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const email = input.value.trim();
+
+      if (!isEmail(email)) {
+        say(strings['form.errorEmail'], 'error');
+        input.focus();
+        return;
+      }
+
+      submit.disabled = true;
+      try {
+        await submitLead({
+          name: '',
+          email,
+          topic: 'newsletter',
+          context: collectContext(lang),
+        });
+        form.reset();
+        say(strings['news.success'], 'ok');
+        setNewsletterMark();
+        document.dispatchEvent(new CustomEvent('redicom:subscribed'));
+      } catch {
+        say(strings['news.error'], 'error');
+      } finally {
+        submit.disabled = false;
+      }
+    });
+  });
+</script>

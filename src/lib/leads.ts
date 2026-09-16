@@ -70,6 +70,43 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export type ValidationCode = 'name' | 'email' | 'emailPersonal';
 
+/**
+ * Validacao simples, so da forma do endereco. A newsletter usa esta e nao a
+ * validateLead: quem subscreve uma newsletter pode muito bem usar o email
+ * pessoal, e recusa-lo era perder o subscritor por uma regra que so faz
+ * sentido numa lead comercial.
+ */
+export function isEmail(email: string): boolean {
+  return EMAIL_PATTERN.test(email.trim());
+}
+
+/**
+ * Marca de "ja subscreveu", guardada no browser de quem subscreveu.
+ *
+ * Nao existe forma de identificar a maquina a partir de uma pagina web: o
+ * endereco MAC nunca esteve acessivel ao browser, e nao ha equivalente. O
+ * que se pode fazer e o que se faz aqui — uma marca no localStorage, que
+ * desaparece se a pessoa limpar os dados do site ou mudar de browser.
+ */
+export const NEWSLETTER_KEY = 'redicom:newsletter';
+
+/** Ja subscreveu (ou ja dispensou) neste browser? */
+export function hasNewsletterMark(): boolean {
+  try {
+    return localStorage.getItem(NEWSLETTER_KEY) !== null;
+  } catch {
+    return false;
+  }
+}
+
+export function setNewsletterMark(): void {
+  try {
+    localStorage.setItem(NEWSLETTER_KEY, String(Date.now()));
+  } catch {
+    /* bloqueado: a janela volta a aparecer, nao ha mal maior */
+  }
+}
+
 /** Valida os campos obrigatorios. Devolve null quando esta tudo bem. */
 export function validateLead(name: string, email: string): ValidationCode | null {
   if (name.trim().length < 2) return 'name';

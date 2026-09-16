@@ -32,7 +32,7 @@
   --surface-inverse: var(--brand-navy);
   --surface-inverse-soft: #04263f;
   --border: #e3e3e8;
-  --border-strong: #c9c9d1;
+  --border-strong: #8b8b96;
   --border-inverse: rgba(255, 255, 255, 0.14);
 
   /* ---- Tokens semanticos: texto ----------------------------------- */
@@ -48,7 +48,8 @@
   --action: var(--brand-orange);
   --action-hover: #d88700;
   --action-text: #1a1000;
-  --focus-ring: var(--brand-orange);
+  --focus-ring: var(--brand-orange-ink);
+  --text-error: #b3261e;
 
   /* ---- Tipografia -------------------------------------------------
      Inter    — enquadramentos, titulos, subtitulos, menus e botoes
@@ -124,12 +125,14 @@
   --surface: var(--brand-navy);
   --surface-muted: var(--surface-inverse-soft);
   --border: var(--border-inverse);
-  --border-strong: rgba(255, 255, 255, 0.28);
+  --border-strong: rgba(255, 255, 255, 0.45);
   --text-heading: #ffffff;
   --text-body: var(--text-on-inverse-muted);
   --text-strong: #ffffff;
   --text-muted: rgba(255, 255, 255, 0.6);
   --text-accent: var(--brand-orange-bright);
+  --text-error: #ff9e91;
+  --focus-ring: var(--brand-orange-bright);
 
   background-color: var(--brand-navy);
   color: var(--text-body);
