@@ -365,16 +365,10 @@ export const mainNav: NavItem[] = [
   },
 ];
 
-/**
- * Ligacoes secundarias, a direita do menu.
- *
- * A Documentacao (o Manual de Instrucoes do backoffice) ainda nao esta
- * migrada. Fica fora do menu ate existir, para que nenhum link do site leve a
- * uma pagina inexistente — a rota continua definida em routes.ts e basta
- * repor a linha quando a seccao estiver pronta.
- */
+/** Ligacoes secundarias, a direita do menu. */
 export const utilityNav: NavLink[] = [
   { route: 'audience', label: { pt: 'Para quem é a Redicom', en: 'Who it is for' } },
+  { route: 'docs', label: { pt: 'Documentação', en: 'Documentation' } },
   { route: 'about', label: { pt: 'Sobre Nós', en: 'About Us' } },
   { route: 'contact', label: { pt: 'Contactos', en: 'Contact' } },
 ];
@@ -468,6 +462,7 @@ export const footerNav: NavGroup[] = [
       { route: 'about', label: { pt: 'Sobre Nós', en: 'About Us' } },
       { route: 'careers', label: { pt: 'Trabalhe Connosco', en: 'Careers' } },
       { route: 'contact', label: { pt: 'Contactos', en: 'Contact' } },
+      { route: 'docs', label: { pt: 'Documentação', en: 'Documentation' } },
       { route: 'privacy', label: { pt: 'Política de Privacidade', en: 'Privacy Policy' } },
     ],
   },

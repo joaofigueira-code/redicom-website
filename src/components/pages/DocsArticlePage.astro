@@ -1,0 +1,374 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import LeadForm from '@components/LeadForm.astro';
+
+import { articlesByChapter, docSummary, docsUi, type DocArticle } from '@/data/docs';
+import { site } from '@/data/site';
+import { docsPath, path, type Lang } from '@i18n/routes';
+
+/**
+ * Artigo da documentacao.
+ *
+ * Coluna de leitura estreita com o indice do capitulo a esquerda: quem chega
+ * aqui vindo de uma pesquisa precisa de perceber depressa onde esta e o que
+ * ha a seguir. O formulario aparece no fim, com topico proprio, porque uma
+ * duvida na documentacao e um motivo legitimo para falar connosco.
+ */
+
+interface Props {
+  lang: Lang;
+  article: DocArticle;
+}
+
+const { lang, article } = Astro.props;
+const ui = docsUi[lang];
+
+const siblings = articlesByChapter(article.chapter);
+const position = siblings.findIndex((item) => item.slug === article.slug);
+const previous = position > 0 ? siblings[position - 1] : undefined;
+const next = position < siblings.length - 1 ? siblings[position + 1] : undefined;
+
+const headings = article.blocks.filter((block) => block.t === 'h3');
+
+const slugify = (value: string) =>
+  value
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+
+const description = docSummary(article);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: article.title,
+  description,
+  url: `${site.url}${docsPath(article.slug, lang)}`,
+  articleSection: article.chapter,
+  inLanguage: 'pt-PT',
+  publisher: { '@id': `${site.url}/#organization` },
+};
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${article.title} — Documentação Redicom`}
+  description={description}
+  schema={schema}
+>
+  <Breadcrumbs
+    lang={lang}
+    items={[{ label: ui.breadcrumb, href: path('docs', lang) }, { label: article.title }]}
+  />
+
+  <div class="section docpage">
+    <div class="container docpage__grid">
+      <nav class="sidenav" aria-label={article.chapter}>
+        <p class="sidenav__label">{ui.chapterLabel}</p>
+        <p class="sidenav__chapter">{article.chapter}</p>
+        <ul class="sidenav__list">
+          {
+            siblings.map((item) => (
+              <li>
+                <a
+                  href={docsPath(item.slug, lang)}
+                  aria-current={item.slug === article.slug ? 'page' : undefined}
+                >
+                  {item.title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <a class="sidenav__back" href={path('docs', lang)}>{ui.backToIndex}</a>
+      </nav>
+
+      <article class="doc">
+        <h1 class="doc__title">{article.title}</h1>
+
+        {
+          headings.length > 2 && (
+            <nav class="toc" aria-label={ui.onThisPage}>
+              <p class="toc__label">{ui.onThisPage}</p>
+              <ul>
+                {headings.map((block) => (
+                  <li>
+                    <a href={`#${slugify(block.t === 'h3' ? block.text : '')}`}>
+                      {block.t === 'h3' ? block.text : ''}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )
+        }
+
+        <div class="doc__body">
+          {
+            article.blocks.map((block) => {
+              if (block.t === 'h3') {
+                return <h2 class="doc__heading" id={slugify(block.text)}>{block.text}</h2>;
+              }
+              if (block.t === 'ul') {
+                return (
+                  <ul class="doc__list">
+                    {block.items.map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
+                );
+              }
+              return <p class="doc__p">{block.text}</p>;
+            })
+          }
+        </div>
+
+        <nav class="pager" aria-label={article.chapter}>
+          {
+            previous && (
+              <a class="pager__link pager__link--prev" href={docsPath(previous.slug, lang)}>
+                <span class="pager__label">{ui.previous}</span>
+                <span class="pager__title">{previous.title}</span>
+              </a>
+            )
+          }
+          {
+            next && (
+              <a class="pager__link pager__link--next" href={docsPath(next.slug, lang)}>
+                <span class="pager__label">{ui.next}</span>
+                <span class="pager__title">{next.title}</span>
+              </a>
+            )
+          }
+        </nav>
+      </article>
+    </div>
+  </div>
+
+  <section class="section section--tight dochelp">
+    <div class="container container--narrow">
+      <LeadForm
+        lang={lang}
+        topic={`docs-${article.slug}`}
+        variant="inline"
+        heading={ui.helpTitle}
+        body={ui.helpBody}
+        submitLabel={ui.helpCta}
+        id={`lead-docs-${article.slug}`}
+      />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .docpage__grid {
+    display: grid;
+    grid-template-columns: 17rem minmax(0, 1fr);
+    gap: clamp(2rem, 1rem + 4vw, 4rem);
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .docpage__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .sidenav {
+      position: static;
+      border-block-end: 1px solid var(--border);
+      padding-block-end: var(--space-lg);
+    }
+  }
+
+  .sidenav {
+    position: sticky;
+    top: calc(var(--header-height) + var(--space-lg));
+    font-size: var(--step--1);
+  }
+
+  .sidenav__label {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .sidenav__chapter {
+    font-family: var(--font-display);
+    font-weight: var(--weight-bold);
+    color: var(--text-heading);
+    margin-block: 0.15rem var(--space-md);
+  }
+
+  .sidenav__list {
+    list-style: none;
+    margin: 0 0 var(--space-lg);
+    padding: 0;
+    display: grid;
+    gap: 0.1rem;
+    border-inline-start: 1px solid var(--border);
+  }
+
+  .sidenav__list a {
+    display: block;
+    padding: 0.35rem 0 0.35rem var(--space-md);
+    margin-inline-start: -1px;
+    border-inline-start: 2px solid transparent;
+    color: var(--text-body);
+    text-decoration: none;
+  }
+
+  .sidenav__list a:hover {
+    color: var(--text-accent);
+  }
+
+  .sidenav__list a[aria-current='page'] {
+    border-inline-start-color: var(--brand-orange);
+    color: var(--text-heading);
+    font-weight: var(--weight-semibold);
+  }
+
+  .sidenav__back {
+    font-family: var(--font-display);
+    font-weight: var(--weight-semibold);
+  }
+
+  .doc {
+    max-width: 70ch;
+  }
+
+  .doc__title {
+    font-size: var(--step-4);
+    margin-block-end: var(--space-xl);
+  }
+
+  .toc {
+    padding: var(--space-md) var(--space-lg);
+    background: var(--surface-muted);
+    border-radius: var(--radius-md);
+    margin-block-end: var(--space-xl);
+    font-size: var(--step--1);
+  }
+
+  .toc__label {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-block-end: var(--space-xs);
+  }
+
+  .toc ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .doc__p + .doc__p {
+    margin-block-start: var(--space-md);
+  }
+
+  .doc__heading {
+    font-size: var(--step-1);
+    margin-block: var(--space-2xl) var(--space-md);
+    scroll-margin-top: calc(var(--header-height) + var(--space-lg));
+  }
+
+  .doc__list {
+    list-style: none;
+    margin: var(--space-md) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-xs);
+  }
+
+  .doc__list li {
+    position: relative;
+    padding-inline-start: 1.4rem;
+  }
+
+  .doc__list li::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    top: 0.62em;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: var(--brand-orange);
+  }
+
+  .doc__list + .doc__p {
+    margin-block-start: var(--space-md);
+  }
+
+  .pager {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-md);
+    margin-block-start: var(--space-3xl);
+    padding-block-start: var(--space-lg);
+    border-block-start: 1px solid var(--border);
+  }
+
+  @media (max-width: 620px) {
+    .pager {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .pager__link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+  }
+
+  .pager__link:hover {
+    border-color: var(--brand-orange);
+  }
+
+  .pager__link--next {
+    grid-column: 2;
+    text-align: end;
+  }
+
+  @media (max-width: 620px) {
+    .pager__link--next {
+      grid-column: 1;
+      text-align: start;
+    }
+  }
+
+  .pager__label {
+    font-size: 0.72rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-family: var(--font-display);
+  }
+
+  .pager__title {
+    font-family: var(--font-display);
+    font-weight: var(--weight-semibold);
+    color: var(--text-heading);
+  }
+
+  .dochelp {
+    background: var(--surface-muted);
+    border-block-start: 1px solid var(--border);
+  }
+</style>

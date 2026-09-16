@@ -1,18 +1,21 @@
 ---
 import SolutionPage from '@components/SolutionPage.astro';
 import CaseStudyPage from '@components/pages/CaseStudyPage.astro';
+import DocsArticlePage from '@components/pages/DocsArticlePage.astro';
 
 import { solutions, solutionIds, solutionLabels } from '@/data/copy';
 import { caseStudies } from '@/data/cases';
+import { docArticles, findArticle } from '@/data/docs';
 import { LANGUAGES, routes, type Lang, type RouteId } from '@i18n/routes';
 
 /**
  * Paginas de dois segmentos.
  *
- * Sao duas familias com a mesma forma de URL: as paginas de solucao
- * (/pt/plataforma/b2c/) e os casos de sucesso (/pt/casos-de-sucesso/<slug>/).
- * Tem de partilhar este ficheiro porque o Astro so admite uma rota dinamica
- * por profundidade — dai o despacho no fim.
+ * Tres familias partilham esta forma de URL: as paginas de solucao
+ * (/pt/plataforma/b2c/), os casos de sucesso (/pt/casos-de-sucesso/<slug>/) e
+ * os artigos da documentacao (/pt/documentacao/<slug>/). Tem de partilhar
+ * este ficheiro porque o Astro so admite uma rota dinamica por profundidade —
+ * dai o despacho no fim.
  */
 
 export function getStaticPaths() {
@@ -36,6 +39,18 @@ export function getStaticPaths() {
         props: { kind: 'case', slug: study.slug },
       });
     }
+
+    // O manual so existe em portugues. Gerar os mesmos 71 artigos sob /en/
+    // criaria conteudo duplicado sem acrescentar nada: o indice em ingles
+    // avisa e liga diretamente aos artigos portugueses.
+    if (lang === 'pt') {
+      for (const article of docArticles) {
+        paths.push({
+          params: { lang, section: routes.docs[lang], page: article.slug },
+          props: { kind: 'doc', slug: article.slug },
+        });
+      }
+    }
   }
 
   return paths;
@@ -44,9 +59,11 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as Lang;
 const props = Astro.props as
   | { kind: 'solution'; routeId: RouteId }
-  | { kind: 'case'; slug: string };
+  | { kind: 'case'; slug: string }
+  | { kind: 'doc'; slug: string };
 
 const study = props.kind === 'case' ? caseStudies.find((item) => item.slug === props.slug) : undefined;
+const article = props.kind === 'doc' ? findArticle(props.slug) : undefined;
 
 // Nas paginas de solucao, o primeiro segmento corresponde sempre a pagina-mae.
 const parentRoute: RouteId =
@@ -68,3 +85,4 @@ const parentLabel =
 }
 
 {study && <CaseStudyPage lang={lang} study={study} />}
+{article && <DocsArticlePage lang={lang} article={article} />}

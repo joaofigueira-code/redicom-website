@@ -1,0 +1,322 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import LeadForm from '@components/LeadForm.astro';
+
+import {
+  articlesByChapter,
+  docChapters,
+  docSearchText,
+  docSummary,
+  docsUi,
+  docArticles,
+} from '@/data/docs';
+import { site } from '@/data/site';
+import { docsPath, path, type Lang } from '@i18n/routes';
+
+/**
+ * Indice da documentacao.
+ *
+ * A pesquisa e do lado do cliente e trabalha sobre um indice embebido na
+ * pagina: sao 71 artigos, o que da um ficheiro pequeno o suficiente para nao
+ * valer a pena um servico de pesquisa. Sem JavaScript, ficam visiveis todos os
+ * capitulos e todos os artigos, que e o comportamento correto.
+ */
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const ui = docsUi[lang];
+
+// Os artigos so existem em portugues, por isso o indice em ingles liga para
+// eles em vez de apontar para paginas que nao sao geradas.
+const articleHref = (slug: string) => docsPath(slug, 'pt');
+
+const chapters = docChapters.map((chapter) => ({
+  title: chapter,
+  articles: articlesByChapter(chapter),
+}));
+
+// Indice de pesquisa: titulo com mais peso do que o corpo, em minusculas e
+// sem acentos, para que "devolucoes" encontre "devoluções".
+const normalise = (value: string) =>
+  value
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '');
+
+const searchIndex = docArticles.map((article) => ({
+  s: article.slug,
+  t: normalise(`${article.title} ${article.chapter}`),
+  b: normalise(docSearchText(article)).slice(0, 1200),
+}));
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: ui.title,
+  description: ui.description,
+  url: `${site.url}${path('docs', lang)}`,
+  publisher: { '@id': `${site.url}/#organization` },
+};
+---
+
+<BaseLayout lang={lang} title={ui.title} description={ui.description} schema={schema}>
+  <Breadcrumbs lang={lang} items={[{ label: ui.breadcrumb }]} />
+
+  <header class="dochero">
+    <div class="container">
+      <p class="dochero__eyebrow">{ui.breadcrumb}</p>
+      <h1 class="dochero__title">Manual de Instruções</h1>
+      <p class="dochero__lead">{ui.lead}</p>
+
+      {ui.languageNotice && <p class="dochero__notice">{ui.languageNotice}</p>}
+
+      <div class="search">
+        <label class="search__label" for="docs-search">{ui.searchLabel}</label>
+        <input
+          class="search__input"
+          id="docs-search"
+          type="search"
+          autocomplete="off"
+          placeholder={ui.searchPlaceholder}
+        />
+        <p class="search__count" id="docs-search-count" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+  </header>
+
+  <section class="section docs">
+    <div class="container">
+      {
+        chapters.map((chapter) => (
+          <section class="chapter" data-chapter>
+            <h2 class="chapter__title">{chapter.title}</h2>
+            <ul class="chapter__list">
+              {chapter.articles.map((article) => (
+                <li data-slug={article.slug}>
+                  <a class="doc" href={articleHref(article.slug)}>
+                    <span class="doc__title">{article.title}</span>
+                    <span class="doc__summary">{docSummary(article, 120)}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+
+      <p class="docs__empty" id="docs-empty" hidden>{ui.noResults}</p>
+    </div>
+  </section>
+
+  <section class="section section--tight dochelp">
+    <div class="container container--narrow">
+      <LeadForm
+        lang={lang}
+        topic="docs"
+        variant="inline"
+        heading={ui.helpTitle}
+        body={ui.helpBody}
+        submitLabel={ui.helpCta}
+        id="lead-docs"
+      />
+    </div>
+  </section>
+
+  <!-- Indice de pesquisa embebido. is:inline para o Astro nao o tratar como
+       modulo JavaScript: e dados, nao codigo. -->
+  <script
+    is:inline
+    type="application/json"
+    id="docs-index"
+    set:html={JSON.stringify({ index: searchIndex, one: ui.resultsOne, many: ui.resultsMany })}
+  />
+
+  <script>
+    const holder = document.getElementById('docs-index');
+    const input = document.getElementById('docs-search');
+
+    if (holder && input) {
+      const data = JSON.parse(holder.textContent || '{}');
+      const entries = data.index || [];
+      const chapters = document.querySelectorAll('[data-chapter]');
+      const items = document.querySelectorAll('[data-slug]');
+      const count = document.getElementById('docs-search-count');
+      const empty = document.getElementById('docs-empty');
+
+      const normalise = (value) =>
+        value.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+      let timer;
+
+      const run = () => {
+        const query = normalise(input.value.trim());
+
+        if (query.length < 2) {
+          items.forEach((item) => (item.hidden = false));
+          chapters.forEach((chapter) => (chapter.hidden = false));
+          if (count) count.textContent = '';
+          if (empty) empty.hidden = true;
+          return;
+        }
+
+        const terms = query.split(/\s+/);
+        const matches = new Set(
+          entries
+            .filter((entry) => terms.every((term) => entry.t.includes(term) || entry.b.includes(term)))
+            .map((entry) => entry.s)
+        );
+
+        items.forEach((item) => {
+          item.hidden = !matches.has(item.dataset.slug);
+        });
+
+        chapters.forEach((chapter) => {
+          const visible = chapter.querySelectorAll('[data-slug]:not([hidden])').length;
+          chapter.hidden = visible === 0;
+        });
+
+        if (count) {
+          count.textContent =
+            matches.size === 1 ? data.one : data.many.replace('{n}', String(matches.size));
+        }
+        if (empty) empty.hidden = matches.size > 0;
+      };
+
+      input.addEventListener('input', () => {
+        clearTimeout(timer);
+        timer = setTimeout(run, 120);
+      });
+    }
+  </script>
+</BaseLayout>
+
+<style>
+  .dochero {
+    background: var(--surface-muted);
+    border-block-end: 1px solid var(--border);
+    padding-block: clamp(2.5rem, 1.8rem + 3vw, 4.5rem);
+  }
+
+  .dochero__eyebrow {
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-accent);
+    margin-block-end: var(--space-sm);
+  }
+
+  .dochero__title {
+    font-size: var(--step-4);
+  }
+
+  .dochero__lead {
+    font-size: var(--step-1);
+    line-height: var(--leading-snug);
+    max-width: 62ch;
+    margin-block-start: var(--space-md);
+  }
+
+  .dochero__notice {
+    margin-block-start: var(--space-lg);
+    padding: var(--space-md) var(--space-lg);
+    border-inline-start: 3px solid var(--brand-orange);
+    background: var(--surface);
+    font-size: var(--step--1);
+    max-width: 72ch;
+  }
+
+  .search {
+    margin-block-start: var(--space-xl);
+    max-width: 34rem;
+  }
+
+  .search__label {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: var(--weight-semibold);
+    margin-block-end: var(--space-2xs);
+  }
+
+  .search__input {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: var(--step-0);
+    color: var(--text-heading);
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 0.9rem;
+  }
+
+  .search__count {
+    min-height: 1.4rem;
+    margin-block-start: var(--space-2xs);
+    font-size: var(--step--1);
+    color: var(--text-muted);
+  }
+
+  .chapter + .chapter {
+    margin-block-start: var(--space-3xl);
+  }
+
+  .chapter__title {
+    font-size: var(--step-2);
+    padding-block-end: var(--space-sm);
+    border-block-end: 2px solid var(--brand-orange);
+    margin-block-end: var(--space-lg);
+  }
+
+  .chapter__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: var(--space-md);
+  }
+
+  .doc {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    height: 100%;
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: border-color var(--duration) var(--ease);
+  }
+
+  .doc:hover {
+    border-color: var(--brand-orange);
+  }
+
+  .doc__title {
+    font-family: var(--font-display);
+    font-weight: var(--weight-semibold);
+    color: var(--text-heading);
+  }
+
+  .doc__summary {
+    font-size: var(--step--1);
+    color: var(--text-body);
+    line-height: 1.45;
+  }
+
+  .docs__empty {
+    margin-block-start: var(--space-xl);
+    color: var(--text-muted);
+  }
+
+  .dochelp {
+    background: var(--surface-muted);
+    border-block-start: 1px solid var(--border);
+  }
+</style>

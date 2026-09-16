@@ -121,8 +121,6 @@ export type RouteId = keyof typeof routes;
  *
  * Vive aqui, e nao na pagina que as gera, porque o getStaticPaths do Astro
  * corre num contexto proprio: so pode contar com o que vem de importacoes.
- * A rota 'docs' esta definida acima mas fora desta lista ate a seccao de
- * documentacao existir.
  */
 export const SINGLE_PAGE_IDS = [
   'platform',
@@ -132,6 +130,7 @@ export const SINGLE_PAGE_IDS = [
   'audience',
   'integrations',
   'cases',
+  'docs',
   'about',
   'contact',
   'careers',
@@ -185,13 +184,17 @@ export function alternatePath(currentPath: string, from: Lang, to: Lang): string
     if (routes[id][from] === rest) return path(id, to);
   }
 
-  // Documentacao e casos de sucesso: o slug mantem-se nos dois idiomas, so
+  // Casos de sucesso: existem nos dois idiomas com o mesmo slug, por isso so
   // muda o segmento da seccao.
-  for (const section of ['docs', 'cases'] as const) {
-    const prefix = routes[section][from] + '/';
-    if (rest.startsWith(prefix)) {
-      return `/${to}/${routes[section][to]}/${rest.slice(prefix.length)}/`;
-    }
+  const casesPrefix = routes.cases[from] + '/';
+  if (rest.startsWith(casesPrefix)) {
+    return `/${to}/${routes.cases[to]}/${rest.slice(casesPrefix.length)}/`;
+  }
+
+  // Documentacao: os artigos do manual so existem em portugues. O equivalente
+  // no outro idioma e o indice da documentacao, nao um artigo que nao existe.
+  if (rest.startsWith(routes.docs[from] + '/')) {
+    return path('docs', to);
   }
 
   return `/${to}/`;
