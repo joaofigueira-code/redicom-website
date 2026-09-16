@@ -6,9 +6,11 @@ import SectionHeader from '@components/SectionHeader.astro';
 import Card from '@components/Card.astro';
 import Stats from '@components/Stats.astro';
 import Button from '@components/Button.astro';
+import Comparison from '@components/Comparison.astro';
 import CtaBand from '@components/CtaBand.astro';
 
 import { aboutCopy } from '@/data/copy/institutional';
+import { solutions } from '@/data/copy';
 import { site } from '@/data/site';
 import { path, type Lang } from '@i18n/routes';
 import { useTranslations } from '@i18n/utils';
@@ -16,10 +18,14 @@ import { useTranslations } from '@i18n/utils';
 /**
  * Sobre Nos.
  *
- * A pagina existe para responder a "com quem e que estou a falar", por isso
- * lidera com a historia e nao com a plataforma. Os escritorios vem do mesmo
- * ficheiro de dados que alimenta o rodape e os dados estruturados, para que
- * uma morada so tenha de ser corrigida num sitio.
+ * Esta pagina responde a tres perguntas seguidas, que o visitante faz sempre
+ * pela mesma ordem: com quem estou a falar, isto serve-me, e porque havia de
+ * ser convosco. Ate aqui eram tres paginas — Sobre Nos, Para quem e a Redicom
+ * e Porque Redicom — e cada uma respondia a um terco do argumento. Juntas,
+ * leem-se de uma assentada; o conteudo e o mesmo, so deixou de estar partido.
+ *
+ * As ancoras #para-quem e #porque-redicom mantem as ligacoes directas, e o
+ * mapa de rotas encaminha para ca quem pedir as rotas antigas.
  */
 
 interface Props {
@@ -29,6 +35,16 @@ interface Props {
 const { lang } = Astro.props;
 const copy = aboutCopy[lang];
 const t = useTranslations(lang);
+
+const audience = solutions.audience![lang];
+const why = solutions.why![lang];
+
+const jumpLinks = [
+  { href: '#quem-somos', label: copy.story.title },
+  { href: '#para-quem', label: audience.breadcrumb },
+  { href: '#porque-redicom', label: why.breadcrumb },
+  { href: '#escritorios', label: copy.offices.title },
+];
 
 const schema = {
   '@context': 'https://schema.org',
@@ -56,16 +72,119 @@ const schema = {
     compact
   />
 
+  <nav class="jump" aria-label={t('nav.onThisPage')}>
+    <div class="container">
+      <ul class="jump__list">
+        {jumpLinks.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+
   <section class="section section--tight marks">
     <div class="container">
       <Stats stats={copy.marks} />
     </div>
   </section>
 
-  <section class="section story">
+  <section class="section story" id="quem-somos">
     <div class="container container--narrow">
       <h2 class="story__title">{copy.story.title}</h2>
       {copy.story.paragraphs.map((paragraph) => <p class="story__paragraph">{paragraph}</p>)}
+    </div>
+  </section>
+
+  <!-- Para quem e a Redicom: a pergunta da qualificacao, incluindo a resposta
+       negativa. Uma pagina que so diz para quem serve nao ajuda ninguem a
+       decidir. -->
+  <section class="section audience" id="para-quem">
+    <div class="container">
+      <SectionHeader
+        eyebrow={audience.hero.eyebrow}
+        title={audience.hero.title}
+        lead={audience.hero.lead}
+      />
+      <div class="grid grid--2">
+        {
+          audience.features.map((item) => (
+            <Card title={item.title}>
+              <p>{item.body}</p>
+            </Card>
+          ))
+        }
+      </div>
+
+      <div class="notes">
+        {
+          audience.sections.map((section) => (
+            <div class="note">
+              {section.eyebrow && <p class="eyebrow">{section.eyebrow}</p>}
+              <h3 class="note__title">{section.title}</h3>
+              <p>{section.body}</p>
+              {section.bullets && (
+                <ul class="note__list">
+                  {section.bullets.map((bullet) => (
+                    <li>{bullet}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Porque Redicom: a diferenciacao, com a tabela de comparacao que era o
+       centro da pagina anterior. -->
+  <section class="section why" id="porque-redicom">
+    <div class="container">
+      <SectionHeader eyebrow={why.hero.eyebrow} title={why.hero.title} lead={why.hero.lead} />
+      <div class="grid grid--2">
+        {
+          why.features.map((item) => (
+            <Card title={item.title}>
+              <p>{item.body}</p>
+            </Card>
+          ))
+        }
+      </div>
+
+      {
+        why.comparison && (
+          <div class="why__table">
+            <h3 class="note__title">{why.comparison.title}</h3>
+            {why.comparison.lead && <p class="why__tablelead">{why.comparison.lead}</p>}
+            <Comparison
+              genericTitle={why.comparison.genericTitle}
+              redicomTitle={why.comparison.redicomTitle}
+              rows={why.comparison.rows}
+            />
+          </div>
+        )
+      }
+
+      <div class="notes">
+        {
+          why.sections.map((section) => (
+            <div class="note">
+              {section.eyebrow && <p class="eyebrow">{section.eyebrow}</p>}
+              <h3 class="note__title">{section.title}</h3>
+              <p>{section.body}</p>
+              {section.bullets && (
+                <ul class="note__list">
+                  {section.bullets.map((bullet) => (
+                    <li>{bullet}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))
+        }
+      </div>
     </div>
   </section>
 
@@ -88,7 +207,7 @@ const schema = {
     </div>
   </section>
 
-  <section class="section offices">
+  <section class="section offices" id="escritorios">
     <div class="container">
       <SectionHeader
         eyebrow={copy.offices.eyebrow}
@@ -140,6 +259,99 @@ const schema = {
 </BaseLayout>
 
 <style>
+  /* Barra de saltos: a pagina passou a responder a tres perguntas e nao a
+     uma, por isso tem de se poder ir directo aquela que interessa. */
+  .jump {
+    position: sticky;
+    top: var(--header-height);
+    z-index: 20;
+    background: var(--surface);
+    border-block: 1px solid var(--border);
+  }
+
+  .jump__list {
+    display: flex;
+    gap: var(--space-lg);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .jump__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .jump__list a {
+    display: block;
+    padding-block: 0.8rem;
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: var(--weight-semibold);
+    color: var(--text-muted);
+    text-decoration: none;
+    white-space: nowrap;
+    border-block-end: 2px solid transparent;
+  }
+
+  .jump__list a:hover {
+    color: var(--text-heading);
+    border-block-end-color: var(--brand-orange);
+  }
+
+  /* O cabecalho e a barra de saltos sao ambos fixos: sem isto, a ancora
+     aterrava por baixo dos dois. */
+  #quem-somos,
+  #para-quem,
+  #porque-redicom,
+  #escritorios {
+    scroll-margin-top: calc(var(--header-height) + 3.5rem);
+  }
+
+  .audience {
+    border-block-start: 1px solid var(--border);
+  }
+
+  .why {
+    background: var(--surface-muted);
+    border-block: 1px solid var(--border);
+  }
+
+  .notes {
+    margin-block-start: var(--space-2xl);
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 52rem) {
+    .notes {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-xl) var(--space-2xl);
+    }
+  }
+
+  .note__title {
+    font-size: var(--step-1);
+    margin-block-end: var(--space-xs);
+  }
+
+  .note__list {
+    margin-block-start: var(--space-sm);
+    padding-inline-start: 1.1rem;
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .why__table {
+    margin-block-start: var(--space-2xl);
+  }
+
+  .why__tablelead {
+    max-width: 62ch;
+    margin-block-end: var(--space-lg);
+  }
+
   .marks {
     border-block-end: 1px solid var(--border);
   }

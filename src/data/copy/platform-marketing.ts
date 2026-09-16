@@ -85,7 +85,7 @@ export const platformMarketingCopy: SolutionSet = {
         ],
         submit: 'Falar com especialista',
       },
-      related: ['platformMarketingCloud', 'platformCampaigns', 'platformPersonalization'],
+      related: ['platformMarketingCloud', 'serviceCampaigns', 'platformPersonalization'],
     },
 
     en: {
@@ -158,11 +158,11 @@ export const platformMarketingCopy: SolutionSet = {
         ],
         submit: 'Talk to a specialist',
       },
-      related: ['platformMarketingCloud', 'platformCampaigns', 'platformPersonalization'],
+      related: ['platformMarketingCloud', 'serviceCampaigns', 'platformPersonalization'],
     },
   },
 
-  platformCampaigns: {
+  serviceCampaigns: {
     pt: {
       meta: {
         title: 'Campanhas Automatizadas — jornadas prontas, sem trabalho manual',
@@ -215,7 +215,7 @@ export const platformMarketingCopy: SolutionSet = {
           eyebrow: 'Canais',
           title: 'Email, SMS e on-site na mesma campanha',
           body: 'Cada comunicação leva um link individual que abre a conta e o carrinho do cliente já com sessão iniciada, para que a jornada continue onde estava. As campanhas disponíveis vão da captação de novos clientes à recuperação de carrinhos, passando por descontos de aniversário e upsell no site.',
-          link: { route: 'platformEmail', label: 'Ver o Email Marketing' },
+          link: { route: 'serviceEmail', label: 'Ver o Email Marketing' },
         },
       ],
       midForm: {
@@ -233,7 +233,7 @@ export const platformMarketingCopy: SolutionSet = {
         ],
         submit: 'Falar com especialista',
       },
-      related: ['platformMarketingCloud', 'platformEmail', 'platformSMS'],
+      related: ['platformMarketingCloud', 'serviceEmail', 'serviceSMS'],
     },
 
     en: {
@@ -288,7 +288,7 @@ export const platformMarketingCopy: SolutionSet = {
           eyebrow: 'Channels',
           title: 'Email, SMS and on-site in one campaign',
           body: 'Every message carries an individual link that opens the customer’s account and basket already signed in, so the journey picks up where it left off. Available campaigns range from new customer acquisition to basket recovery, birthday discounts and on-site upsell.',
-          link: { route: 'platformEmail', label: 'See Email Marketing' },
+          link: { route: 'serviceEmail', label: 'See Email Marketing' },
         },
       ],
       midForm: {
@@ -306,7 +306,7 @@ export const platformMarketingCopy: SolutionSet = {
         ],
         submit: 'Talk to a specialist',
       },
-      related: ['platformMarketingCloud', 'platformEmail', 'platformSMS'],
+      related: ['platformMarketingCloud', 'serviceEmail', 'serviceSMS'],
     },
   },
 
@@ -364,7 +364,7 @@ export const platformMarketingCopy: SolutionSet = {
         ],
         submit: 'Falar com especialista',
       },
-      related: ['platformMarketingCloud', 'platformCampaigns', 'platformConversion'],
+      related: ['platformMarketingCloud', 'serviceCampaigns', 'platformConversion'],
     },
 
     en: {
@@ -420,11 +420,11 @@ export const platformMarketingCopy: SolutionSet = {
         ],
         submit: 'Talk to a specialist',
       },
-      related: ['platformMarketingCloud', 'platformCampaigns', 'platformConversion'],
+      related: ['platformMarketingCloud', 'serviceCampaigns', 'platformConversion'],
     },
   },
 
-  platformSMS: {
+  serviceSMS: {
     pt: {
       meta: {
         title: 'SMS Marketing — login automático, envio segmentado e ROI medido',
@@ -483,7 +483,7 @@ export const platformMarketingCopy: SolutionSet = {
         ],
         submit: 'Falar com especialista',
       },
-      related: ['platformEmail', 'platformCampaigns', 'platformMarketingCloud'],
+      related: ['serviceEmail', 'serviceCampaigns', 'platformMarketingCloud'],
     },
 
     en: {
@@ -544,11 +544,11 @@ export const platformMarketingCopy: SolutionSet = {
         ],
         submit: 'Talk to a specialist',
       },
-      related: ['platformEmail', 'platformCampaigns', 'platformMarketingCloud'],
+      related: ['serviceEmail', 'serviceCampaigns', 'platformMarketingCloud'],
     },
   },
 
-  platformEmail: {
+  serviceEmail: {
     pt: {
       meta: {
         title: 'Email Marketing — blocos responsivos, login automático e análise de vendas',
@@ -600,7 +600,7 @@ export const platformMarketingCopy: SolutionSet = {
           eyebrow: 'Campanhas mistas',
           title: 'Quem não abre o email recebe SMS',
           body: 'Um email não lido é uma oportunidade perdida. Quem não abrir pode receber um SMS de reforço, e é essa combinação que costuma fazer a diferença no retorno da campanha.',
-          link: { route: 'platformSMS', label: 'Ver o SMS Marketing' },
+          link: { route: 'serviceSMS', label: 'Ver o SMS Marketing' },
         },
       ],
       midForm: {
@@ -618,7 +618,7 @@ export const platformMarketingCopy: SolutionSet = {
         ],
         submit: 'Falar com especialista',
       },
-      related: ['platformSMS', 'platformCampaigns', 'platformMarketingCloud'],
+      related: ['serviceSMS', 'serviceCampaigns', 'platformMarketingCloud'],
     },
 
     en: {
@@ -672,7 +672,7 @@ export const platformMarketingCopy: SolutionSet = {
           eyebrow: 'Mixed campaigns',
           title: 'Whoever does not open the email gets an SMS',
           body: 'An unopened email is a missed opportunity. Anyone who does not open can receive a follow-up SMS, and that combination is usually what moves the campaign’s return.',
-          link: { route: 'platformSMS', label: 'See SMS Marketing' },
+          link: { route: 'serviceSMS', label: 'See SMS Marketing' },
         },
       ],
       midForm: {
@@ -690,7 +690,7 @@ export const platformMarketingCopy: SolutionSet = {
         ],
         submit: 'Talk to a specialist',
       },
-      related: ['platformSMS', 'platformCampaigns', 'platformMarketingCloud'],
+      related: ['serviceSMS', 'serviceCampaigns', 'platformMarketingCloud'],
     },
   },
 };

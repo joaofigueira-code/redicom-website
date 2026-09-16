@@ -3,15 +3,28 @@ import { path, type Lang, type RouteId } from '@i18n/routes';
 /**
  * Estrutura do menu principal e do rodape.
  *
- * As descricoes curtas aparecem no mega-menu: dao contexto antes do clique e
- * reduzem os saltos entre paginas — o menu passa a ser parte da explicacao da
- * plataforma, nao apenas uma lista de destinos.
+ * Tres regras governam este ficheiro:
+ *
+ * 1. O primeiro nivel tem seis entradas e nao mais. Sao as seis coisas que um
+ *    visitante procura: o que e (Plataforma), o que corre por cima
+ *    (Servicos), a versao para o meu setor (Fashion Retail), a prova
+ *    (Casos de Sucesso), quem sao (Sobre Nos) e como falo convosco
+ *    (Contactos).
+ *
+ * 2. O menu nao e um mapa do site. Cada painel mostra o essencial; a cauda
+ *    longa vive na propria pagina-mae, que ja a lista toda.
+ *
+ * 3. O cartao da direita e sempre a mesma coisa em todos os paineis — a
+ *    pagina-mae — e diz pelo nome para onde vai ("Ver a Plataforma"), em vez
+ *    de um "Saber mais" que nao se percebe a que se refere.
  */
 
 export type NavLink = {
   route: RouteId;
   label: Record<Lang, string>;
   description?: Record<Lang, string>;
+  /** Etiqueta curta ao lado do nome, para assinalar novidade. */
+  badge?: Record<Lang, string>;
 };
 
 export type NavGroup = {
@@ -26,10 +39,14 @@ export type NavItem = {
   label: Record<Lang, string>;
   /** Quando existe, o item abre um painel em vez de navegar diretamente. */
   groups?: NavGroup[];
+  /** Ligacoes soltas no fundo do painel, fora dos grupos. */
+  extras?: NavLink[];
+  /** Cartao de destaque: e sempre a pagina-mae do painel. */
   featured?: {
     route: RouteId;
     title: Record<Lang, string>;
     body: Record<Lang, string>;
+    cta: Record<Lang, string>;
   };
 };
 
@@ -40,8 +57,8 @@ export const mainNav: NavItem[] = [
     label: { pt: 'Plataforma', en: 'Platform' },
     groups: [
       {
-        id: 'commerce',
-        title: { pt: 'Comércio', en: 'Commerce' },
+        id: 'platforms',
+        title: { pt: 'Plataformas', en: 'Platforms' },
         links: [
           {
             route: 'platformB2C',
@@ -78,17 +95,9 @@ export const mainNav: NavItem[] = [
         ],
       },
       {
-        id: 'operation',
-        title: { pt: 'Operação', en: 'Operations' },
+        id: 'technology',
+        title: { pt: 'Tecnologia', en: 'Technology' },
         links: [
-          {
-            route: 'platformPOS',
-            label: { pt: 'POS Omnicanal', en: 'Omnichannel POS' },
-            description: {
-              pt: 'Liga as lojas físicas à loja online, sem integrações',
-              en: 'Connects physical stores to the online store, with no integrations',
-            },
-          },
           {
             route: 'platformOmnichannel',
             label: { pt: 'Tecnologia Omnicanal', en: 'Omnichannel Technology' },
@@ -98,11 +107,11 @@ export const mainNav: NavItem[] = [
             },
           },
           {
-            route: 'platformAnalytics',
-            label: { pt: 'Redicom Analytics', en: 'Redicom Analytics' },
+            route: 'platformPOS',
+            label: { pt: 'POS Omnicanal', en: 'Omnichannel POS' },
             description: {
-              pt: 'A visão completa da performance do seu comércio digital',
-              en: 'The complete view of your digital commerce performance',
+              pt: 'Liga as lojas físicas à loja online, sem integrações',
+              en: 'Connects physical stores to the online store, with no integrations',
             },
           },
           {
@@ -114,131 +123,28 @@ export const mainNav: NavItem[] = [
             },
           },
           {
-            route: 'integrations',
-            label: { pt: 'Integrações', en: 'Integrations' },
+            route: 'platformAnalytics',
+            label: { pt: 'Redicom Analytics', en: 'Redicom Analytics' },
             description: {
-              pt: 'ERP, pagamentos, transportadoras e marketplaces',
-              en: 'ERP, payments, carriers and marketplaces',
+              pt: 'A visão completa da performance do seu comércio digital',
+              en: 'The complete view of your digital commerce performance',
             },
           },
           {
-            route: 'platformCustomerCare',
-            label: { pt: 'Apoio ao Cliente', en: 'Customer Care' },
+            route: 'agentic',
+            label: { pt: 'Agentic Commerce', en: 'Agentic Commerce' },
+            badge: { pt: 'Novo', en: 'New' },
             description: {
-              pt: 'Visão 360º do cliente e da encomenda',
-              en: 'A 360º view of the customer and the order',
-            },
-          },
-          {
-            route: 'platformInvoicing',
-            label: { pt: 'Faturação Integrada', en: 'Integrated Invoicing' },
-            description: {
-              pt: 'Faturação certificada dentro da plataforma',
-              en: 'Certified invoicing inside the platform',
+              pt: 'Preparar o catálogo para quem compra através de assistentes de IA',
+              en: 'Getting the catalogue ready for people who buy through AI assistants',
             },
           },
         ],
       },
-      {
-        id: 'growth',
-        title: { pt: 'Marketing', en: 'Marketing' },
-        links: [
-          {
-            route: 'platformCampaigns',
-            label: { pt: 'Campanhas Automatizadas', en: 'Automated Campaigns' },
-            description: {
-              pt: 'Jornadas prontas a ativar, sem trabalho manual',
-              en: 'Ready-made journeys, with no manual work',
-            },
-          },
-          {
-            route: 'platformSegmentation',
-            label: { pt: 'Segmentação', en: 'Segmentation' },
-            description: {
-              pt: 'Perfis construídos a partir do comportamento real',
-              en: 'Profiles built from real behaviour',
-            },
-          },
-          {
-            route: 'platformEmail',
-            label: { pt: 'Email Marketing', en: 'Email Marketing' },
-            description: {
-              pt: 'Emails dinâmicos, sem plugins nem sincronizações',
-              en: 'Dynamic emails, with no plugins and no syncing',
-            },
-          },
-          {
-            route: 'platformSMS',
-            label: { pt: 'SMS Marketing', en: 'SMS Marketing' },
-            description: {
-              pt: 'Login automático e retorno medido encomenda a encomenda',
-              en: 'Automatic login and return measured order by order',
-            },
-          },
-          {
-            route: 'platformConversion',
-            label: { pt: 'Ferramentas de Conversão', en: 'Conversion Tools' },
-            description: {
-              pt: 'Retenção, fidelização e ordenação inteligente',
-              en: 'Retention, loyalty and smart sorting',
-            },
-          },
-          {
-            route: 'platformPersonalization',
-            label: { pt: 'Marketing Personalizado', en: 'Personalised Marketing' },
-            description: {
-              pt: 'Recomendações e promoções cliente a cliente',
-              en: 'Recommendations and promotions customer by customer',
-            },
-          },
-        ],
-      },
-      {
-        id: 'reach',
-        title: { pt: 'Alcance e tecnologia', en: 'Reach and technology' },
-        links: [
-          {
-            route: 'platformMarketplaces',
-            label: { pt: 'Marketplaces', en: 'Marketplaces' },
-            description: {
-              pt: 'Novos canais sem duplicar a operação',
-              en: 'New channels without duplicating the operation',
-            },
-          },
-          {
-            route: 'platformGlobal',
-            label: { pt: 'Comércio Global', en: 'Global Commerce' },
-            description: {
-              pt: 'Vários mercados a partir de um só sítio',
-              en: 'Several markets from a single place',
-            },
-          },
-          {
-            route: 'platformSearch',
-            label: { pt: 'Pesquisa Inteligente', en: 'Smart Search' },
-            description: {
-              pt: 'Resultados em tempo real, sem feeds externos',
-              en: 'Real-time results, with no external feeds',
-            },
-          },
-          {
-            route: 'platformB2BTools',
-            label: { pt: 'Ferramentas de Negócio B2B', en: 'B2B Business Tools' },
-            description: {
-              pt: 'Pré-venda, grelha, packs e rappel',
-              en: 'Pre-season, matrix ordering, packs and rebates',
-            },
-          },
-          {
-            route: 'platformB2BMarketing',
-            label: { pt: 'Marketing B2B', en: 'B2B Marketing' },
-            description: {
-              pt: 'Descontos por volume e carrinhos múltiplos',
-              en: 'Volume discounts and multiple baskets',
-            },
-          },
-        ],
-      },
+    ],
+    extras: [
+      { route: 'integrations', label: { pt: 'Integrações', en: 'Integrations' } },
+      { route: 'docs', label: { pt: 'Documentação', en: 'Documentation' } },
     ],
     featured: {
       route: 'platform',
@@ -247,9 +153,73 @@ export const mainNav: NavItem[] = [
         en: 'Redicom Commerce Cloud',
       },
       body: {
-        pt: 'B2C, B2B, OMS, POS e marketing na mesma base. Veja como a plataforma encaixa na sua operação.',
-        en: 'B2C, B2B, OMS, POS and marketing on one foundation. See how the platform fits your operation.',
+        pt: 'B2C, B2B, OMS, POS e marketing na mesma base — e mais catorze temas que não cabem neste menu.',
+        en: 'B2C, B2B, OMS, POS and marketing on one foundation — plus fourteen more topics that do not fit in this menu.',
       },
+      cta: { pt: 'Ver a Plataforma', en: 'See the Platform' },
+    },
+  },
+
+  {
+    id: 'services',
+    route: 'services',
+    label: { pt: 'Serviços', en: 'Services' },
+    groups: [
+      {
+        id: 'cloud-services',
+        title: { pt: 'Serviços Cloud', en: 'Cloud Services' },
+        links: [
+          {
+            route: 'serviceCampaigns',
+            label: { pt: 'Campanhas Automatizadas', en: 'Automated Campaigns' },
+            description: {
+              pt: 'Jornadas prontas a ativar, sem trabalho manual',
+              en: 'Ready-made journeys, with no manual work',
+            },
+          },
+          {
+            route: 'serviceEmail',
+            label: { pt: 'Email Marketing', en: 'Email Marketing' },
+            description: {
+              pt: 'Emails dinâmicos, sem plugins nem sincronizações',
+              en: 'Dynamic emails, with no plugins and no syncing',
+            },
+          },
+          {
+            route: 'serviceSMS',
+            label: { pt: 'SMS Marketing', en: 'SMS Marketing' },
+            description: {
+              pt: 'Login automático e retorno medido encomenda a encomenda',
+              en: 'Automatic login and return measured order by order',
+            },
+          },
+          {
+            route: 'serviceDescriptions',
+            label: { pt: 'Descrições AI', en: 'AI Descriptions' },
+            description: {
+              pt: 'Descrições de produto geradas e traduzidas automaticamente',
+              en: 'Product descriptions generated and translated automatically',
+            },
+          },
+          {
+            route: 'serviceSEO',
+            label: { pt: 'SEO Automático', en: 'Automated SEO' },
+            description: {
+              pt: 'Metadados criados e reavaliados pelo sistema, produto a produto',
+              en: 'Metadata written and re-evaluated by the system, product by product',
+            },
+          },
+        ],
+      },
+    ],
+    featured: {
+      route: 'services',
+      title: { pt: 'Serviços Cloud de Marketing', en: 'Cloud Marketing Services' },
+      body: {
+        pt: 'Correm sobre a plataforma que já tem, sem ferramentas externas nem sincronizações.',
+        en: 'They run on the platform you already have, with no external tools and no syncing.',
+      },
+      cta: { pt: 'Ver os Serviços', en: 'See the Services' },
     },
   },
 
@@ -337,40 +307,39 @@ export const mainNav: NavItem[] = [
     ],
     featured: {
       route: 'fashion',
-      title: {
-        pt: 'Feita para marcas de moda',
-        en: 'Built for fashion brands',
-      },
+      title: { pt: 'Fashion Retail', en: 'Fashion Retail' },
       body: {
         pt: 'Sazonalidade, devoluções e matrizes complexas tratadas como regra, não como exceção.',
         en: 'Seasonality, returns and complex matrices handled as the rule, not the exception.',
       },
+      cta: { pt: 'Ver Fashion Retail', en: 'See Fashion Retail' },
     },
   },
 
-  {
-    id: 'agentic',
-    route: 'agentic',
-    label: { pt: 'Agentic Commerce', en: 'Agentic Commerce' },
-  },
   {
     id: 'cases',
     route: 'cases',
     label: { pt: 'Casos de Sucesso', en: 'Success Stories' },
   },
   {
-    id: 'why',
-    route: 'why',
-    label: { pt: 'Porquê Redicom', en: 'Why Redicom' },
+    id: 'about',
+    route: 'about',
+    label: { pt: 'Sobre Nós', en: 'About Us' },
+  },
+  {
+    id: 'contact',
+    route: 'contact',
+    label: { pt: 'Contactos', en: 'Contact' },
   },
 ];
 
-/** Ligacoes secundarias, a direita do menu. */
+/**
+ * Ligacoes que nao merecem lugar no menu principal mas tem de existir no
+ * telemovel, onde o rodape fica longe.
+ */
 export const utilityNav: NavLink[] = [
-  { route: 'audience', label: { pt: 'Para quem é a Redicom', en: 'Who it is for' } },
   { route: 'docs', label: { pt: 'Documentação', en: 'Documentation' } },
-  { route: 'about', label: { pt: 'Sobre Nós', en: 'About Us' } },
-  { route: 'contact', label: { pt: 'Contactos', en: 'Contact' } },
+  { route: 'careers', label: { pt: 'Trabalhe Connosco', en: 'Careers' } },
 ];
 
 export const footerNav: NavGroup[] = [
@@ -386,45 +355,22 @@ export const footerNav: NavGroup[] = [
         route: 'platformMarketingCloud',
         label: { pt: 'Marketing Cloud', en: 'Marketing Cloud' },
       },
-      { route: 'platformPOS', label: { pt: 'POS Omnicanal', en: 'Omnichannel POS' } },
-      {
-        route: 'platformOmnichannel',
-        label: { pt: 'Tecnologia Omnicanal', en: 'Omnichannel Technology' },
-      },
-      { route: 'platformAnalytics', label: { pt: 'Redicom Analytics', en: 'Redicom Analytics' } },
-      { route: 'platformMobileApp', label: { pt: 'Mobile App', en: 'Mobile App' } },
       { route: 'integrations', label: { pt: 'Integrações', en: 'Integrations' } },
-      { route: 'platformMarketplaces', label: { pt: 'Marketplaces', en: 'Marketplaces' } },
-      { route: 'platformGlobal', label: { pt: 'Comércio Global', en: 'Global Commerce' } },
-      { route: 'platformSearch', label: { pt: 'Pesquisa Inteligente', en: 'Smart Search' } },
+    ],
+  },
+  {
+    id: 'services',
+    title: { pt: 'Serviços', en: 'Services' },
+    links: [
+      { route: 'services', label: { pt: 'Visão geral', en: 'Overview' } },
       {
-        route: 'platformCustomerCare',
-        label: { pt: 'Apoio ao Cliente', en: 'Customer Care' },
-      },
-      {
-        route: 'platformInvoicing',
-        label: { pt: 'Faturação Integrada', en: 'Integrated Invoicing' },
-      },
-      {
-        route: 'platformB2BTools',
-        label: { pt: 'Ferramentas de Negócio B2B', en: 'B2B Business Tools' },
-      },
-      { route: 'platformB2BMarketing', label: { pt: 'Marketing B2B', en: 'B2B Marketing' } },
-      {
-        route: 'platformCampaigns',
+        route: 'serviceCampaigns',
         label: { pt: 'Campanhas Automatizadas', en: 'Automated Campaigns' },
       },
-      { route: 'platformSegmentation', label: { pt: 'Segmentação', en: 'Segmentation' } },
-      { route: 'platformEmail', label: { pt: 'Email Marketing', en: 'Email Marketing' } },
-      { route: 'platformSMS', label: { pt: 'SMS Marketing', en: 'SMS Marketing' } },
-      {
-        route: 'platformConversion',
-        label: { pt: 'Ferramentas de Conversão', en: 'Conversion Tools' },
-      },
-      {
-        route: 'platformPersonalization',
-        label: { pt: 'Marketing Personalizado', en: 'Personalised Marketing' },
-      },
+      { route: 'serviceEmail', label: { pt: 'Email Marketing', en: 'Email Marketing' } },
+      { route: 'serviceSMS', label: { pt: 'SMS Marketing', en: 'SMS Marketing' } },
+      { route: 'serviceDescriptions', label: { pt: 'Descrições AI', en: 'AI Descriptions' } },
+      { route: 'serviceSEO', label: { pt: 'SEO Automático', en: 'Automated SEO' } },
     ],
   },
   {
@@ -434,36 +380,20 @@ export const footerNav: NavGroup[] = [
       { route: 'fashion', label: { pt: 'Visão geral', en: 'Overview' } },
       { route: 'fashionB2C', label: { pt: 'Commerce B2C', en: 'B2C Commerce' } },
       { route: 'fashionB2B', label: { pt: 'Wholesale B2B', en: 'B2B Wholesale' } },
-      {
-        route: 'fashionOmnichannel',
-        label: { pt: 'Operação Omnicanal', en: 'Omnichannel Operation' },
-      },
-      { route: 'fashionPOS', label: { pt: 'POS Omnicanal', en: 'Omnichannel POS' } },
       { route: 'fashionAIStudio', label: { pt: 'AI Studio', en: 'AI Studio' } },
       { route: 'fashionAIAssistant', label: { pt: 'Assistente IA', en: 'AI Assistant' } },
-      {
-        route: 'fashionMarketing',
-        label: { pt: 'Marketing e Automação', en: 'Marketing and Automation' },
-      },
-      {
-        route: 'fashionAnalytics',
-        label: { pt: 'Analytics e Intelligence', en: 'Analytics and Intelligence' },
-      },
     ],
   },
   {
     id: 'company',
     title: { pt: 'Redicom', en: 'Redicom' },
     links: [
-      { route: 'why', label: { pt: 'Porquê Redicom', en: 'Why Redicom' } },
-      { route: 'audience', label: { pt: 'Para quem é a Redicom', en: 'Who Redicom is for' } },
+      { route: 'about', label: { pt: 'Sobre Nós', en: 'About Us' } },
       { route: 'cases', label: { pt: 'Casos de Sucesso', en: 'Success Stories' } },
       { route: 'agentic', label: { pt: 'Agentic Commerce', en: 'Agentic Commerce' } },
-      { route: 'about', label: { pt: 'Sobre Nós', en: 'About Us' } },
+      { route: 'docs', label: { pt: 'Documentação', en: 'Documentation' } },
       { route: 'careers', label: { pt: 'Trabalhe Connosco', en: 'Careers' } },
       { route: 'contact', label: { pt: 'Contactos', en: 'Contact' } },
-      { route: 'docs', label: { pt: 'Documentação', en: 'Documentation' } },
-      { route: 'privacy', label: { pt: 'Política de Privacidade', en: 'Privacy Policy' } },
     ],
   },
 ];
@@ -474,5 +404,6 @@ export function resolveLink(link: NavLink, lang: Lang) {
     href: path(link.route, lang),
     label: link.label[lang],
     description: link.description?.[lang],
+    badge: link.badge?.[lang],
   };
 }

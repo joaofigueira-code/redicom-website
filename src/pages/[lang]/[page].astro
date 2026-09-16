@@ -9,7 +9,7 @@ import DocsIndexPage from '@components/pages/DocsIndexPage.astro';
 import PrivacyPage from '@components/pages/PrivacyPage.astro';
 import ThanksPage from '@components/pages/ThanksPage.astro';
 
-import { hubCopy } from '@/data/copy/hubs';
+import { hubCopy, type HubId } from '@/data/copy/hubs';
 import { solutions, solutionLabels } from '@/data/copy';
 import {
   LANGUAGES,
@@ -47,25 +47,22 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as Lang;
 const { routeId } = Astro.props as { routeId: SinglePageId };
 
-const isHub = routeId === 'platform' || routeId === 'fashion';
-const isSolution =
-  routeId === 'agentic' ||
-  routeId === 'why' ||
-  routeId === 'audience' ||
-  routeId === 'integrations';
+const isHub = routeId === 'platform' || routeId === 'services' || routeId === 'fashion';
+const isSolution = routeId === 'agentic' || routeId === 'integrations';
 
-// O segundo botao do hero leva sempre ao passo seguinte mais provavel: de
-// Fashion Retail entra-se no B2C, da Plataforma vai-se ver o que nos
-// distingue.
-const secondaryRoute: RouteId = routeId === 'fashion' ? 'fashionB2C' : 'why';
+// O segundo botao do hero leva ao passo seguinte mais provavel: de Fashion
+// Retail entra-se no B2C, dos Servicos vai-se ver a plataforma por baixo, e da
+// Plataforma vai-se ler porque havia de ser connosco.
+const secondaryRoute: RouteId =
+  routeId === 'fashion' ? 'fashionB2C' : routeId === 'services' ? 'platform' : 'why';
 ---
 
 {
   isHub && (
     <HubPage
       lang={lang}
-      routeId={routeId as 'platform' | 'fashion'}
-      copy={hubCopy[routeId as 'platform' | 'fashion'][lang]}
+      routeId={routeId as HubId}
+      copy={hubCopy[routeId as HubId][lang]}
       secondaryRoute={secondaryRoute}
     />
   )

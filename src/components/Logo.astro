@@ -8,35 +8,38 @@ interface Props {
   /** Altura em pixeis. Minimo definido no manual de marca: 21px (simbolo),
    *  76px (vertical), 100px (versao original). Usamos a original. */
   height?: number;
-  /** Na pagina inicial o logotipo nao deve ser uma ligacao para si proprio. */
-  asLink?: boolean;
 }
 
-const { lang, tone = 'dark', height = 34, asLink = true } = Astro.props;
+const { lang, tone = 'dark', height = 36 } = Astro.props;
 
 const src = tone === 'light' ? '/brand/redicom-logo-light.svg' : '/brand/redicom-logo.svg';
 const width = Math.round((106 / 34) * height);
+const home = path('home', lang);
+
+// O logotipo e sempre ligacao para a pagina inicial, inclusive na propria
+// pagina inicial: e o gesto que toda a gente ja tem — clicar no logotipo para
+// voltar ao principio. Tirar-lhe a ligacao numa pagina so torna o
+// comportamento imprevisivel.
+const label = lang === 'pt' ? 'Redicom — página inicial' : 'Redicom — home';
 ---
 
-{
-  asLink ? (
-    <a class="logo" href={path('home', lang)} aria-label="Redicom">
-      <img src={src} width={width} height={height} alt="Redicom" />
-    </a>
-  ) : (
-    <span class="logo">
-      <img src={src} width={width} height={height} alt="Redicom" />
-    </span>
-  )
-}
+<a class="logo" href={home} aria-label={label}>
+  <img src={src} width={width} height={height} alt="Redicom" />
+</a>
 
 <style>
   .logo {
     display: inline-flex;
     align-items: center;
     /* Area de proteccao minima do manual de marca (1/2 X a toda a volta). */
-    padding: 0.25rem;
+    padding: 0.35rem;
+    margin-inline-start: -0.35rem;
     border-radius: var(--radius-sm);
+    transition: background-color var(--duration) var(--ease);
+  }
+
+  .logo:hover {
+    background: var(--surface-muted);
   }
 
   .logo img {

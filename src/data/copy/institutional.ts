@@ -58,9 +58,9 @@ export type ThanksCopy = {
 export const aboutCopy: Record<Lang, AboutCopy> = {
   pt: {
     meta: {
-      title: 'Sobre Nós — comércio digital desde 2002',
+      title: 'Sobre Nós — quem somos, para quem trabalhamos e porquê connosco',
       description:
-        'A Redicom desenvolve soluções de comércio digital desde 2002. Mais de 500 projetos implementados, equipa especializada e escritórios em Santo Tirso e Lisboa.',
+        'A Redicom desenvolve soluções de comércio digital desde 2002. Quem somos, para que tipo de operação fomos feitos — e para qual não — e o que nos distingue das plataformas generalistas.',
     },
     breadcrumb: 'Sobre Nós',
 
@@ -132,9 +132,9 @@ export const aboutCopy: Record<Lang, AboutCopy> = {
 
   en: {
     meta: {
-      title: 'About Us — digital commerce since 2002',
+      title: 'About Us — who we are, who we build for and why us',
       description:
-        'Redicom has been building digital commerce solutions since 2002. More than 500 projects delivered, a specialised team and offices in Santo Tirso and Lisbon.',
+        'Redicom has been building digital commerce solutions since 2002. Who we are, the kind of operation we were built for — and the kind we were not — and what sets us apart from generalist platforms.',
     },
     breadcrumb: 'About Us',
 

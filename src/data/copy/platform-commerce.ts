@@ -333,7 +333,7 @@ export const platformCommerceCopy: SolutionSet = {
           title: 'Reconhecer o cliente e agir em tempo real',
           body: 'O mecanismo de recomendação reconhece cada cliente, evidencia as suas preferências com base nos perfis traçados e gera recomendações em tempo real — tanto no site como nas comunicações que saem para ele.',
           bullets: ['Recomendações por email', 'Recomendações em tempo real no site'],
-          link: { route: 'platformCampaigns', label: 'Ver as Campanhas Automatizadas' },
+          link: { route: 'serviceCampaigns', label: 'Ver as Campanhas Automatizadas' },
         },
       ],
       closing: {
@@ -397,7 +397,7 @@ export const platformCommerceCopy: SolutionSet = {
           title: 'Recognise the customer and act in real time',
           body: 'The recommendation engine recognises each customer, surfaces their preferences based on the profiles built for them, and generates recommendations in real time — both on the site and in the communications that go out.',
           bullets: ['Recommendations by email', 'Real-time recommendations on the site'],
-          link: { route: 'platformCampaigns', label: 'See Automated Campaigns' },
+          link: { route: 'serviceCampaigns', label: 'See Automated Campaigns' },
         },
       ],
       closing: {

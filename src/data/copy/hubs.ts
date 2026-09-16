@@ -1,5 +1,6 @@
 import type { DeepSection, Feature } from './types';
 import type { Lang, RouteId } from '@i18n/routes';
+import { servicesHubCopy } from './services';
 
 /**
  * Paginas-mae da Plataforma e do Fashion Retail.
@@ -45,7 +46,9 @@ export type HubCopy = {
   closing: { title: string; body: string; points: string[]; submit: string };
 };
 
-export const hubCopy: Record<'platform' | 'fashion', Record<Lang, HubCopy>> = {
+export type HubId = 'platform' | 'services' | 'fashion';
+
+const coreHubs: Record<'platform' | 'fashion', Record<Lang, HubCopy>> = {
   platform: {
     pt: {
       meta: {
@@ -186,10 +189,7 @@ export const hubCopy: Record<'platform' | 'fashion', Record<Lang, HubCopy>> = {
           'platformB2BTools',
           'platformB2BMarketing',
           'platformConversion',
-          'platformCampaigns',
           'platformSegmentation',
-          'platformEmail',
-          'platformSMS',
           'platformPersonalization',
         ],
       },
@@ -351,10 +351,7 @@ export const hubCopy: Record<'platform' | 'fashion', Record<Lang, HubCopy>> = {
           'platformB2BTools',
           'platformB2BMarketing',
           'platformConversion',
-          'platformCampaigns',
           'platformSegmentation',
-          'platformEmail',
-          'platformSMS',
           'platformPersonalization',
         ],
       },
@@ -773,4 +770,15 @@ export const hubCopy: Record<'platform' | 'fashion', Record<Lang, HubCopy>> = {
       },
     },
   },
+};
+
+/**
+ * Os Servicos vivem em ficheiro proprio — a seccao e nova e o ficheiro ja
+ * estava longo — mas entram aqui para que quem gera as paginas-mae continue a
+ * ter um unico sitio onde procurar.
+ */
+export const hubCopy: Record<HubId, Record<Lang, HubCopy>> = {
+  platform: coreHubs.platform,
+  services: servicesHubCopy,
+  fashion: coreHubs.fashion,
 };

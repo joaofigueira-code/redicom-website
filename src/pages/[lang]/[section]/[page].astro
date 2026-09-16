@@ -67,9 +67,20 @@ const article = props.kind === 'doc' ? findArticle(props.slug) : undefined;
 
 // Nas paginas de solucao, o primeiro segmento corresponde sempre a pagina-mae.
 const parentRoute: RouteId =
-  props.kind === 'solution' && props.routeId.startsWith('fashion') ? 'fashion' : 'platform';
-const parentLabel =
-  parentRoute === 'fashion' ? 'Fashion Retail' : lang === 'pt' ? 'Plataforma' : 'Platform';
+  props.kind !== 'solution'
+    ? 'platform'
+    : props.routeId.startsWith('fashion')
+      ? 'fashion'
+      : props.routeId.startsWith('service')
+        ? 'services'
+        : 'platform';
+
+const parentLabels: Record<'platform' | 'services' | 'fashion', Record<Lang, string>> = {
+  platform: { pt: 'Plataforma', en: 'Platform' },
+  services: { pt: 'Serviços', en: 'Services' },
+  fashion: { pt: 'Fashion Retail', en: 'Fashion Retail' },
+};
+const parentLabel = parentLabels[parentRoute as 'platform' | 'services' | 'fashion'][lang];
 ---
 
 {

@@ -13,6 +13,18 @@ interface Props {
 const { lang, items } = Astro.props;
 const t = useTranslations(lang);
 
+/**
+ * O percurso so aparece a partir do terceiro nivel.
+ *
+ * Ate ao segundo — /pt/plataforma/, /pt/servicos/, /pt/sobre-nos/ — o menu
+ * principal ja leva la num clique, e uma linha a dizer "Início / Plataforma"
+ * por cima do titulo so rouba espaco ao topo da pagina. A partir de
+ * /pt/plataforma/b2c/ ja nao ha caminho de volta no menu, e e ai que o
+ * percurso passa a fazer falta.
+ */
+const segments = Astro.url.pathname.split('/').filter(Boolean).slice(1);
+const showTrail = segments.length >= 2;
+
 const home = { label: lang === 'pt' ? 'Início' : 'Home', href: path('home', lang) };
 const trail: Crumb[] = [home, ...items];
 
@@ -28,25 +40,27 @@ const schema = {
 };
 ---
 
-<nav class="crumbs" aria-label={t('nav.breadcrumb')}>
-  <div class="container">
-    <ol class="crumbs__list">
-      {
-        trail.map((crumb, index) => (
-          <li class="crumbs__item">
-            {crumb.href && index < trail.length - 1 ? (
-              <a href={crumb.href}>{crumb.label}</a>
-            ) : (
-              <span aria-current="page">{crumb.label}</span>
-            )}
-          </li>
-        ))
-      }
-    </ol>
-  </div>
-</nav>
+{
+  showTrail && (
+    <nav class="crumbs" aria-label={t('nav.breadcrumb')}>
+      <div class="container">
+        <ol class="crumbs__list">
+          {trail.map((crumb, index) => (
+            <li class="crumbs__item">
+              {crumb.href && index < trail.length - 1 ? (
+                <a href={crumb.href}>{crumb.label}</a>
+              ) : (
+                <span aria-current="page">{crumb.label}</span>
+              )}
+            </li>
+          ))}
+        </ol>
+      </div>
+    </nav>
+  )
+}
 
-<script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
+{showTrail && <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />}
 
 <style>
   .crumbs {

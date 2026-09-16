@@ -1,13 +1,7 @@
 ---
 import Logo from '@components/Logo.astro';
 import { mainNav, utilityNav, resolveLink } from '@/data/navigation';
-import {
-  alternatePath,
-  LANGUAGES,
-  LANGUAGE_NAMES,
-  path,
-  type Lang,
-} from '@i18n/routes';
+import { alternatePath, LANGUAGES, LANGUAGE_NAMES, path, type Lang } from '@i18n/routes';
 import { useTranslations } from '@i18n/utils';
 
 interface Props {
@@ -19,8 +13,6 @@ const { lang, transparent = false } = Astro.props;
 const t = useTranslations(lang);
 const currentPath = Astro.url.pathname;
 
-const otherLangs = LANGUAGES.filter((code) => code !== lang);
-
 /** Marca o item de menu correspondente a seccao que esta a ser vista. */
 function isCurrentSection(routeId: string): boolean {
   const base = path(routeId as never, lang);
@@ -31,7 +23,7 @@ function isCurrentSection(routeId: string): boolean {
 <header class:list={['header', transparent && 'header--transparent']} data-header>
   <div class="header__bar">
     <div class="header__container container">
-      <Logo lang={lang} asLink={currentPath !== path('home', lang)} />
+      <Logo lang={lang} />
 
       <nav class="header__nav" aria-label={t('nav.main')}>
         <ul class="header__list">
@@ -66,7 +58,12 @@ function isCurrentSection(routeId: string): boolean {
                                     return (
                                       <li>
                                         <a class="header__card" href={resolved.href}>
-                                          <span class="header__card-title">{resolved.label}</span>
+                                          <span class="header__card-title">
+                                            {resolved.label}
+                                            {resolved.badge && (
+                                              <span class="header__badge">{resolved.badge}</span>
+                                            )}
+                                          </span>
                                           {resolved.description && (
                                             <span class="header__card-body">{resolved.description}</span>
                                           )}
@@ -77,14 +74,29 @@ function isCurrentSection(routeId: string): boolean {
                                 </ul>
                               </div>
                             ))}
+
+                            {item.extras && (
+                              <ul class="header__extras">
+                                {item.extras.map((link) => {
+                                  const resolved = resolveLink(link, lang);
+                                  return (
+                                    <li>
+                                      <a href={resolved.href}>{resolved.label}</a>
+                                    </li>
+                                  );
+                                })}
+                              </ul>
+                            )}
                           </div>
 
                           {item.featured && (
                             <a class="header__featured" href={path(item.featured.route, lang)}>
-                              <span class="header__featured-eyebrow">{t('nav.overview')}</span>
                               <span class="header__featured-title">{item.featured.title[lang]}</span>
                               <span class="header__featured-body">{item.featured.body[lang]}</span>
-                              <span class="header__featured-cta">{t('cta.more')}</span>
+                              <span class="header__featured-cta">
+                                {item.featured.cta[lang]}
+                                <span aria-hidden="true">→</span>
+                              </span>
                             </a>
                           )}
                         </div>
@@ -107,27 +119,19 @@ function isCurrentSection(routeId: string): boolean {
       </nav>
 
       <div class="header__end">
-        <ul class="header__utility">
+        <!-- Interruptor de idioma: os dois idiomas sempre visiveis, o atual
+             marcado. Um unico "EN" nao diz se e o idioma atual ou o destino. -->
+        <div class="langswitch" role="group" aria-label={t('common.language')}>
           {
-            utilityNav.map((link) => {
-              const resolved = resolveLink(link, lang);
-              return (
-                <li>
-                  <a class="header__utility-link" href={resolved.href}>
-                    {resolved.label}
-                  </a>
-                </li>
-              );
-            })
-          }
-        </ul>
-
-        <ul class="header__langs" aria-label={t('common.language')}>
-          {
-            otherLangs.map((code) => (
-              <li>
+            LANGUAGES.map((code) =>
+              code === lang ? (
+                <span class="langswitch__option is-current" aria-current="true">
+                  <span class="visually-hidden">{LANGUAGE_NAMES[code]}</span>
+                  <span aria-hidden="true">{code.toUpperCase()}</span>
+                </span>
+              ) : (
                 <a
-                  class="header__lang"
+                  class="langswitch__option"
                   href={alternatePath(currentPath, lang, code)}
                   hreflang={code}
                   lang={code}
@@ -135,10 +139,10 @@ function isCurrentSection(routeId: string): boolean {
                   <span class="visually-hidden">{LANGUAGE_NAMES[code]}</span>
                   <span aria-hidden="true">{code.toUpperCase()}</span>
                 </a>
-              </li>
-            ))
+              ),
+            )
           }
-        </ul>
+        </div>
 
         <a class="header__cta" href={path('contact', lang)}>{t('cta.proposal')}</a>
 
@@ -162,16 +166,17 @@ function isCurrentSection(routeId: string): boolean {
               </a>
               {item.groups && (
                 <ul class="mobile-section__list">
-                  {item.groups.flatMap((group) =>
-                    group.links.map((link) => {
-                      const resolved = resolveLink(link, lang);
-                      return (
-                        <li>
-                          <a href={resolved.href}>{resolved.label}</a>
-                        </li>
-                      );
-                    }),
-                  )}
+                  {[
+                    ...item.groups.flatMap((group) => group.links),
+                    ...(item.extras ?? []),
+                  ].map((link) => {
+                    const resolved = resolveLink(link, lang);
+                    return (
+                      <li>
+                        <a href={resolved.href}>{resolved.label}</a>
+                      </li>
+                    );
+                  })}
                 </ul>
               )}
             </div>
@@ -198,28 +203,32 @@ function isCurrentSection(routeId: string): boolean {
         {t('cta.proposal')}
       </a>
 
-      <ul class="header__mobile-langs">
+      <div class="langswitch langswitch--mobile" role="group" aria-label={t('common.language')}>
         {
-          LANGUAGES.map((code) => (
-            <li>
+          LANGUAGES.map((code) =>
+            code === lang ? (
+              <span class="langswitch__option is-current" aria-current="true">
+                {LANGUAGE_NAMES[code]}
+              </span>
+            ) : (
               <a
+                class="langswitch__option"
                 href={alternatePath(currentPath, lang, code)}
                 hreflang={code}
                 lang={code}
-                aria-current={code === lang ? 'true' : undefined}
               >
                 {LANGUAGE_NAMES[code]}
               </a>
-            </li>
-          ))
+            ),
+          )
         }
-      </ul>
+      </div>
     </div>
   </div>
 </header>
 
 <script>
-  const header = document.querySelector<HTMLElement>('[data-header]');
+  const header = document.querySelector('[data-header]');
   if (header) {
     // --- Sombra ao sair do topo ---------------------------------------
     const onScroll = () => {
@@ -229,25 +238,24 @@ function isCurrentSection(routeId: string): boolean {
     window.addEventListener('scroll', onScroll, { passive: true });
 
     // --- Paineis do menu de escritorio --------------------------------
-    const toggles = header.querySelectorAll<HTMLButtonElement>('[data-panel-toggle]');
-    const panels = header.querySelectorAll<HTMLElement>('[data-panel]');
+    const toggles = header.querySelectorAll('[data-panel-toggle]');
+    const panels = header.querySelectorAll('[data-panel]');
 
-    function closePanels(except?: string) {
+    function closePanels(except) {
       toggles.forEach((toggle) => {
-        const id = toggle.dataset.panelToggle!;
-        if (id === except) return;
+        if (toggle.dataset.panelToggle === except) return;
         toggle.setAttribute('aria-expanded', 'false');
       });
       panels.forEach((panel) => {
         if (panel.dataset.panel === except) return;
         panel.hidden = true;
       });
-      header!.classList.toggle('has-open-panel', Boolean(except));
+      header.classList.toggle('has-open-panel', Boolean(except));
     }
 
     toggles.forEach((toggle) => {
-      const id = toggle.dataset.panelToggle!;
-      const panel = header.querySelector<HTMLElement>(`[data-panel="${id}"]`);
+      const id = toggle.dataset.panelToggle;
+      const panel = header.querySelector(`[data-panel="${id}"]`);
       if (!panel) return;
 
       toggle.addEventListener('click', () => {
@@ -259,27 +267,29 @@ function isCurrentSection(routeId: string): boolean {
     });
 
     header.addEventListener('keydown', (event) => {
-      if ((event as KeyboardEvent).key === 'Escape') {
+      if (event.key === 'Escape') {
         closePanels();
-        (document.activeElement as HTMLElement | null)?.blur();
+        if (document.activeElement) document.activeElement.blur();
       }
     });
 
     document.addEventListener('click', (event) => {
-      if (!header.contains(event.target as Node)) closePanels();
+      if (!header.contains(event.target)) closePanels();
     });
 
     // --- Menu movel ----------------------------------------------------
-    const burger = header.querySelector<HTMLButtonElement>('[data-menu-toggle]');
-    const mobile = header.querySelector<HTMLElement>('#mobile-menu');
+    const burger = header.querySelector('[data-menu-toggle]');
+    const mobile = header.querySelector('#mobile-menu');
 
-    burger?.addEventListener('click', () => {
-      const open = burger.getAttribute('aria-expanded') === 'true';
-      burger.setAttribute('aria-expanded', String(!open));
-      if (mobile) mobile.hidden = open;
-      document.body.style.overflow = open ? '' : 'hidden';
-      closePanels();
-    });
+    if (burger) {
+      burger.addEventListener('click', () => {
+        const open = burger.getAttribute('aria-expanded') === 'true';
+        burger.setAttribute('aria-expanded', String(!open));
+        if (mobile) mobile.hidden = open;
+        document.body.style.overflow = open ? '' : 'hidden';
+        closePanels();
+      });
+    }
   }
 </script>
 
@@ -303,7 +313,7 @@ function isCurrentSection(routeId: string): boolean {
   .header__container {
     display: flex;
     align-items: center;
-    gap: var(--space-lg);
+    gap: var(--space-md);
     min-height: var(--header-height);
   }
 
@@ -314,7 +324,7 @@ function isCurrentSection(routeId: string): boolean {
   .header__list {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.1rem;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -324,12 +334,12 @@ function isCurrentSection(routeId: string): boolean {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    padding: 0.55rem 0.7rem;
+    padding: 0.55rem 0.65rem;
     background: none;
     border: 0;
     border-radius: var(--radius-sm);
     font-family: var(--font-display);
-    font-size: var(--step-0);
+    font-size: var(--step--1);
     font-weight: var(--weight-semibold);
     color: var(--text-heading);
     text-decoration: none;
@@ -346,8 +356,8 @@ function isCurrentSection(routeId: string): boolean {
   }
 
   .header__chevron {
-    width: 0.45rem;
-    height: 0.45rem;
+    width: 0.4rem;
+    height: 0.4rem;
     border-right: 2px solid currentColor;
     border-bottom: 2px solid currentColor;
     transform: translateY(-2px) rotate(45deg);
@@ -383,11 +393,16 @@ function isCurrentSection(routeId: string): boolean {
   .header__groups {
     display: grid;
     gap: var(--space-xl);
+    align-content: start;
   }
 
   @media (min-width: 48rem) {
     .header__groups {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .header__extras {
+      grid-column: 1 / -1;
     }
   }
 
@@ -422,10 +437,23 @@ function isCurrentSection(routeId: string): boolean {
   }
 
   .header__card-title {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-family: var(--font-display);
     font-weight: var(--weight-semibold);
     color: var(--text-heading);
+  }
+
+  .header__badge {
+    font-size: 0.68rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brand-orange-ink);
+    background: rgba(239, 150, 0, 0.14);
+    padding: 0.1rem 0.4rem;
+    border-radius: var(--radius-pill);
   }
 
   .header__card-body {
@@ -436,10 +464,33 @@ function isCurrentSection(routeId: string): boolean {
     color: var(--text-muted);
   }
 
+  /* Ligacoes de apoio, fora dos grupos: o menu nao e um mapa do site. */
+  .header__extras {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    list-style: none;
+    margin: 0;
+    padding-block-start: var(--space-md);
+    border-block-start: 1px solid var(--border);
+  }
+
+  .header__extras a {
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: var(--weight-semibold);
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  .header__extras a:hover {
+    color: var(--text-accent);
+  }
+
   .header__featured {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.5rem;
     padding: var(--space-lg);
     border-radius: var(--radius-lg);
     background: var(--brand-navy);
@@ -447,18 +498,9 @@ function isCurrentSection(routeId: string): boolean {
     text-decoration: none;
   }
 
-  .header__featured-eyebrow {
-    font-family: var(--font-display);
-    font-size: var(--step--1);
-    font-weight: var(--weight-semibold);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--brand-orange-bright);
-  }
-
   .header__featured-title {
     font-family: var(--font-display);
-    font-size: var(--step-2);
+    font-size: var(--step-1);
     font-weight: var(--weight-extrabold);
     line-height: 1.2;
   }
@@ -470,11 +512,19 @@ function isCurrentSection(routeId: string): boolean {
   }
 
   .header__featured-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     margin-block-start: auto;
     padding-block-start: var(--space-sm);
     font-family: var(--font-display);
     font-weight: var(--weight-semibold);
     color: var(--brand-orange-bright);
+  }
+
+  .header__featured:hover .header__featured-cta {
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
   }
 
   /* --- Fim da barra -------------------------------------------------- */
@@ -485,51 +535,48 @@ function isCurrentSection(routeId: string): boolean {
     margin-inline-start: auto;
   }
 
-  .header__utility,
-  .header__langs,
-  .header__mobile-langs {
-    display: flex;
+  /* --- Interruptor de idioma ----------------------------------------- */
+  .langswitch {
+    display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .header__utility {
-    display: none;
-  }
-
-  .header__utility-link {
-    font-family: var(--font-display);
-    font-size: var(--step--1);
-    font-weight: var(--weight-semibold);
-    color: var(--text-muted);
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
-  .header__utility-link:hover {
-    color: var(--text-heading);
-  }
-
-  .header__langs {
-    display: none;
-  }
-
-  .header__lang {
-    font-family: var(--font-display);
-    font-size: var(--step--1);
-    font-weight: var(--weight-semibold);
-    color: var(--text-muted);
-    text-decoration: none;
-    padding: 0.25rem 0.4rem;
-    border-radius: var(--radius-sm);
-  }
-
-  .header__lang:hover {
-    color: var(--text-heading);
+    padding: 2px;
     background: var(--surface-muted);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+  }
+
+  .langswitch__option {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.1rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition:
+      background-color var(--duration) var(--ease),
+      color var(--duration) var(--ease);
+  }
+
+  .langswitch__option.is-current {
+    background: var(--surface);
+    color: var(--text-heading);
+    box-shadow: var(--shadow-sm);
+  }
+
+  a.langswitch__option:hover {
+    color: var(--text-heading);
+  }
+
+  .langswitch--mobile .langswitch__option {
+    min-width: 0;
+    padding: 0.5rem 1rem;
+    font-size: var(--step--1);
   }
 
   .header__cta {
@@ -617,6 +664,11 @@ function isCurrentSection(routeId: string): boolean {
     padding-block: var(--space-xl) var(--space-3xl);
     display: grid;
     gap: var(--space-xl);
+    justify-items: start;
+  }
+
+  .header__mobile-inner nav {
+    width: 100%;
   }
 
   .mobile-section + .mobile-section {
@@ -628,7 +680,7 @@ function isCurrentSection(routeId: string): boolean {
   .mobile-section__head {
     display: block;
     font-family: var(--font-display);
-    font-size: var(--step-2);
+    font-size: var(--step-1);
     font-weight: var(--weight-extrabold);
     color: var(--text-heading);
     text-decoration: none;
@@ -644,8 +696,9 @@ function isCurrentSection(routeId: string): boolean {
 
   .mobile-section__list a {
     display: block;
-    padding: 0.55rem 0;
+    padding: 0.5rem 0;
     font-family: var(--font-display);
+    font-size: var(--step--1);
     color: var(--text-body);
     text-decoration: none;
   }
@@ -661,32 +714,16 @@ function isCurrentSection(routeId: string): boolean {
     font-size: var(--step-0);
   }
 
-  .header__mobile-langs {
-    gap: var(--space-lg);
-  }
-
-  .header__mobile-langs a {
-    font-family: var(--font-display);
-    font-weight: var(--weight-semibold);
-    color: var(--text-muted);
-    text-decoration: none;
-  }
-
-  .header__mobile-langs a[aria-current] {
-    color: var(--text-heading);
-    text-decoration: underline;
-    text-underline-offset: 0.25em;
-  }
-
   /* --- Escritorio ------------------------------------------------------ */
-  @media (min-width: 64rem) {
+  /* 72rem e nao 64rem: com seis entradas, o interruptor de idioma e o botao
+     de proposta, a barra so cabe sem se atropelar a partir dos 1152px. Abaixo
+     disso o menu movel mostra exactamente as mesmas ligacoes. */
+  @media (min-width: 72rem) {
     .header__bar {
       position: relative;
     }
 
-    .header__nav,
-    .header__utility,
-    .header__langs {
+    .header__nav {
       display: flex;
     }
 

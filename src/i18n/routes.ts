@@ -66,14 +66,22 @@ export const routes = {
     pt: 'plataforma/ferramentas-de-conversao',
     en: 'platform/conversion-tools',
   },
-  platformCampaigns: {
-    pt: 'plataforma/campanhas-automatizadas',
-    en: 'platform/automated-campaigns',
-  },
   platformSegmentation: { pt: 'plataforma/segmentacao', en: 'platform/segmentation' },
-  platformSMS: { pt: 'plataforma/sms-marketing', en: 'platform/sms-marketing' },
-  platformEmail: { pt: 'plataforma/email-marketing', en: 'platform/email-marketing' },
   platformSearch: { pt: 'plataforma/pesquisa-inteligente', en: 'platform/smart-search' },
+
+  // --- Servicos Cloud -------------------------------------------------
+  // Seccao propria, como no site atual: sao servicos que correm sobre a
+  // plataforma, nao modulos da plataforma. Ficarem dentro de "Plataforma"
+  // era a principal confusao do menu anterior.
+  services: { pt: 'servicos', en: 'services' },
+  serviceCampaigns: {
+    pt: 'servicos/campanhas-automatizadas',
+    en: 'services/automated-campaigns',
+  },
+  serviceEmail: { pt: 'servicos/email-marketing', en: 'services/email-marketing' },
+  serviceSMS: { pt: 'servicos/sms-marketing', en: 'services/sms-marketing' },
+  serviceDescriptions: { pt: 'servicos/descricoes-ai', en: 'services/ai-descriptions' },
+  serviceSEO: { pt: 'servicos/seo-automatico', en: 'services/automated-seo' },
 
   // --- Fashion Retail -------------------------------------------------
   fashion: { pt: 'fashion-retail', en: 'fashion-retail' },
@@ -103,9 +111,13 @@ export const routes = {
 
   // --- Diferenciacao e tendencia --------------------------------------
   agentic: { pt: 'agentic-commerce', en: 'agentic-commerce' },
+  integrations: { pt: 'integracoes', en: 'integrations' },
+
+  // Estas duas deixaram de ser paginas: sao seccoes do Sobre Nos. Ficam no
+  // mapa porque continuam a ser referidas por nome em todo o lado — o path()
+  // resolve-as para a ancora certa (ver ANCHORED abaixo).
   why: { pt: 'porque-redicom', en: 'why-redicom' },
   audience: { pt: 'para-quem-e-a-redicom', en: 'who-redicom-is-for' },
-  integrations: { pt: 'integracoes', en: 'integrations' },
 
   // --- Prova ----------------------------------------------------------
   cases: { pt: 'casos-de-sucesso', en: 'success-stories' },
@@ -117,6 +129,21 @@ export const routes = {
 export type RouteId = keyof typeof routes;
 
 /**
+ * Rotas que nao geram pagina propria: resolvem para uma ancora dentro de
+ * outra pagina.
+ *
+ * "Porquê Redicom" e "Para quem é a Redicom" respondem a mesma pergunta do
+ * visitante — quem sao voces, isto serve-me, porque havia de ser convosco — e
+ * como paginas soltas dividiam o argumento em tres. Passaram a ser as duas
+ * seccoes centrais do Sobre Nos. Manter aqui o id significa que nenhuma
+ * ligacao existente parte: o path() encaminha-as para a seccao certa.
+ */
+export const ANCHORED: Partial<Record<RouteId, { target: RouteId; hash: string }>> = {
+  why: { target: 'about', hash: 'porque-redicom' },
+  audience: { target: 'about', hash: 'para-quem' },
+};
+
+/**
  * Paginas de um so segmento ja construidas.
  *
  * Vive aqui, e nao na pagina que as gera, porque o getStaticPaths do Astro
@@ -124,10 +151,9 @@ export type RouteId = keyof typeof routes;
  */
 export const SINGLE_PAGE_IDS = [
   'platform',
+  'services',
   'fashion',
   'agentic',
-  'why',
-  'audience',
   'integrations',
   'cases',
   'docs',
@@ -146,6 +172,9 @@ export type SinglePageId = (typeof SINGLE_PAGE_IDS)[number];
  *   path('home', 'en')        -> '/en/'
  */
 export function path(id: RouteId, lang: Lang): string {
+  const anchored = ANCHORED[id];
+  if (anchored) return `${path(anchored.target, lang)}#${anchored.hash}`;
+
   const slug = routes[id][lang];
   return slug ? `/${lang}/${slug}/` : `/${lang}/`;
 }

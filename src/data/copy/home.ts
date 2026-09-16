@@ -31,6 +31,9 @@ export type HomeCopy = {
     modules: { route: string; title: string; body: string }[];
     cta: string;
   };
+  /** Faixa dos Servicos Cloud. Os cinco servicos vem do proprio ficheiro dos
+   *  Servicos, para nao existirem dois sitios a descrever a mesma coisa. */
+  services: { eyebrow: string; title: string; lead: string; cta: string };
   midForm: { heading: string; body: string; submit: string };
   difference: {
     eyebrow: string;
@@ -138,6 +141,12 @@ export const homeCopy: Record<Lang, HomeCopy> = {
       cta: 'Explorar a plataforma',
     },
 
+    services: {
+      eyebrow: 'Serviços Cloud',
+      title: 'Marketing que corre dentro da própria plataforma',
+      lead: 'Campanhas, email, SMS, descrições de produto e SEO, geridos no mesmo backoffice onde estão o catálogo e o stock. Sem ferramentas externas, sem sincronizações.',
+      cta: 'Explorar os serviços',
+    },
     midForm: {
       heading: 'Quer perceber como encaixa na sua operação?',
       body: 'Diga-nos quem é e onde está a operação hoje. Preparamos uma conversa com base no seu contexto, não uma apresentação genérica.',
@@ -310,6 +319,12 @@ export const homeCopy: Record<Lang, HomeCopy> = {
       cta: 'Explore the platform',
     },
 
+    services: {
+      eyebrow: 'Cloud Services',
+      title: 'Marketing that runs on the platform itself',
+      lead: 'Campaigns, email, SMS, product descriptions and SEO, managed in the same back office as the catalogue and the stock. No external tools, no syncing.',
+      cta: 'Explore the services',
+    },
     midForm: {
       heading: 'Want to see how this fits your operation?',
       body: 'Tell us who you are and where the operation stands today. We prepare a conversation around your context, not a generic pitch.',

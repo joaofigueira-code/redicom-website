@@ -10,6 +10,7 @@ import CtaBand from '@components/CtaBand.astro';
 import Button from '@components/Button.astro';
 
 import { homeCopy } from '@/data/copy/home';
+import { hubCopy } from '@/data/copy/hubs';
 import { site } from '@/data/site';
 import { LANGUAGES, path, type Lang, type RouteId } from '@i18n/routes';
 
@@ -102,6 +103,36 @@ const softwareSchema = {
           {copy.platform.cta}
         </Button>
       </div>
+    </div>
+  </section>
+
+  <!-- Servicos Cloud: seccao propria do site, por isso tem de existir na
+       pagina inicial. Os cinco servicos vem do ficheiro dos Servicos — aqui
+       so se decide o enquadramento. -->
+  <section class="section section--tight services">
+    <div class="container">
+      <SectionHeader
+        eyebrow={copy.services.eyebrow}
+        title={copy.services.title}
+        lead={copy.services.lead}
+      />
+
+      <ul class="services__list">
+        {
+          hubCopy.services[lang].modules.items.map((item) => (
+            <li>
+              <a class="services__item" href={path(item.route, lang)}>
+                <span class="services__name">{item.title}</span>
+                <span class="services__body">{item.body}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="services__cta">
+        <Button href={path('services', lang)} variant="link">{copy.services.cta}</Button>
+      </p>
     </div>
   </section>
 
@@ -253,5 +284,57 @@ const softwareSchema = {
 
   .spotlight :global(.btn) {
     margin-block-start: auto;
+  }
+</style>
+
+<style>
+  .services {
+    border-block-end: 1px solid var(--border);
+  }
+
+  .services__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  @media (min-width: 40rem) {
+    .services__list {
+      grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    }
+  }
+
+  .services__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    height: 100%;
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: border-color var(--duration) var(--ease);
+  }
+
+  .services__item:hover {
+    border-color: var(--brand-orange);
+  }
+
+  .services__name {
+    font-family: var(--font-display);
+    font-weight: var(--weight-semibold);
+    color: var(--text-heading);
+  }
+
+  .services__body {
+    font-size: var(--step--1);
+    line-height: 1.45;
+    color: var(--text-muted);
+  }
+
+  .services__cta {
+    margin-block-start: var(--space-lg);
   }
 </style>

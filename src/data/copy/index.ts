@@ -6,6 +6,7 @@ import { platformMarketingCopy } from './platform-marketing';
 import { platformSupportCopy } from './platform-support';
 import { fashionCopy } from './fashion';
 import { standalonePagesCopy } from './pages';
+import { servicesCopy } from './services';
 import type { Lang, RouteId } from '@i18n/routes';
 
 /**
@@ -24,6 +25,7 @@ export const solutions: SolutionSet = {
   ...platformSupportCopy,
   ...fashionCopy,
   ...standalonePagesCopy,
+  ...servicesCopy,
 };
 
 export const solutionIds = Object.keys(solutions) as RouteId[];
@@ -35,6 +37,7 @@ export const solutionIds = Object.keys(solutions) as RouteId[];
 const extraLabels: Record<Lang, Partial<Record<RouteId, string>>> = {
   pt: {
     platform: 'Redicom Commerce Cloud',
+    services: 'Serviços Cloud',
     fashion: 'Fashion Retail',
     cases: 'Casos de Sucesso',
     about: 'Sobre Nós',
@@ -43,6 +46,7 @@ const extraLabels: Record<Lang, Partial<Record<RouteId, string>>> = {
   },
   en: {
     platform: 'Redicom Commerce Cloud',
+    services: 'Cloud Services',
     fashion: 'Fashion Retail',
     cases: 'Success Stories',
     about: 'About Us',
