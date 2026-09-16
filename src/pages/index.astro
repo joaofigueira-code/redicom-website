@@ -1,0 +1,56 @@
+---
+import { DEFAULT_LANG, LANGUAGES, type Lang } from '@i18n/routes';
+import { site } from '@/data/site';
+
+/**
+ * Pagina da raiz do dominio.
+ *
+ * Com `prefixDefaultLocale: true` todas as paginas vivem sob /pt/ ou /en/,
+ * por isso a raiz nao tem conteudo proprio — existe so para encaminhar quem
+ * chega a redicom.pt sem prefixo de idioma. O Astro exige esta pagina; sem
+ * ela o build falha com MissingIndexForInternationalizationError.
+ *
+ * O encaminhamento acontece em duas camadas, da mais fiavel para a mais util:
+ *   1. <meta refresh> para /pt/, que funciona sem JavaScript e e o que os
+ *      motores de busca seguem;
+ *   2. um script que, antes disso, olha para o idioma do browser e manda
+ *      quem nao le portugues para /en/.
+ * Para desligar a deteccao automatica basta apagar o <script is:inline>.
+ *
+ * A pagina fica fora do indice: o conteudo canonico e /pt/.
+ */
+
+const target = `/${DEFAULT_LANG}/`;
+const canonical = `${site.url}${target}`;
+---
+
+<!doctype html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href={canonical} />
+    {
+      LANGUAGES.map((lang: Lang) => (
+        <link rel="alternate" hreflang={lang === 'pt' ? 'pt-PT' : 'en'} href={`${site.url}/${lang}/`} />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={canonical} />
+    <title>{site.name}</title>
+
+    <script is:inline>
+      (function () {
+        var language = (navigator.language || 'pt').toLowerCase();
+        window.location.replace(language.indexOf('pt') === 0 ? '/pt/' : '/en/');
+      })();
+    </script>
+  </head>
+
+  <body>
+    <p>
+      <a href={target}>{site.name} — {site.product}</a>
+    </p>
+  </body>
+</html>
